@@ -1,0 +1,226 @@
+/* EXEMPLES :
+https://sandwichpuissant.net/
+https://neal.fun/
+http://annelaplantine.free.fr/
+http://bouduboudu.free.fr/revolutionmusicale/index.htm
+http://web.archive.org/web/20150710112545/http://bouduboudu.free.fr/bidon/
+https://miamo.fun/
+https://insect.christmas/
+https://www.kmaschta.me/
+https://faustine.eu/
+*/
+
+:root {
+    --background-color: #d2e0e7/*#E4E7f0*/ /*1F2039*/;
+
+}
+
+a:link {
+    color: #0066CC; /* pour ne pas changer */
+}
+
+a:visited {
+    color: #0066CC; /* pour ne pas changer */
+}
+
+a:hover {
+    background-color: #9beafd;
+    color: rgba(255, 0, 0, 0.5);
+}
+
+a:active {
+    background-color: #9beafd;
+    color: red;
+}
+
+a:focus {
+    background-color: #f9fd83;
+    color: red;
+}
+
+.lien-externe {
+    font-size: 0.8em; /* par défaut : 16px */
+    font-style: italic;
+}
+
+.lien-interne, .lien-interne:visited {
+    font-size: 0.8em; /* par défaut : 16px */
+    color: #0066CC;
+}
+
+.active {
+    font-size: 0.9em;
+    font-weight: bold;
+    color:red;
+}
+
+.lien-titre {
+    /*font-size: 0.8em; /* par défaut : 16px */
+    text-decoration: none;
+}
+
+body {
+    max-width: 1280px;
+    /*margin-left: auto;
+    margin-right: auto;*/
+    font-family: 'Times New Roman', Times, serif;
+    background-color: var(--background-color)
+    /*background: linear-gradient(to left, #8360c3, #2ebf91);*/
+}
+
+h1 {
+    font-family: "Montserrat", sans-serif;
+    /*color: #A5B4FC;*/
+    color:white;
+    /*-webkit-text-stroke: 5px black;*/
+    text-shadow: 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black;
+    font-size: 2.5em;
+    text-align: center;
+    background: center / 150px repeat-x url("../img/jej.png");
+    padding: 50px;
+}
+
+header {
+    padding: 0px 0px 20px 0px;
+}
+
+nav {
+    background-color: var(--background-color);
+    position: sticky;
+    top: 0;
+}
+
+footer {
+    padding: 20px 0px 5px 0px
+}
+
+/*p {
+    font-size: 1.1em;
+    font-family: "Manrope", sans-serif;
+}
+li {
+    font-size: 1em;
+    font-family: "Manrope", sans-serif;
+}
+a {
+    font-size: 1em;
+    font-family: "Manrope", sans-serif;
+    text-decoration: none
+} */
+
+.centered-container {    
+    text-align: center;
+    /* padding: 0px 0px 12px 0px; */
+}
+
+
+table {
+    border-collapse: collapse;
+    border: 2px solid rgb(140 140 140);
+    width: 100%;
+}
+
+th,
+td {
+    border: 1px solid rgb(167 135 255);
+    padding: 4px;
+    font-weight: normal;
+}
+
+.flex-container {
+    padding: 10px;
+    display: flex;    
+    flex-direction: row; /* valeur par défaut */
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-grow: 1;
+}
+.flex-container > * {
+    padding: 10px;
+    border:1px solid black;
+    flex: 1;
+    text-align: center;
+}
+
+.grid-container {
+    width: 70%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 15px;
+}
+
+.grid-box {
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.grid-box > img {
+    width: 100%;  
+    height: auto;
+    padding: 10px;
+}
+
+.grid-box:hover {
+    background-color:#cccccc;
+    box-shadow: 3px 3px 5px black; /* horizontal vertical adoucissement couleur */
+}
+
+
+.grid-container-test { /* 3 colonnes, 4 lignes*/
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 100px 100px 100px 100px 100px;
+    grid-gap: 10px;
+}
+.grid-container-test > * {
+    background-color: white;
+    border: 2px solid blue;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.une {  
+    grid-column: 1 / 4;
+}
+.deux {
+    grid-row: 2 / 4;
+}
+.cinq {
+    grid-column: 2 / 4;
+}
+.six {
+    grid-column: 1 / 3;
+}
+.huit {
+    grid-column: 1 / 4;
+}
+
+.figimage {
+    padding-bottom: 10px;
+}
+
+.figimage > a {
+    display: block;
+    width: 40vw;
+    margin: auto;
+}
+.figimage > a:hover, .figimage > a:focus {
+    background-color: transparent;
+}
+.figimage > * > img {
+    display: block;
+    padding-top: 10px;
+    width: 40vw;
+    margin: auto;
+}
+.figimage > figcaption {
+    width: 40vw;
+    margin: auto;
+    text-align: center; /* justify ? */
+    text-align-last: center;    
+    font-style: italic;
+    font-size: 16px;
+}
