@@ -1,50 +1,6 @@
 :root {
     --background-color: #d2e0e7/*#E4E7f0*/ /*1F2039*/;
-
-}
-
-a:link {
-    color: #0066CC; /* pour ne pas changer */
-}
-
-a:visited {
-    color: #0066CC; /* pour ne pas changer */
-}
-
-a:hover {
-    background-color: #9beafd;
-    color: rgba(255, 0, 0, 0.5);
-}
-
-a:active {
-    background-color: #9beafd;
-    color: red;
-}
-
-a:focus {
-    background-color: #f9fd83;
-    color: red;
-}
-
-.lien-externe {
-    font-size: 0.8em; /* par défaut : 16px */
-    font-style: italic;
-}
-
-.lien-interne, .lien-interne:visited {
-    font-size: 0.8em; /* par défaut : 16px */
-    color: #0066CC;
-}
-
-.active {
-    font-size: 0.9em;
-    font-weight: bold;
-    color:red;
-}
-
-.lien-titre {
-    /*font-size: 0.8em; /* par défaut : 16px */
-    text-decoration: none;
+    --link-color: #0066CC; /* pour ne pas changer */
 }
 
 body {
@@ -54,6 +10,14 @@ body {
     font-family: 'Times New Roman', Times, serif;
     background-color: var(--background-color)
     /*background: linear-gradient(to left, #8360c3, #2ebf91);*/
+}
+
+header {
+    padding: 0px 0px 20px 0px;
+}
+
+header > * {
+    text-decoration: none;    
 }
 
 h1 {
@@ -68,10 +32,6 @@ h1 {
     padding: 50px;
 }
 
-header {
-    padding: 0px 0px 20px 0px;
-}
-
 nav {
     background-color: var(--background-color);
     position: sticky;
@@ -81,12 +41,6 @@ nav {
 footer {
     padding: 20px 0px 5px 0px
 }
-
-.centered-container {    
-    text-align: center;
-    /* padding: 0px 0px 12px 0px; */
-}
-
 
 table {
     border-collapse: collapse;
@@ -101,6 +55,48 @@ td {
     font-weight: normal;
 }
 
+a:link {
+    color: var(--link-color)
+}
+
+a:visited {
+    color: var(--link-color)
+}
+
+a:hover, a:active {
+    background-color: #9beafd;
+    color: rgba(255, 0, 0, 0.5);
+}
+
+a:focus {
+    background-color: #f9fd83;
+    color: red;
+}
+
+.lien-externe {
+    font-size: 0.8em; /* par défaut : 16px */
+    font-style: italic;
+}
+
+.lien-interne, .lien-interne:visited {
+    font-size: 0.8em; /* par défaut : 16px */
+}
+
+.active { /* onglet actif dans la navbar */
+    font-size: 0.9em;
+    font-weight: bold;
+    color:red;
+}
+
+
+/* utilisé dans le footer et dans /videos */
+.centered-container {    
+    text-align: center;
+    /* padding: 0px 0px 12px 0px; */
+}
+
+
+/* les flex utilisées dans le footer */
 .flex-container {
     padding: 10px;
     display: flex;    
@@ -115,14 +111,18 @@ td {
     flex: 1;
     text-align: center;
 }
+.flex-container > .active {
+    background-color: #f9fd83;
+}
 
+
+/* les grids utilisées dans /galerie */
 .grid-container {
     width: 70%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 15px;
 }
-
 .grid-box {
     background-color: white;
     display: flex;
@@ -142,36 +142,7 @@ td {
 }
 
 
-.grid-container-test { /* 3 colonnes, 4 lignes*/
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 100px 100px 100px 100px 100px;
-    grid-gap: 10px;
-}
-.grid-container-test > * {
-    background-color: white;
-    border: 2px solid blue;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.une {  
-    grid-column: 1 / 4;
-}
-.deux {
-    grid-row: 2 / 4;
-}
-.cinq {
-    grid-column: 2 / 4;
-}
-.six {
-    grid-column: 1 / 3;
-}
-.huit {
-    grid-column: 1 / 4;
-}
-
+/* les figimages utilisées dans /dessins et /images */
 .figimage, .figimage2 {
     padding-bottom: 20px;
 }
