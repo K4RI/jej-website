@@ -2,15 +2,17 @@ import os
 import re
 
 def listhtmls():
-    """Lister tous les fichiers html du projet."""
+    """Lister tous les fichiers html du projet
+       (sauf les templates footer et nav)."""
     L = []
-    for dname, dirs, files in os.walk("."):
+    for dname, dirs, files in os.walk(".."):
         for fname in files:
-            if fname.split('.')[-1] == "html":
+            if fname.split('.')[-1] == "html" and fname not in ["footer.html", "nav.html"]:
                 L.append(os.path.join(dname, fname))
     return L
 
 htmls = listhtmls()
+print(htmls)
 
 
 # https://stackoverflow.com/a/4205918/23503309
@@ -34,22 +36,30 @@ def r():
                 <!-- Placez ici le contenu du pied de page -->"""
     repo = ""
     rep_str(repi, repo)
-# r()
+
+    repi = """
+            <!-- Placez ici le contenu de l'en-tête de votre page -->"""
+    repo = ""
+    rep_str(repi, repo)
+r()
 
 
 def rep_footer():
     """Mettre à jour tous les footers."""
-    newfooter = open("--/footer.html").read()
+    newfooter = open("footer.html").read()
     for fpath in htmls:
         print(fpath)
         with open(fpath) as f:
             s = f.read()
-        deb = s.index("<footer>")
-        fin = s.index("</footer>")
-        oldfooter = s[deb-8:fin+9]
-        s = s.replace(oldfooter, newfooter)
-        with open(fpath, "w") as f:
-            f.write(s)
+        try:
+            deb = s.index("<footer>")
+            fin = s.index("</footer>")
+            oldfooter = s[deb-8:fin+9]
+            s = s.replace(oldfooter, newfooter)
+            with open(fpath, "w") as f:
+                f.write(s)
+        except:
+            print(" PAS TROUVÉ")
 
 # rep_footer()
 
@@ -64,7 +74,7 @@ def rep_nav():
             "textes": "textes",
             "jeux": "jeux",
             "remerciements": "special thanks"}
-    newnav = open("--/nav.html").read()
+    newnav = open("nav.html").read()
 
     for fpath in htmls:
         with open(fpath) as f:
@@ -85,11 +95,12 @@ def rep_nav():
                     newnavlines[i] = newnavlines[i].replace(oldline, newline)
                     break # pour que l'onglet actif soit noté différent dans la barre
             newnave = '\n'.join(newnavlines)
+            print(newnave)
 
         else:
             newnave = newnav
 
-        s = s.replace(oldnav, newnav) # on remplace le nav
-        with open(fpath, "w") as f:
-            f.write(s) # et on l'écrit dans le fichier
+        # s = s.replace(oldnav, newnav) # on remplace le nav
+        # with open(fpath, "w") as f:
+        #     f.write(s) # et on l'écrit dans le fichier
 rep_nav()
