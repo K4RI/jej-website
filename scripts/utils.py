@@ -97,10 +97,14 @@ def rep_nav():
             newnave = '\n'.join(newnavlines)
             print(newnave)
 
+        elif len(fpath.split("\\")) == 3: # si c'est dans un sous-dossier
+            newnave = newnav.replace('href="', 'href="../')
+            print(newnave)
+
         else:
             newnave = newnav
 
-        # s = s.replace(oldnav, newnav) # on remplace le nav
-        # with open(fpath, "w") as f:
-        #     f.write(s) # et on l'écrit dans le fichier
+        s = s.replace(oldnav, newnave) # on remplace le nav
+        with open(fpath, "w") as f:
+            f.write(s) # et on l'écrit dans le fichier
 rep_nav()
