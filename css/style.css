@@ -1,23 +1,25 @@
 :root {
     --background-color: #d2e0e7/*#E4E7f0*/ /*1F2039*/;
+    --background-color: #e6e6e6/*#E4E7f0*/ /*1F2039*/;
+    --background-color: #fdeab6/*#E4E7f0*/ /*1F2039*/;
     --link-color: #0066CC; /* pour ne pas changer */
 }
 
 body {
-    max-width: 1280px;
-    /*margin-left: auto;
-    margin-right: auto;*/
+    max-width: 1080px; /* 1280px ? */
+    margin: auto;
     font-family: 'Times New Roman', Times, serif;
     background-color: var(--background-color)
     /*background: linear-gradient(to left, #8360c3, #2ebf91);*/
 }
 
 header {
-    padding: 0px 0px 20px 0px;
+    padding: 0px 0px 10px 0px;
+    margin: 0;
 }
 
 header > * {
-    text-decoration: none;    
+    text-decoration: none;
 }
 
 h1 {
@@ -26,16 +28,28 @@ h1 {
     color:white;
     /*-webkit-text-stroke: 5px black;*/
     text-shadow: 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black;
-    font-size: 2.5em;
+    font-size: 2em;
     text-align: center;
-    background: center / 150px repeat-x url("../img/jej.png");
-    padding: 50px;
+    background: center / 120px repeat-x url("../img/jej.png");
+    padding: 40px;
+    margin: 5px;
+}
+
+h2 {
+    font-size: 1.5em; /* défaut : 1.5em */
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+p {
+    margin-top: 0.5em; /* défaut : 1.12em */
 }
 
 nav {
     background-color: var(--background-color);
     position: sticky;
     top: 0;
+    margin: 0;
 }
 
 footer {
@@ -79,7 +93,7 @@ a:focus {
 }
 
 .lien-interne, .lien-interne:visited {
-    font-size: 0.8em; /* par défaut : 16px */
+    font-size: 0.9em; /* par défaut : 16px */
 }
 
 .active { /* onglet actif dans la navbar */
@@ -107,9 +121,10 @@ a:focus {
 }
 .flex-container > * {
     padding: 10px;
-    border:1px solid black;
+    /* border: 1px solid black; */
     flex: 1;
     text-align: center;
+    vertical-align: middle;
 }
 .flex-container > .active {
     background-color: #f9fd83;
@@ -120,6 +135,7 @@ a:focus {
 .grid-container {
     width: 70%;
     display: grid;
+    margin: auto;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 15px;
 }
@@ -181,7 +197,7 @@ a:focus {
 }
 .figimage2 > * > img {
     display: block;
-    max-width:30vw;
+    max-width:20vw;
 }
 .smallfigimage > img, .smallfigimage > * > img {
     display: block;
