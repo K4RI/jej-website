@@ -6,16 +6,11 @@
 }
 
 body {
-    max-width: 1080px; /* 1280px ? */
+    max-width: 1040px; /* 1280px ? */
     margin: auto;
     font-family: 'Times New Roman', Times, serif;
     background-color: var(--background-color)
     /*background: linear-gradient(to left, #8360c3, #2ebf91);*/
-}
-
-header {
-    padding: 0px 0px 10px 0px;
-    margin: 0;
 }
 
 header > * {
@@ -30,9 +25,9 @@ h1 {
     text-shadow: 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black;
     font-size: 2em;
     text-align: center;
-    background: center / 120px repeat-x url("../img/jej.png");
-    padding: 40px;
-    margin: 5px;
+    background: center / 80px repeat-x url("../img/jej.png");
+    padding: 30px;
+    margin: 0px;
 }
 
 h2 {
