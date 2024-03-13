@@ -53,15 +53,14 @@ footer {
 
 table {
     border-collapse: collapse;
-    border: 2px solid rgb(140 140 140);
-    width: 100%;
+    margin: auto;
+    width: 80%;
 }
 
 th,
 td {
-    border: 1px solid rgb(167 135 255);
+    border: 1px solid black;
     padding: 4px;
-    font-weight: normal;
 }
 
 a:link {
@@ -107,7 +106,7 @@ a:focus {
 
 /* les flex utilisées dans le footer */
 .flex-container {
-    padding: 10px;
+    padding: 5px 0px 5px 0px;
     display: flex;    
     flex-direction: row; /* valeur par défaut */
     flex-wrap: wrap;
@@ -160,7 +159,7 @@ a:focus {
 
 .figimage > a {
     display: block;
-    width: 40vw;
+    width: calc(400px + 20vw);;
     margin: auto;
 }
 .figimage > a:hover, .figimage > a:focus, .figimage2 > a:hover, .figimage2 > a:focus {
@@ -169,11 +168,11 @@ a:focus {
 .figimage > * > img, .figimage > img {
     display: block;
     padding-top: 10px;
-    max-width: 40vw;
+    width: calc(400px + 20vw);
     margin: auto;
 }
 .figimage > figcaption, .figimage2 > figcaption {
-    width: 40vw;
+    width: calc(400px + 20vw);
     margin: auto;
     text-align: center; /* justify ? */
     text-align-last: center;    
@@ -192,11 +191,11 @@ a:focus {
 }
 .figimage2 > * > img {
     display: block;
-    max-width:20vw;
+    width: calc(200px + 10vw);
 }
 .smallfigimage > img, .smallfigimage > * > img {
     display: block;
     padding-top: 10px;
-    max-width: 20vw;
+    width: calc(200px + 10vw);
     margin: auto;
 }
