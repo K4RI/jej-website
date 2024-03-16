@@ -1,0 +1,56 @@
+.slider {
+    width: 500px;
+    height: 500px;
+    margin: auto;
+    overflow: hidden;
+    transform: translateY(0%);
+
+    display: flex;
+    align-items: center;
+}
+
+.slide {
+    flex: 0 0 100%;
+    /* transition: transform 0.2s ease; */
+}
+
+  
+img {
+    width: 100%;
+    height: auto;
+}
+
+.prev,
+.next {
+    cursor: pointer;
+    background-color: #333;
+    color: #fff;
+    padding: 10px 15px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    text-decoration: none;
+}
+
+.prev {
+    left: 0;
+}
+
+.next {
+    right: 0;
+}
+
+.figslider > img {
+    display: block;
+    padding-top: 10px;
+    margin: auto;
+    width: 100%;
+}
+
+.figslider > figcaption {
+    margin: auto;
+    text-align: center; /* justify ? */
+    text-align-last: center;    
+    font-style: italic;
+    font-size: 16px;
+}
