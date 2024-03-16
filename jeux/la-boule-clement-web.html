@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <title>jej - la boule clément</title>
+        <link rel="icon" type="image/x-icon" href="../img/jej.png">
+        <link href="../css/style.css" rel="stylesheet">
+        <link href="la-boule-clement-web/TemplateData/style.css" rel="stylesheet">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        <script src="la-boule-clement-web/TemplateData/UnityProgress.js"></script>
+
+    </head>
+    <body>
+        <a class="lien-interne" href="../index.html"> < retour à l'accueil</a>
+        
+        <nav>
+            <div class="flex-container">
+                <span><a class="lien-interne" href="../a-propos.html">à propos de jej</a></span>
+                <span><a class="lien-interne" href="../galerie.html">galerie jej</a></span>
+                <span><a class="lien-interne" href="../dessins.html">dessins</a></span>
+                <span><a class="lien-interne" href="../videos.html">vidéos</a></span>
+                <span><a class="lien-interne" href="../images.html">images</a></span>
+                <span><a class="lien-interne" href="../textes.html">textes</a></span>
+                <span><a class="lien-interne" href="../jeux.html">jeux</a></span>
+                <span><a class="lien-interne" href="../remerciements.html">special thanks</a></span>
+            </div>
+        </nav>
+
+        <header>
+            <a href="#">
+                <h1>La boule Clément</h1>
+            </a>
+        </header>
+
+        <p>ok c'est la boule clément</p>
+        
+        <div class="template-wrap clear">
+            <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" height="400px" width="640px"></canvas>
+            <br>
+            <div class="logo"></div>
+            <div class="fullscreen"><img src="la-boule-clement-web/TemplateData/fullscreen.png" width="38" height="38" alt="Fullscreen" title="Fullscreen" onclick="SetFullscreen(1);" /></div>
+            <div class="title">La boule Clément 1.2</div>
+        </div>
+        <script type='text/javascript'>
+        var Module = {
+            TOTAL_MEMORY: 268435456,
+            errorhandler: null,			// arguments: err, url, line. This function must return 'true' if the error is handled, otherwise 'false'
+            compatibilitycheck: null,
+            dataUrl: "la-boule-clement-web/Release/WebGL_4.data",
+            codeUrl: "la-boule-clement-web/Release/WebGL_4.js",
+            memUrl: "la-boule-clement-web/Release/WebGL_4.mem",
+        };
+        </script>
+        <script src="la-boule-clement-web/Release/UnityLoader.js"></script>
+
+
+
+        <footer>
+            <div class="lien-externe centered-container">
+                ___________________________
+                <p ><a href="https://www.youtube.com/@jej888" target="_blank">youtube</a> - 
+                <a href="https://twitter.com/chibre_optique" target="_blank">twitter</a> - 
+                <a href="https://www.instagram.com/nwaar888/" target="_blank">instagram</a> - 
+                mail : kariassoumani [at] hotmail.fr
+                </p>
+                <p>© smoking borzoi studios 2k24</p>
+            </div>
+        </footer> 
+
+    </body>
+</html>
