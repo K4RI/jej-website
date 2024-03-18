@@ -41,7 +41,7 @@ def r():
             <!-- Placez ici le contenu de l'en-tête de votre page -->"""
     repo = ""
     rep_str(repi, repo)
-r()
+#r()
 
 
 def rep_footer():
@@ -61,7 +61,6 @@ def rep_footer():
         except:
             print(" PAS TROUVÉ")
 
-# rep_footer()
 
 
 def rep_nav():
@@ -107,4 +106,7 @@ def rep_nav():
         s = s.replace(oldnav, newnave) # on remplace le nav
         with open(fpath, "w") as f:
             f.write(s) # et on l'écrit dans le fichier
+
+
+# rep_footer()
 rep_nav()
