@@ -1,5 +1,7 @@
-
-// TODO : checkboxes aux textes de couleur
+/*
+  Utilisé pour postits.html
+  Remplit un tableau à partir d'un fichier .json, et des checkbox pour afficher selon la catégorie.
+*/
 
 const dict = {
     1 : "article scientifique",
@@ -12,25 +14,26 @@ const dict = {
     8 : "utile et/ou créatif"
 }
 
-let tableau = document.getElementById("tableau");
+const tableau = document.getElementById("tableau");
 
+// Ici on remplit le tableau.
 var data_file = "scripts//js//postits.json";
 $.getJSON(data_file, function(data){
     $.each(data.reverse(), function(i){
-        let row = document.createElement("tr")
+        let row = document.createElement("tr") // à chaque entrée on initialise la nouvelle ligne
         Object.keys(data[i]).forEach(key => {
-            var cell = document.createElement("td")
+            var cell = document.createElement("td") // à chaque attribut on initialise une cellule
             switch (key){
                 case "Date":
                     cell.innerHTML = data[i]["Date"];
                     break;
                 case "URL":
-                    if (data[i]["URL"].includes("\n")){
+                    if (data[i]["URL"].includes("\n")){ // s'il y a plusieurs url
                         cell.innerHTML = ""
                         data[i]["URL"].split("\n").forEach(elt => {
                             cell.innerHTML += `
                         - <a href=${elt}>${elt}</a> <br><br>
-                        `})
+                        `}) // on les affiche comme liste avec des tirets
                     } else {
                         cell.innerHTML = `
                         <a href=${data[i]["URL"]}>${data[i]["URL"]}</a>
@@ -51,7 +54,6 @@ $.getJSON(data_file, function(data){
                                 `
                             }
                         })
-                        // cell.innerHTML = "- " + data[i]["Description"].replaceAll("\n", "<br><br>- ");
                     } else {
                         cell.innerHTML = data[i]["Description"]
                     }                   
@@ -61,16 +63,17 @@ $.getJSON(data_file, function(data){
                     cell.innerHTML = dict[data[i]["Categorie"]];
                     break;               
             }
-            row.appendChild(cell);
+            row.appendChild(cell); // la cellule va dans la ligne
         })
         row.classList.add("hidden")
-        tableau.appendChild(row)
+        tableau.appendChild(row) // la ligne va dans le tableau
     })
 })
 
 const btnYes = document.getElementById("btn-yes")
 const btnNo = document.getElementById("btn-no")
 
+// Ici on ajoute les eventListener aux checkboxes
 Object.keys(dict).forEach(ind => {
     let btn = document.getElementById("btn-" + ind)
     btn.checked = false
@@ -79,34 +82,32 @@ Object.keys(dict).forEach(ind => {
             btnYes.checked = false;
             btnNo.checked = false;
         }
-        // var aff = btn.checked ? '' : 'none'
         document.querySelectorAll(".cat-" + ind).forEach((row) => {
-            // console.log("bouton " + ind + " cliqué : " + btn.checked)
             btn.checked ? row.classList.remove("hidden") : row.classList.add("hidden")
+            // toutes les rows de la catégorie sont cachées/affichées
         })
     })
 })
 
+// Ici on ajoute les eventListener aux checkboxes "Tout cocher" et "Tout décocher"
 btnYes.addEventListener("change", (event) => {
-    // console.log("bouton yes cliqué")
     if (btnYes.checked){
         btnNo.checked = false;
         document.querySelectorAll("#boutons input").forEach(btn => {
-            btn.checked = true
+            btn.checked = true // activation de tous les boutons !
             btn.dispatchEvent(new Event("change", {bubbles: false}))
         })
     }
 })
 
 document.getElementById("btn-no").addEventListener("change", (event) => {
-    // console.log("bouton no cliqué")
     if (btnNo.checked){
         btnYes.checked = false;
         document.querySelectorAll("#boutons input").forEach(btn => {
-            btn.checked = false
+            btn.checked = false // désactivation de tous les boutons !
             btn.dispatchEvent(new Event("change", {bubbles: false}))
         })
     }
 })
-btnNo.checked = true
+btnNo.checked = true // on initialise à rien cocher
 btnNo.dispatchEvent(new Event("change"))
