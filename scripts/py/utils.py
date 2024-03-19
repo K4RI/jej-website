@@ -5,7 +5,7 @@ def listhtmls():
     """Lister tous les fichiers html du projet
        (sauf les templates footer et nav)."""
     L = []
-    for dname, dirs, files in os.walk(".."):
+    for dname, dirs, files in os.walk("."):
         for fname in files:
             if fname.split('.')[-1] == "html" and fname not in ["footer.html", "nav.html"]:
                 L.append(os.path.join(dname, fname))
@@ -46,7 +46,7 @@ def r():
 
 def rep_footer():
     """Mettre à jour tous les footers."""
-    newfooter = open("footer.html").read()
+    newfooter = open(".\\scripts\\py\\footer.html").read()
     for fpath in htmls:
         print(fpath)
         with open(fpath) as f:
@@ -72,8 +72,9 @@ def rep_nav():
             "images": "images",
             "textes": "textes",
             "jeux": "jeux",
+            "postits": "post-its",
             "remerciements": "special thanks"}
-    newnav = open("nav.html").read()
+    newnav = open(".\\scripts\\py\\nav.html").read()
 
     for fpath in htmls:
         with open(fpath) as f:
@@ -89,7 +90,7 @@ def rep_nav():
             newnavlines = newnav.split('\n')
             for i in range(len(newnavlines)): # on modifie le template
                 if name in newnavlines[i]:
-                    oldline = re.findall("<span>.*</span>", newnavlines[i])[0]
+                    oldline = re.findall("<a.*</a>", newnavlines[i])[0]
                     newline = f'<span class="active">{dict[name]}</span>'
                     newnavlines[i] = newnavlines[i].replace(oldline, newline)
                     break # pour que l'onglet actif soit noté différent dans la barre

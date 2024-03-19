@@ -3,10 +3,11 @@
     --background-color: #e6e6e6/*#E4E7f0*/ /*1F2039*/;
     --background-color: #fdeab6/*#E4E7f0*/ /*1F2039*/;
     --link-color: #0066CC; /* pour ne pas changer */
+    --maxwidth: 1040px /* 1280px ? */
 }
 
 body {
-    max-width: 1040px; /* 1280px ? */
+    max-width: var(--maxwidth);
     margin: auto;
     font-family: 'Times New Roman', Times, serif;
     background-color: var(--background-color)
@@ -54,13 +55,19 @@ footer {
 table {
     border-collapse: collapse;
     margin: auto;
-    width: 80%;
+    width: var(--maxwidth);
+    table-layout: fixed;
 }
 
 th,
 td {
     border: 1px solid black;
     padding: 4px;
+    word-wrap:break-word;
+}
+
+.hidden {
+    display: none;
 }
 
 a:link {
@@ -72,8 +79,8 @@ a:visited {
 }
 
 a:hover, a:active {
-    background-color: #9beafd;
-    color: rgba(255, 0, 0, 0.5);
+    background-color: #f9ff4c; /* #9beafd; */
+    color: rgb(255, 0, 0);
 }
 
 a:focus {

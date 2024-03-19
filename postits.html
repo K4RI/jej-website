@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <title>jej - galerie</title>
+        <link rel="icon" type="image/x-icon" href="img/jej.png">
+        <link href="css/style.css" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-latest.js"></script>
+        <script src="scripts/js/json2table.js" defer></script>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    </head>
+    <body>
+        <a class="lien-interne" href="index.html"> < retour à l'accueil</a>
+        
+        <nav>
+            <div class="flex-container">
+                <a class="lien-interne" href="a-propos.html"><span>à propos de jej</span></a>
+                <a class="lien-interne" href="galerie.html"><span>galerie jej</span></a>
+                <a class="lien-interne" href="dessins.html"><span>dessins</span></a>
+                <a class="lien-interne" href="videos.html"><span>vidéos</span></a>
+                <a class="lien-interne" href="images.html"><span>images</span></a>
+                <a class="lien-interne" href="textes.html"><span>textes</span></a>
+                <a class="lien-interne" href="jeux.html"><span>jeux</span></a>
+                <span class="active">post-its</span>
+                <a class="lien-interne" href="remerciements.html"><span>special thanks</span></a>
+            </div>
+        </nav>
+
+        <header>
+            <a class="lien-titre" href="#">
+                <h1>post-its de l'internet</h1>
+            </a>
+        </header>
+
+        <p>Voici quelques années que je collectionne dans un petit document local les adresses web intéressantes ou rigolotes, à la manière de <a href="http://chezxavier.free.fr/liens.htm">ce</a> ou <a href="https://333333.icu/trucs/sites_cools.html">ci</a>.</p>
+        
+        <p>Au terme de deux journées éprouvantes j'ai enfin réussi à automatiser cette foutue création de tableau, donc le voici !! Les liens sont séparés en catégories, affichables (resp. désaffichables) en cochant (resp. décochant) les boutons.</p>
+        <br>
+
+        <form method="get" action="">
+            <p>
+                Cochez les catégories à afficher :<br>
+                <input type="checkbox" name="btn-yes" id="btn-yes" > <label for="btn-yes"><strong>TOUT COCHER</strong></label>
+                <input type="checkbox" name="btn-no" id="btn-no"> <label for="btn-no"><strong>TOUT DÉCOCHER</strong></label><br>
+                <div id="boutons">
+                    <input type="checkbox" name="btn-1" id="btn-1"> <label for="btn-1">articles scientifiques</label>
+                    <input type="checkbox" name="btn-2" id="btn-2"> <label for="btn-2">articles de journal ou de blog</label>
+                    <input type="checkbox" name="btn-3" id="btn-3"> <label for="btn-3">jeux ou animations web</label><br>
+                    <input type="checkbox" name="btn-4" id="btn-4"> <label for="btn-4">pages wikipédia</label>
+                    <input type="checkbox" name="btn-5" id="btn-5"> <label for="btn-5">cartes</label>
+                    <input type="checkbox" name="btn-6" id="btn-6"> <label for="btn-6">jolis blogs</label>
+                    <input type="checkbox" name="btn-7" id="btn-7"> <label for="btn-7">art et musique</label>
+                    <input type="checkbox" name="btn-8" id="btn-8"> <label for="btn-8">utiles et/ou créatifs</label>
+                </div>
+            </p>
+        </form>
+        <table>
+            <caption>Liste de liens intéressants lol</caption>
+            <colgroup>
+               <col style="width: 100px">
+               <col style="width: 250px">
+               <col style="width: 500px">
+               <col style="width: 190px">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>URL</th>
+                    <th>Description</th>
+                    <th>Catégorie</th>
+                </tr>
+            </thead>
+            <tbody id="tableau">
+
+            </tbody>
+        </table>
+
+        <footer>
+            <div class="lien-externe centered-container">
+                ___________________________
+                <p ><a href="https://www.youtube.com/@jej888" target="_blank">youtube</a> - 
+                <a href="https://twitter.com/chibre_optique" target="_blank">twitter</a> - 
+                <a href="https://www.instagram.com/nwaar888/" target="_blank">instagram</a> - 
+                mail : kariassoumani [at] hotmail.fr
+                </p>
+                <p>© smoking borzoi studios 2k24</p>
+            </div>
+        </footer> 
+
+    </body>
+</html>
