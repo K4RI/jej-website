@@ -1,13 +1,15 @@
 /* faire les deux colonnes dans dessins/gribouillages */
 
 .dessins-container {
-    width: 100%;
-    float: left;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 90%;
+    margin:auto;
 }
 .dessins-col {
     width: 400px;
     float: left;
-    margin:auto;
     padding: 20px;
 }
 @media screen and (max-width: 940px) {
