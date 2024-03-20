@@ -9,8 +9,7 @@
 body {
     max-width: var(--maxwidth);
     margin: auto;
-    font-family: 'Times New Roman', Times, serif;
-    background-color: var(--background-color)
+    background-color: var(--background-color);
     /*background: linear-gradient(to left, #8360c3, #2ebf91);*/
 }
 
@@ -35,10 +34,12 @@ h2 {
     font-size: 1.5em; /* défaut : 1.5em */
     margin-top: 30px;
     margin-bottom: 10px;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 p {
     margin-top: 0.5em; /* défaut : 1.12em */
+    /* font-family: 'Cambria', Georgia, serif; */
 }
 
 nav {
@@ -109,9 +110,12 @@ a:focus {
     text-align: center;
     /* padding: 0px 0px 12px 0px; */
 }
+.centered-container > iframe {
+    margin: 0px 10px
+}
 
 
-/* les flex utilisées dans le footer */
+/* les flex utilisées dans la navbar */
 .flex-container {
     padding: 5px 0px 5px 0px;
     display: flex;    
@@ -194,15 +198,45 @@ a:focus {
 }
 .figimage2 > a {
     display: block;
-    margin: 0px 10px 0px 10px;
+    margin: 0px 20px;
 }
 .figimage2 > * > img {
     display: block;
     width: calc(200px + 10vw);
 }
-.smallfigimage > img, .smallfigimage > * > img {
-    display: block;
-    padding-top: 10px;
-    width: calc(200px + 10vw);
-    margin: auto;
+
+.dessins-container {
+    width: 100%;
+    float: left;
+    /* padding: 100px; */
+}
+.dessins-col {
+    width: 400px;
+    float: left;
+    margin:auto;
+    /* margin: 20px; */
+    padding: 20px;
+}
+@media screen and (max-width: 870px) {
+    .dessins-col {
+        float: none;
+    }
+    nav {
+        position:static;
+    }
+}
+.dessins-col > figure {
+    margin: 20px 0px;
+}
+.dessins-col > figure > a > img {
+    padding: 0px;
+    width: 100%;
+}
+.dessins-col > figure > figcaption {
+    text-align: center;  
+    font-style: italic;
+    font-size: 16px;
+}
+.dessins-col > figure > a:hover, .dessins-col > figure > a:focus {
+    background-color: transparent;
 }
