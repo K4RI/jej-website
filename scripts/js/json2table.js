@@ -32,11 +32,11 @@ $.getJSON(data_file, function(data){
                         cell.innerHTML = ""
                         data[i]["URL"].split("\n").forEach(elt => {
                             cell.innerHTML += `
-                        - <a href=${elt}>${elt}</a> <br><br>
+                        - <a href=${elt} target="_blank">${elt}</a> <br><br>
                         `}) // on les affiche comme liste avec des tirets
                     } else {
                         cell.innerHTML = `
-                        <a href=${data[i]["URL"]}>${data[i]["URL"]}</a>
+                        <a href=${data[i]["URL"]} target="_blank">${data[i]["URL"]}</a>
                         `
                     }
                     break;
