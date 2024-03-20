@@ -2,11 +2,7 @@
 
 .figimage, .figimage-deux {
     padding-bottom: 20px;
-}
-
-.figimage > a {
-    display: block;
-    width: calc(100px + 30vw);
+    max-width: 500px;
     margin: auto;
 }
 .figimage > a:hover, .figimage > a:focus, .figimage-deux > a:hover, .figimage-deux > a:focus {
@@ -16,11 +12,8 @@
     display: block;
     padding-top: 10px;
     width: 100%;
-    margin: auto;
 }
 .figimage > figcaption, .figimage-deux > figcaption {
-    width: calc(100px + 30vw);
-    margin: auto;
     text-align: center; /* justify ? */
     text-align-last: center;    
     font-style: italic;
@@ -31,6 +24,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    max-width: 800px;
 }
 .figimage-deux > a {
     display: block;
