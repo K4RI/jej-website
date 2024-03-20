@@ -1,0 +1,42 @@
+/* les figimages utilisées dans /dessins et /images */
+
+.figimage, .figimage-deux {
+    padding-bottom: 20px;
+}
+
+.figimage > a {
+    display: block;
+    width: calc(100px + 30vw);
+    margin: auto;
+}
+.figimage > a:hover, .figimage > a:focus, .figimage-deux > a:hover, .figimage-deux > a:focus {
+    background-color: transparent;
+}
+.figimage > * > img, .figimage > img {
+    display: block;
+    padding-top: 10px;
+    width: 100%;
+    margin: auto;
+}
+.figimage > figcaption, .figimage-deux > figcaption {
+    width: calc(100px + 30vw);
+    margin: auto;
+    text-align: center; /* justify ? */
+    text-align-last: center;    
+    font-style: italic;
+    font-size: 16px;
+}
+
+.figimage-deux {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.figimage-deux > a {
+    display: block;
+    margin: 5px 20px;
+}
+.figimage-deux > * > img {
+    display: block;
+    width: calc(50px + 20vw);
+}

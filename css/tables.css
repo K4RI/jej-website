@@ -1,0 +1,16 @@
+/* utilisé dans /postits */
+table {
+    border-collapse: collapse;
+    margin: auto;
+    width: var(--maxwidth);
+    table-layout: fixed;
+}
+th,
+td {
+    border: 1px solid black;
+    padding: 4px;
+    word-wrap:break-word;
+}
+.hidden {
+    display: none;
+}

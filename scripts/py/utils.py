@@ -79,34 +79,37 @@ def rep_nav():
     for fpath in htmls:
         with open(fpath) as f:
             s = f.read()
+        try:
             deb = s.index("<nav>")
             fin = s.index("</nav>")
             oldnav = s[deb-8:fin+6] # on récupère son ancienne <nav>
-        name = fpath.split("\\")[-1][:-5]
-        print(fpath, name)
+            name = fpath.split("\\")[-1][:-5]
+            print(fpath, name)
 
-        if name in dict.keys(): # si c'est un des onglets principaux
-            print('^^^^')
-            newnavlines = newnav.split('\n')
-            for i in range(len(newnavlines)): # on modifie le template
-                if name in newnavlines[i]:
-                    oldline = re.findall("<a.*</a>", newnavlines[i])[0]
-                    newline = f'<span class="active">{dict[name]}</span>'
-                    newnavlines[i] = newnavlines[i].replace(oldline, newline)
-                    break # pour que l'onglet actif soit noté différent dans la barre
-            newnave = '\n'.join(newnavlines)
-            print(newnave)
+            if name in dict.keys(): # si c'est un des onglets principaux
+                print('^^^^')
+                newnavlines = newnav.split('\n')
+                for i in range(len(newnavlines)): # on modifie le template
+                    if name in newnavlines[i]:
+                        oldline = re.findall("<a.*</a>", newnavlines[i])[0]
+                        newline = f'<span class="active">{dict[name]}</span>'
+                        newnavlines[i] = newnavlines[i].replace(oldline, newline)
+                        break # pour que l'onglet actif soit noté différent dans la barre
+                newnave = '\n'.join(newnavlines)
+                print(newnave)
 
-        elif len(fpath.split("\\")) == 3: # si c'est dans un sous-dossier
-            newnave = newnav.replace('href="', 'href="../')
-            print(newnave)
+            elif len(fpath.split("\\")) == 3: # si c'est dans un sous-dossier
+                newnave = newnav.replace('href="', 'href="../')
+                print(newnave)
 
-        else:
-            newnave = newnav
+            else:
+                newnave = newnav
 
-        s = s.replace(oldnav, newnave) # on remplace le nav
-        with open(fpath, "w") as f:
-            f.write(s) # et on l'écrit dans le fichier
+            s = s.replace(oldnav, newnave) # on remplace le nav
+            with open(fpath, "w") as f:
+                f.write(s) # et on l'écrit dans le fichier
+        except:
+            print(" PAS TROUVÉ")
 
 
 # rep_footer()

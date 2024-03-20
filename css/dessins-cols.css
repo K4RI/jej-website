@@ -1,0 +1,32 @@
+/* faire les deux colonnes dans dessins/gribouillages */
+
+.dessins-container {
+    width: 100%;
+    float: left;
+}
+.dessins-col {
+    width: 400px;
+    float: left;
+    margin:auto;
+    padding: 20px;
+}
+@media screen and (max-width: 940px) {
+    .dessins-col {
+        float: none;
+    }
+}
+.dessins-col > figure {
+    margin: 20px 0px;
+}
+.dessins-col > figure > a > img {
+    padding: 0px;
+    width: 100%;
+}
+.dessins-col > figure > figcaption {
+    text-align: center;  
+    font-style: italic;
+    font-size: 16px;
+}
+.dessins-col > figure > a:hover, .dessins-col > figure > a:focus {
+    background-color: transparent;
+}

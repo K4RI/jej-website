@@ -13,6 +13,58 @@ body {
     /*background: linear-gradient(to left, #8360c3, #2ebf91);*/
 }
 
+a:link {
+    color: var(--link-color)
+}
+a:visited {
+    color: var(--link-color)
+}
+a:hover, a:active, a:focus {
+    background-color: #f9ff4c; /* #9beafd; */
+    color: red;
+}
+
+
+/* les flex utilisées dans les navbars */
+
+nav {
+    background-color: var(--background-color);
+    position: sticky;
+    top: 0;
+    margin: 0;
+    font-size: 0.9em;
+}
+
+@media screen and (max-width: 940px) {
+    nav {
+        position:static;
+    }
+}
+
+.nav-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-grow: 1;
+    padding: 0px;
+}
+
+.nav-container > * {
+    padding: 15px 0px;
+    flex: 1;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.active { /* onglet actif dans la navbar */
+    background-color: #f9fd83;
+    font-weight: bold;
+    color:red;
+}
+
+
+/* header et paragraphes et footer */
+
 header > * {
     text-decoration: none;
 }
@@ -42,201 +94,9 @@ p {
     /* font-family: 'Cambria', Georgia, serif; */
 }
 
-nav {
-    background-color: var(--background-color);
-    position: sticky;
-    top: 0;
-    margin: 0;
-}
-
 footer {
-    padding: 20px 0px 5px 0px
-}
-
-table {
-    border-collapse: collapse;
-    margin: auto;
-    width: var(--maxwidth);
-    table-layout: fixed;
-}
-
-th,
-td {
-    border: 1px solid black;
-    padding: 4px;
-    word-wrap:break-word;
-}
-
-.hidden {
-    display: none;
-}
-
-a:link {
-    color: var(--link-color)
-}
-
-a:visited {
-    color: var(--link-color)
-}
-
-a:hover, a:active {
-    background-color: #f9ff4c; /* #9beafd; */
-    color: rgb(255, 0, 0);
-}
-
-a:focus {
-    background-color: #f9fd83;
-    color: red;
-}
-
-.lien-externe {
+    padding: 20px 0px 5px 0px;
     font-size: 0.8em; /* par défaut : 16px */
     font-style: italic;
-}
-
-.lien-interne, .lien-interne:visited {
-    font-size: 0.9em; /* par défaut : 16px */
-}
-
-.active { /* onglet actif dans la navbar */
-    font-size: 0.9em;
-    font-weight: bold;
-    color:red;
-}
-
-
-/* utilisé dans le footer et dans /videos */
-.centered-container {
     text-align: center;
-    /* padding: 0px 0px 12px 0px; */
-}
-.centered-container > iframe {
-    margin: 0px 10px
-}
-
-
-/* les flex utilisées dans la navbar */
-.flex-container {
-    padding: 5px 0px 5px 0px;
-    display: flex;    
-    flex-direction: row; /* valeur par défaut */
-    flex-wrap: wrap;
-    justify-content: center;
-    flex-grow: 1;
-}
-.flex-container > * {
-    padding: 10px;
-    /* border: 1px solid black; */
-    flex: 1;
-    text-align: center;
-    vertical-align: middle;
-}
-.flex-container > .active {
-    background-color: #f9fd83;
-}
-
-
-/* les grids utilisées dans /galerie */
-.grid-container {
-    width: 70%;
-    display: grid;
-    margin: auto;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 15px;
-}
-.grid-box {
-    background-color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.grid-box > img {
-    width: 100%;  
-    height: auto;
-    padding: 10px;
-}
-
-.grid-box:hover {
-    background-color:#cccccc;
-    box-shadow: 3px 3px 5px black; /* horizontal vertical adoucissement couleur */
-}
-
-
-/* les figimages utilisées dans /dessins et /images */
-.figimage, .figimage2 {
-    padding-bottom: 20px;
-}
-
-.figimage > a {
-    display: block;
-    width: calc(400px + 20vw);;
-    margin: auto;
-}
-.figimage > a:hover, .figimage > a:focus, .figimage2 > a:hover, .figimage2 > a:focus {
-    background-color: transparent;
-}
-.figimage > * > img, .figimage > img {
-    display: block;
-    padding-top: 10px;
-    width: calc(400px + 20vw);
-    margin: auto;
-}
-.figimage > figcaption, .figimage2 > figcaption {
-    width: calc(400px + 20vw);
-    margin: auto;
-    text-align: center; /* justify ? */
-    text-align-last: center;    
-    font-style: italic;
-    font-size: 16px;
-}
-
-.figimage2 {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-.figimage2 > a {
-    display: block;
-    margin: 0px 20px;
-}
-.figimage2 > * > img {
-    display: block;
-    width: calc(200px + 10vw);
-}
-
-.dessins-container {
-    width: 100%;
-    float: left;
-    /* padding: 100px; */
-}
-.dessins-col {
-    width: 400px;
-    float: left;
-    margin:auto;
-    /* margin: 20px; */
-    padding: 20px;
-}
-@media screen and (max-width: 870px) {
-    .dessins-col {
-        float: none;
-    }
-    nav {
-        position:static;
-    }
-}
-.dessins-col > figure {
-    margin: 20px 0px;
-}
-.dessins-col > figure > a > img {
-    padding: 0px;
-    width: 100%;
-}
-.dessins-col > figure > figcaption {
-    text-align: center;  
-    font-style: italic;
-    font-size: 16px;
-}
-.dessins-col > figure > a:hover, .dessins-col > figure > a:focus {
-    background-color: transparent;
 }
