@@ -1,0 +1,8 @@
+{
+  "name": "draw-decimals",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "scripts/js/draw-decimals/main.js",
+  "dependencies": {
+  }
+}
