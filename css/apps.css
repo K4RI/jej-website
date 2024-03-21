@@ -1,0 +1,37 @@
+.app-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    margin:auto;
+}
+
+#app-canvas {
+    display: block;
+    float: left;
+    border: 1px solid black;
+    background-color: white;
+    margin: 10px 10px;
+}
+
+.app-commandes {
+    display: block;
+    float: left;
+    border: 1px solid black;
+    height: 400px;
+    width: calc(50% - 200px);
+    margin: 10px 10px;
+    padding: 10px;
+    text-align: center;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number]{
+    -moz-appearance: textfield;    
+    text-align: center; 
+}

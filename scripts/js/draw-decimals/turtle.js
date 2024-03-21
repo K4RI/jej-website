@@ -9,6 +9,12 @@ export default class Turtle {
         this.pen = false;
     }
 
+    reinitXY(val) {
+        this.x = this.canvas.width / 2;
+        this.y = this.canvas.height / 2;
+        this.theta = 0;
+    }
+
     /** Trace une ligne de (x1, y1) vers (x2, y2). */
     line(x1, y1, x2, y2) {
         this.context.beginPath();
