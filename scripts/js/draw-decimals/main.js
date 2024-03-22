@@ -15,6 +15,8 @@ var prec = 100; // la précision. proportionnel au nombre de pas
 var speed = 2; // fréquence de rafraîchissement
 var pas = 5; // taille d'un déplacement
 
+var timeouts = [];
+
 Decimal.set({ precision: 2*prec })
 
 let canvas = document.getElementById('app-canvas');
@@ -24,6 +26,7 @@ tortue.pendown();
 
 let inputNum = document.getElementById('num');
 let inputDenom = document.getElementById('denom');
+let textValeur = document.getElementById('valappro');
 let inputBase = document.getElementById('base');
 let sliderIterations = document.getElementById('iterations');
 let textIterations = document.getElementById('iterations-span');
@@ -33,20 +36,20 @@ let sliderDuree = document.getElementById('duree');
 let textDuree = document.getElementById('duree-span');
 let reinit = document.getElementById('reinit');
 let lancer = document.getElementById('lancer');
+let telecharger = document.getElementById('telecharger');
 
 inputNum.addEventListener("input", (event) => {
     num = inputNum.value;
-    console.log("Num !");
+    textValeur.innerHTML = num/denom;
 })
 
 inputDenom.addEventListener("input", (event) => {
     denom = inputDenom.value;
-    console.log("Denom !");
+    textValeur.innerHTML = num/denom;
 })
 
 inputBase.addEventListener("input", (event) => {
     base = inputBase.value;
-    console.log("Base !");
 })
 
 sliderIterations.addEventListener("change", (event) => {
@@ -63,10 +66,6 @@ sliderTaille.addEventListener("change", (event) => {
 sliderDuree.addEventListener("change", (event) => {
     textDuree.innerHTML = sliderDuree.value;
     speed = sliderDuree.value;
-})
-
-reinit.addEventListener("click", (event) => {
-    tortue.reinitXY();
 })
 
 function desactivations() {
@@ -89,26 +88,46 @@ function activations() {
     lancer.disabled = false;
 }
 
+reinit.addEventListener("click", (event) => {
+    tortue.reinitXY();
+    for (var i = 0; i < timeouts.length; i++) {
+        clearTimeout(timeouts[i]);
+    }
+    activations();
+})
+
 lancer.addEventListener("click", (event) => {
     tortue.reinitXY();
     context.clearRect(0, 0, canvas.width, canvas.height);
 
     const digits = fracToBase(num, denom, base); // 52 + 1/9
-    console.log(Decimal.precision)
-    console.log(digits)
+    // console.log(Decimal.precision)
+    // console.log(digits)
     desactivations();
     window.setTimeout(() => {
         activations();
+        telecharger.disabled = false;
     }, digits.length * speed);
     for (let i = 0; i < digits.length; i++){
-        window.setTimeout(() => {
-            tortue.left(360 * digits[i]/base);
-            tortue.forward(pas);
-        }, i * speed);
-}
+        timeouts.push(
+            window.setTimeout(() => {
+                tortue.left(360 * digits[i]/base);
+                tortue.forward(pas);
+            }, i * speed)
+        );
+    }
+    // console.log(timeouts);
+})
+
+telecharger.addEventListener("click", (event) => {
+    var link = document.createElement('a');
+    link.download = `drawdecimals_${num}_${denom}.png'`;
+    link.href = canvas.toDataURL()
+    link.click();
 })
 
 inputBase.disabled = true; // on reste en base 10 pour l'instant...
+telecharger.disabled = true; // on reste en base 10 pour l'instant...
 
 inputNum.dispatchEvent(new Event("input"));
 inputDenom.dispatchEvent(new Event("input"));

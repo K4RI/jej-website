@@ -14,7 +14,7 @@ function decToBase(x, b, i){
         return []
     }
     const c = Decimal.trunc(x.times(b));
-    console.log(x.toNumber(),  c.toNumber())
+    // console.log(x.toNumber(),  c.toNumber())
     return [c.toNumber()].concat(decToBase(x.minus(c/b).times(b), b, i-1))
 }
 
