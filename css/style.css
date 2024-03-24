@@ -11,6 +11,7 @@ body {
     margin: auto;
     background-color: var(--background-color);
     /*background: linear-gradient(to left, #8360c3, #2ebf91);*/
+    font-family: 'Times New Roman', Times, serif;
 }
 
 a:link {
@@ -86,7 +87,6 @@ h2 {
     font-size: 1.5em; /* défaut : 1.5em */
     margin-top: 30px;
     margin-bottom: 10px;
-    font-family: 'Times New Roman', Times, serif;
 }
 
 p {
