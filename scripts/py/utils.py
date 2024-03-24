@@ -66,7 +66,6 @@ def rep_footer():
 def rep_nav():
     """Mettre à jour toutes les navbars."""
     dict = {"a-propos": "à propos de jej",
-            "galerie": "galerie jej",
             "dessins": "dessins",
             "videos": "vidéos",
             "images": "images",
