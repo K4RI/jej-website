@@ -65,7 +65,7 @@ $.getJSON(data_file, function(data){
             }
             row.appendChild(cell); // la cellule va dans la ligne
         })
-        row.classList.add("hidden")
+        // row.classList.add("hidden")
         tableau.appendChild(row) // la ligne va dans le tableau
     })
 })
@@ -109,5 +109,5 @@ document.getElementById("btn-no").addEventListener("change", (event) => {
         })
     }
 })
-btnNo.checked = true // on initialise à rien cocher
-btnNo.dispatchEvent(new Event("change"))
+btnYes.checked = true // on initialise à rien cocher
+btnYes.dispatchEvent(new Event("change"))
