@@ -3,8 +3,33 @@
     --background-color: #e6e6e6/*#E4E7f0*/ /*1F2039*/;
     --background-color: #fdeab6/*#E4E7f0*/ /*1F2039*/;
     --link-color: #0066CC; /* pour ne pas changer */
-    --maxwidth: 1040px /* 1280px ? */
+    --maxwidth: 1040px; /* 1280px ? */
+    --padding: 30px;
 }
+
+@font-face {
+    font-family: 'Times New Roman';
+    src:    
+        local('Times New Roman'),
+        url('times.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Times New Roman';
+    src:    
+        local('Times New Roman Bold'),
+        url('times-bold.ttf') format('truetype');
+    font-weight: bold;
+}
+
+/* @font-face {
+    font-family: 'Times New Roman Italic';
+    src:
+        local('Times New Roman'),
+        url('times-italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+} */
 
 body {
     max-width: var(--maxwidth);
@@ -12,6 +37,10 @@ body {
     background-color: var(--background-color);
     /*background: linear-gradient(to left, #8360c3, #2ebf91);*/
     font-family: 'Times New Roman', Times, serif;
+}
+
+main {
+    padding: var(--padding);
 }
 
 a:link {
@@ -33,7 +62,7 @@ nav {
     position: sticky;
     top: 0;
     margin: 0;
-    font-size: 0.9em;
+    font-size: 1.2em;
 }
 
 @media screen and (max-width: 940px) {
@@ -45,8 +74,8 @@ nav {
 .nav-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    flex-grow: 1;
+    justify-content: space-evenly;
+    /* flex-grow: 1; */
     padding: 0px;
 }
 

@@ -2,7 +2,7 @@
 table {
     border-collapse: collapse;
     margin: auto;
-    width: var(--maxwidth);
+    width: calc(var(--maxwidth) - 2* var(--padding));
     table-layout: fixed;
 }
 th,
