@@ -20,17 +20,11 @@
     float: left;
     border: 1px solid black;
     height: 400px;
-    width: calc(50% - 200px);
+    width: 300px;
     margin: 10px 10px;
     padding: 10px;
     text-align: center;
 }
-
-/* input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-} */
 
 input[type=number]{
     -moz-appearance: textfield;

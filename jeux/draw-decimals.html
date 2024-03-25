@@ -52,9 +52,10 @@
                     Nombre : <input type="number" name="num" id="num" value="1" size="6" maxlength="6" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
                     /
                     <input type="number" name="denom" id="denom" value="97" size="6" maxlength="6" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"> <br>
-                     = <span id="valappro"></span>... <br><br>
+                     = <span id="valappro"></span>... <br>
+                     <span id="valapprob" style="font-size: 0.8em;"></span> <br><br>
                     
-                    Base : <input type="number" name="base" id="base" value="10" size="2" maxlength="2" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"><br><br>
+                    Base : <input type="number" name="base" id="base" value="10" size="2" maxlength="2" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"> <span style="font-size: 0.7em;">(entre 2 et 36 inclus)</span><br><br>
 
                     Itérations : <strong><span id="iterations-span"></span></strong><br>
                     50 <input type="range" min="50" max="4000" step="50" value="500" class="slider" id="iterations"> 4000<br><br>
@@ -71,7 +72,7 @@
                     <input type="button" value="Télécharger" id="telecharger">
                 </div>
             </div><br>
-            testez avec d'autres nombres, et envoyez vos plus belles figures ou vos suggestions !
+            testez avec d'autres nombres voire d'autres bases, et envoyez vos plus belles figures ou vos suggestions !
         </body>
 
         </main>

@@ -27,6 +27,7 @@ tortue.pendown();
 let inputNum = document.getElementById('num');
 let inputDenom = document.getElementById('denom');
 let textValeur = document.getElementById('valappro');
+let textValeurb = document.getElementById('valapprob');
 let inputBase = document.getElementById('base');
 let sliderIterations = document.getElementById('iterations');
 let textIterations = document.getElementById('iterations-span');
@@ -38,18 +39,42 @@ let reinit = document.getElementById('reinit');
 let lancer = document.getElementById('lancer');
 let telecharger = document.getElementById('telecharger');
 
+function valapprob(n, d, b){
+    if (b!=10 && b>=2 && b<=36 && d>0) {
+        return `= (${fracToBase(n, d, b, 10)}) en base ${b}`;
+    } else {
+        return "";
+    }
+    
+}
+
 inputNum.addEventListener("input", (event) => {
     num = inputNum.value;
     textValeur.innerHTML = num/denom;
+    textValeurb.innerHTML = valapprob(num, denom, base);
 })
 
 inputDenom.addEventListener("input", (event) => {
     denom = inputDenom.value;
     textValeur.innerHTML = num/denom;
+    textValeurb.innerHTML = valapprob(num, denom, base);
+    if (denom == 0){
+        desactivations()
+        inputDenom.disabled = false;
+    } else {
+        activations()
+    }
 })
 
 inputBase.addEventListener("input", (event) => {
     base = inputBase.value;
+    textValeurb.innerHTML = valapprob(num, denom, base);
+    if (base<2 || base>36){
+        desactivations()
+        inputBase.disabled = false;
+    } else {
+        activations()
+    }
 })
 
 sliderIterations.addEventListener("change", (event) => {
@@ -75,16 +100,18 @@ function desactivations() {
     sliderIterations.disabled = true;
     sliderDuree.disabled = true;
     sliderTaille.disabled = true;
+    reinit.disabled = true;
     lancer.disabled = true;
 }
 
 function activations() {
     inputNum.disabled = false;
     inputDenom.disabled = false;
-    // inputBase.disabled = false;
+    inputBase.disabled = false;
     sliderIterations.disabled = false;
     sliderDuree.disabled = false;
     sliderTaille.disabled = false;
+    reinit.disabled = false;
     lancer.disabled = false;
 }
 
@@ -104,6 +131,7 @@ lancer.addEventListener("click", (event) => {
     // console.log(Decimal.precision)
     // console.log(digits)
     desactivations();
+    reinit.disabled = false;
     window.setTimeout(() => {
         activations();
         telecharger.disabled = false;
@@ -121,13 +149,12 @@ lancer.addEventListener("click", (event) => {
 
 telecharger.addEventListener("click", (event) => {
     var link = document.createElement('a');
-    link.download = `drawdecimals_${num}_${denom}.png'`;
+    link.download = `drawdecimals_${num}_${denom}_${base}.png'`;
     link.href = canvas.toDataURL()
     link.click();
 })
 
-inputBase.disabled = true; // on reste en base 10 pour l'instant...
-telecharger.disabled = true; // on reste en base 10 pour l'instant...
+telecharger.disabled = true;
 
 inputNum.dispatchEvent(new Event("input"));
 inputDenom.dispatchEvent(new Event("input"));
