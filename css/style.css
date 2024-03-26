@@ -126,7 +126,7 @@ footer {
     width: 70%;
     margin: auto;
     padding: 20px 0px 5px 0px;
-    font-size: 0.7em; /* par défaut : 16px */
+    font-size: 0.8em; /* par défaut : 16px */
     font-style: italic;
     text-align: center;
 }

@@ -7,14 +7,24 @@
     width: 90%;
     margin:auto;
 }
+.dessins-container-thin {
+    display: none;
+}
 .dessins-col {
     width: 400px;
     float: left;
     padding: 20px;
 }
-@media screen and (max-width: 940px) {
+@media screen and (max-width: 1060px) {
+    .dessins-container {
+        display: none;
+    }
+    .dessins-container-thin {
+        display: block;
+    }
     .dessins-col {
         float: none;
+        margin: auto;
     }
 }
 .dessins-col > figure {
