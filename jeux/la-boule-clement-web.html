@@ -44,26 +44,64 @@
         <p>le but est d'attraper les douze bricoles le plus vite possible en déplaçant la boule clément avec les touches zqsd, on peut aussi réinit avec entrée</p>
         <p>je mettrai peut-être un tableau des highscores, en attendant écrivez-moi si vous faites un sub 6</p><br>
         
-        <div class="template-wrap clear">
-            <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" height="500px" width="800px"></canvas>
-            <br>
-            <div class="logo"></div>
-            <div class="fullscreen"><img src="la-boule-clement-web/TemplateData/fullscreen.png" width="38" height="38" alt="Fullscreen" title="Fullscreen" onclick="SetFullscreen(1);" /></div>
-            <div class="title">La boule Clément 1.2</div>
+        <div id="unity-container" class="unity-desktop">
+            <canvas id="unity-canvas"></canvas>
+            <div id="unity-loading-bar">
+                <div id="unity-logo"></div>
+                <div id="unity-progress-bar-empty">
+                    <div id="unity-progress-bar-full"></div>
+                </div>
+            </div>
+            <div id="unity-footer">
+              <div id="unity-webgl-logo"></div>
+              <div id="unity-fullscreen-button"></div>
+              <div id="unity-build-title">La boule Clément 1.2</div>
+            </div>
         </div>
-        <script type='text/javascript'>
-        var Module = {
-            TOTAL_MEMORY: 268435456,
-            errorhandler: null,			// arguments: err, url, line. This function must return 'true' if the error is handled, otherwise 'false'
-            compatibilitycheck: null,
-            dataUrl: "la-boule-clement-web/Release/WebGL_4.data",
-            codeUrl: "la-boule-clement-web/Release/WebGL_4.js",
-            memUrl: "la-boule-clement-web/Release/WebGL_4.mem",
-        };
+        <script>
+            var buildUrl = "la-boule-clement-web/Build";
+            var loaderUrl = buildUrl + "/web-clement-5.loader.js";
+            var config = {
+              dataUrl: buildUrl + "/web-clement-5.data.unityweb",
+              frameworkUrl: buildUrl + "/web-clement-5.framework.js.unityweb",
+              codeUrl: buildUrl + "/web-clement-5.wasm.unityweb",
+              streamingAssetsUrl: "StreamingAssets",
+              companyName: "Smoking Borzoi Studios",
+              productName: "La boule Clément 1.2",
+              productVersion: "1.3",
+            };
+      
+            var container = document.querySelector("#unity-container");
+            var canvas = document.querySelector("#unity-canvas");
+            var loadingBar = document.querySelector("#unity-loading-bar");
+            var progressBarFull = document.querySelector("#unity-progress-bar-full");
+            var fullscreenButton = document.querySelector("#unity-fullscreen-button");
+      
+            if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+                container.className = "unity-mobile";
+                config.devicePixelRatio = 1;
+            } else {
+                canvas.style.width = "800px";
+                canvas.style.height = "500px";
+            }
+            loadingBar.style.display = "block";
+      
+            var script = document.createElement("script");
+            script.src = loaderUrl;
+            script.onload = () => {
+                createUnityInstance(canvas, config, (progress) => {
+                    progressBarFull.style.width = 100 * progress + "%";
+                }).then((unityInstance) => {
+                    loadingBar.style.display = "none";
+                    fullscreenButton.onclick = () => {
+                    unityInstance.SetFullscreen(1);
+                    };
+                }).catch((message) => {
+                    alert(message);
+                });
+            };
+            document.body.appendChild(script);
         </script>
-        <script src="la-boule-clement-web/Release/UnityLoader.js"></script>
-
-
 
         </main>
 
