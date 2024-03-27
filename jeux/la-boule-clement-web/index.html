@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | La boule Clément 1.2</title>
+    <title>Unity WebGL Player | La boule Clément</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
   </head>
@@ -19,19 +19,19 @@
       <div id="unity-footer">
         <div id="unity-webgl-logo"></div>
         <div id="unity-fullscreen-button"></div>
-        <div id="unity-build-title">La boule Clément 1.2</div>
+        <div id="unity-build-title">La boule Clément</div>
       </div>
     </div>
     <script>
       var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/web-clement-5.loader.js";
+      var loaderUrl = buildUrl + "/la-boule-clement-web.loader.js";
       var config = {
-        dataUrl: buildUrl + "/web-clement-5.data.unityweb",
-        frameworkUrl: buildUrl + "/web-clement-5.framework.js.unityweb",
-        codeUrl: buildUrl + "/web-clement-5.wasm.unityweb",
+        dataUrl: buildUrl + "/la-boule-clement-web.data.unityweb",
+        frameworkUrl: buildUrl + "/la-boule-clement-web.framework.js.unityweb",
+        codeUrl: buildUrl + "/la-boule-clement-web.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "Smoking Borzoi Studios",
-        productName: "La boule Clément 1.2",
+        productName: "La boule Clément",
         productVersion: "1.3",
       };
 
@@ -45,8 +45,8 @@
         container.className = "unity-mobile";
         config.devicePixelRatio = 1;
       } else {
-        canvas.style.width = "960px";
-        canvas.style.height = "600px";
+        canvas.style.width = "800px";
+        canvas.style.height = "500px";
       }
       loadingBar.style.display = "block";
 
