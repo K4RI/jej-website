@@ -149,7 +149,7 @@ lancer.addEventListener("click", (event) => {
 
 telecharger.addEventListener("click", (event) => {
     var link = document.createElement('a');
-    link.download = `drawdecimals_${num}_${denom}_${base}.png'`;
+    link.download = `drawdecimals_${num}_${denom}_base${base}.png'`;
     link.href = canvas.toDataURL()
     link.click();
 })
