@@ -41,7 +41,7 @@ let telecharger = document.getElementById('telecharger');
 
 function valapprob(n, d, b){
     if (b!=10 && b>=2 && b<=36 && d>0) {
-        return `= (${fracToBase(n, d, b, 10)}) en base ${b}`;
+        return `= (${fracToBase(n, d, b, 10)}...) en base ${b}`;
     } else {
         return "";
     }
