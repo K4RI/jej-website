@@ -26,6 +26,14 @@
     text-align: center;
 }
 
+.app-commandes-up {
+    display: block;
+    border: 1px solid black;
+    width: 780px;
+    padding: 10px;
+    text-align: center;
+}
+
 input[type=number]{
     -moz-appearance: textfield;
     appearance: textfield;
