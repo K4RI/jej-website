@@ -1,6 +1,6 @@
 export default class Turtle {
     constructor(canvas, pas){
-        this.canvas = canvas;
+        this.canvas = canvas; // le canevas sur lequel on dessine
         this.context = canvas.getContext('2d');
         this.x = canvas.width / 2; // position de la tortue
         this.y = canvas.height / 2;
@@ -9,6 +9,7 @@ export default class Turtle {
         this.pen = false;
     }
 
+    /** Replace le curseur au centre du canevas. */
     reinitXY(val) {
         this.x = this.canvas.width / 2;
         this.y = this.canvas.height / 2;

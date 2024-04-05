@@ -35,10 +35,12 @@ let sliderTaille = document.getElementById('taille');
 let textTaille = document.getElementById('taille-span');
 let sliderDuree = document.getElementById('duree');
 let textDuree = document.getElementById('duree-span');
-let reinit = document.getElementById('reinit');
-let lancer = document.getElementById('lancer');
-let telecharger = document.getElementById('telecharger');
+let boutonReinit = document.getElementById('reinit');
+let boutonLancer = document.getElementById('lancer');
+let boutonTelecharger = document.getElementById('telecharger');
 
+/** Renvoie les premiers chiffres du développement de n/d en base b
+ *  dans le but de l'afficher. */
 function valapprob(n, d, b){
     if (b!=10 && b>=2 && b<=36 && d>0) {
         return `= (${fracToBase(n, d, b, 10)}...) en base ${b}`;
@@ -48,6 +50,7 @@ function valapprob(n, d, b){
     
 }
 
+/** Lie les curseurs et les sliders aux paramètres. */
 inputNum.addEventListener("input", (event) => {
     num = inputNum.value;
     textValeur.innerHTML = num/denom;
@@ -93,6 +96,7 @@ sliderDuree.addEventListener("change", (event) => {
     speed = sliderDuree.value;
 })
 
+/** Désactive tous les boutons. */
 function desactivations() {
     inputNum.disabled = true;
     inputDenom.disabled = true;
@@ -100,10 +104,11 @@ function desactivations() {
     sliderIterations.disabled = true;
     sliderDuree.disabled = true;
     sliderTaille.disabled = true;
-    reinit.disabled = true;
-    lancer.disabled = true;
+    boutonReinit.disabled = true;
+    boutonLancer.disabled = true;
 }
 
+/** Active tous les boutons. */
 function activations() {
     inputNum.disabled = false;
     inputDenom.disabled = false;
@@ -111,32 +116,33 @@ function activations() {
     sliderIterations.disabled = false;
     sliderDuree.disabled = false;
     sliderTaille.disabled = false;
-    reinit.disabled = false;
-    lancer.disabled = false;
+    boutonReinit.disabled = false;
+    boutonLancer.disabled = false;
 }
 
-reinit.addEventListener("click", (event) => {
-    tortue.reinitXY();
-    for (var i = 0; i < timeouts.length; i++) {
+boutonReinit.addEventListener("click", (event) => {
+    tortue.reinitXY(); // replace le curseur de dessin au centre
+    for (var i = 0; i < timeouts.length; i++) { // annule tous les déplacements en cours
         clearTimeout(timeouts[i]);
     }
     activations();
 })
 
-lancer.addEventListener("click", (event) => {
+boutonLancer.addEventListener("click", (event) => {
     tortue.reinitXY();
     context.clearRect(0, 0, canvas.width, canvas.height);
 
-    const digits = fracToBase(num, denom, base); // 52 + 1/9
+    const digits = fracToBase(num, denom, base);
     // console.log(Decimal.precision)
     // console.log(digits)
     desactivations();
-    reinit.disabled = false;
+    boutonReinit.disabled = false;
     window.setTimeout(() => {
         activations();
-        telecharger.disabled = false;
-    }, digits.length * speed);
-    for (let i = 0; i < digits.length; i++){
+        boutonTelecharger.disabled = false;
+    }, digits.length * speed); // à la fin du dessin, réactivera tous les boutons
+
+    for (let i = 0; i < digits.length; i++){ // lance chaque dessin l'un après l'autre
         timeouts.push(
             window.setTimeout(() => {
                 tortue.left(360 * digits[i]/base);
@@ -147,15 +153,16 @@ lancer.addEventListener("click", (event) => {
     // console.log(timeouts);
 })
 
-telecharger.addEventListener("click", (event) => {
+boutonTelecharger.addEventListener("click", (event) => {
     var link = document.createElement('a');
     link.download = `drawdecimals_${num}_${denom}_base${base}.png'`;
     link.href = canvas.toDataURL()
     link.click();
 })
 
-telecharger.disabled = true;
+boutonTelecharger.disabled = true;
 
+// initialise les paramètres liées aux inputs/sliders
 inputNum.dispatchEvent(new Event("input"));
 inputDenom.dispatchEvent(new Event("input"));
 inputBase.dispatchEvent(new Event("input"));
