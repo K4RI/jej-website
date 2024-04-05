@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <title>jej - page contact !!!</title>
+        <link rel="icon" type="image/x-icon" href="img/jej.png">
+        <link href="css/style.css" rel="stylesheet">
+        <script type="module" src="scripts/js/contact.js" defer></script>
+        <script src="https://smtpjs.com/v3/smtp.js"></script>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    </head>
+    <body>
+        <a style="font-size: 0.9em" href="index.html"> < retour à l'accueil</a>
+        
+        <nav>
+            <div class="nav-container">
+                <a href="../a-propos.html"><span>à propos de jej</span></a>
+                <a href="../dessins.html"><span>dessins</span></a>
+                <a href="../videos.html"><span>vidéos</span></a>
+                <a href="../images.html"><span>images</span></a>
+                <a href="../textes.html"><span>textes</span></a>
+                <a href="../jeux.html"><span>jeux</span></a>
+                <a href="../postits.html"><span>post-its</span></a>
+                <a href="../remerciements.html"><span>special thanks</span></a>
+            </div>
+        </nav>
+
+        <header>
+            <a class="lien-titre" href="#">
+                <h1>Contact</h1>
+            </a>
+        </header>
+
+        <main>
+            
+            <p>le peuple en colère le réclamait, donc le voici : le formulaire d'avis.</p>
+
+            <form method="get" id="formulaire" action="">
+
+                <fieldset style="width:50%">
+                    <legend>Formulaire d'avis</legend>
+                    <label for="nom">Ton nom ? </label> <input type="text" name="nom" id="nom" size="30" maxlength="42" autocomplete="off" autofocus required> <br>
+                    <label for="contact">Ton contact ? </label> <input type="text" name="contact" id="contact" placeholder="E-mail, ou téléphone, ou nom sur les réseaux..." size="40" maxlength="50" autocomplete="off"> <br> <br>
+
+                    <label for="titre">Un titre à ton message ?</label> <input type="text" name="titre" id="titre" size="30" maxlength="42" autocomplete="off"> <br>
+                    <label for="message">Ton message ? </label><br>
+                    <textarea name="message" id="message" placeholder="Une remarque, une suggestion..." rows="5" cols="50" autocomplete="off" required></textarea> <br>
+                </fieldset>
+                <input type="submit" id="envoi" value="Envoyer"> <input type="reset" value="Réinit.">
+            </form>
+
+        </main>
+
+        <footer>
+            ___________________________
+            <p ><a href="https://www.youtube.com/@jej888" target="_blank">youtube</a> - 
+            <a href="https://twitter.com/chibre_optique" target="_blank">twitter</a> - 
+            <a href="https://www.instagram.com/nwaar888/" target="_blank">instagram</a> - 
+            mail : kariassoumani [at] hotmail.fr
+            </p>
+            <p>© smoking borzoi studios 2k24</p>
+        </footer> 
+
+    </body>
+</html>
