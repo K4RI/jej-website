@@ -1,0 +1,7 @@
+@media screen and (min-width: 990px) {
+    #formulaire {width: 50%;}
+    #nom {width: 150px;}
+    #contact {width: 280px;}
+    #titre {width: 135px;}
+    #message {width: 300px;}
+}

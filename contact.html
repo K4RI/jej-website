@@ -5,6 +5,7 @@
         <title>jej - page contact !!!</title>
         <link rel="icon" type="image/x-icon" href="img/jej.png">
         <link href="css/style.css" rel="stylesheet">
+        <link href="css/forms.css" rel="stylesheet">
         <script type="module" src="scripts/js/contact.js" defer></script>
         <script src="https://smtpjs.com/v3/smtp.js"></script>
 
@@ -43,14 +44,14 @@
 
             <form method="get" id="formulaire" action="">
 
-                <fieldset style="width:50%">
+                <fieldset style="width:100%">
                     <legend>Formulaire d'avis</legend>
-                    <label for="nom">Ton nom ? </label> <input type="text" name="nom" id="nom" size="30" maxlength="42" autocomplete="off" autofocus required> <br>
-                    <label for="contact">Ton contact ? </label> <input type="text" name="contact" id="contact" placeholder="E-mail, ou téléphone, ou nom sur les réseaux..." size="40" maxlength="50" autocomplete="off"> <br> <br>
+                    <label for="nom">Ton nom ? </label> <input type="text" name="nom" id="nom" width="35" maxlength="42" autocomplete="off" autofocus required> <br>
+                    <label for="contact">Ton contact ? </label> <input type="text" name="contact" id="contact" placeholder="E-mail, ou téléphone, ou nom sur les réseaux..." width="35" maxlength="50" autocomplete="off"> <br> <br>
 
-                    <label for="titre">Un titre à ton message ?</label> <input type="text" name="titre" id="titre" size="30" maxlength="42" autocomplete="off"> <br>
+                    <label for="titre">Un titre à ton message ?</label> <input type="text" name="titre" id="titre" width="35" maxlength="42" autocomplete="off"> <br>
                     <label for="message">Ton message ? </label><br>
-                    <textarea name="message" id="message" placeholder="Une remarque, une suggestion..." rows="5" cols="50" autocomplete="off" required></textarea> <br>
+                    <textarea name="message" id="message" placeholder="Une remarque, une suggestion..." rows="5" cols="35" autocomplete="off" required></textarea> <br>
                 </fieldset>
                 <input type="submit" id="envoi" value="Envoyer"> <input type="reset" value="Réinit.">
             </form>
