@@ -1,10 +1,10 @@
 import "https://cdnjs.cloudflare.com/ajax/libs/jschardet/3.2.0/jschardet.min.js"
 import "https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.30.1/plotly.min.js"
 
-let boutonFichier = document.querySelector("#bouton-fichier");
-let envoi = document.querySelector("#envoi");
-let envoiBouton = document.querySelector("#envoi-bouton");
-let textErreur = document.querySelector("#encoding-error");
+let boutonFichier = document.getElementById("bouton-fichier");
+let envoi = document.getElementById("envoi");
+let envoiBouton = document.getElementById("envoi-bouton");
+let textErreur = document.getElementById("encoding-error");
 
 let btnsRadio = document.querySelectorAll("#zoneChoix input");
 
