@@ -8,6 +8,39 @@
         <link href="../css/style.css" rel="stylesheet">
         <link href="la-boule-clement-web/TemplateData/style.css" rel="stylesheet">
 
+        <!-- Initialisation de Sentry -->
+        <script
+            src="https://js.sentry-cdn.com/7ac034c5bbd378a354f1bbca6c11dff7.min.js"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://browser.sentry-cdn.com/7.109.0/bundle.tracing.replay.feedback.min.js"
+            integrity="sha384-UOHtopg/2oHFq5gWo4f6BqumWrpIqfa/oQLQmiDgvvmBHR3GYxNhnZsd241Rs8mt"
+            crossorigin="anonymous"
+        ></script>        
+
+        <script> // https://docs.sentry.io/platforms/javascript/
+          Sentry.init({
+              dsn: "https://7ac034c5bbd378a354f1bbca6c11dff7@o4507037759111168.ingest.us.sentry.io/4507037763895296",
+              
+              integrations: [
+                  Sentry.feedbackIntegration({
+                  // Additional SDK configuration goes in here, for example:
+                  colorScheme: "system",
+                  }),
+              ],
+
+              beforeSend(event, hint) {
+                  // Check if it is an exception, and if so, show the report dialog
+                  if (event.exception && event.event_id) {
+                      Sentry.showReportDialog({ eventId: event.event_id });
+                  }
+                  return event;
+              },
+          });
+      </script>
+        <!-- Fin de l'initialisation de Sentry -->
+
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -58,6 +91,20 @@
             </div>
           </div>
           <script>
+
+            // Fonction appelée par Unity, qui sauvegarde le score dans Sentry.
+            function sauvegarderScore(timer) {
+                  let nom = prompt("Score de " + timer + " secondes ! Entrez votre nom :")
+
+                  const eventId = Sentry.captureMessage("scores de la boule Clément");
+                  const userFeedback = {
+                      event_id: eventId,
+                      name: nom,
+                      comments: "Score : " + timer,
+                  };
+                  Sentry.captureUserFeedback(userFeedback);
+            }
+
             var buildUrl = "la-boule-clement-web/Build";
             var loaderUrl = buildUrl + "/la-boule-clement-web.loader.js";
             var config = {
