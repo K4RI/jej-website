@@ -28,7 +28,7 @@ formulaire.addEventListener('submit', (event) => {
         event_id: eventId,
         name: tNom.value,
         email: tContact.value,
-        comments: tTitre.value + "\n\n" + tMessage.value,
+        comments: `--- ${tTitre.value} ---\n${tMessage.value}`,
     };
     Sentry.captureUserFeedback(userFeedback);
 })
