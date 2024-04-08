@@ -4,6 +4,16 @@ const tTitre = document.getElementById("titre")
 const tMessage = document.getElementById("message")
 const formulaire = document.getElementById("formulaire")
 
+if (typeof Sentry === 'undefined') {
+    document.querySelectorAll("#formulaire input, textarea").forEach(area => {
+        area.disabled = true;
+    })
+    document.querySelectorAll("#formulaire label, legend").forEach(label => {
+        label.style.color = "gray";
+    })
+    document.getElementById("erreur").style.display = 'inline';
+}
+
 formulaire.addEventListener('submit', (event) => {
     event.preventDefault();
     alert('Message envoyé !');
