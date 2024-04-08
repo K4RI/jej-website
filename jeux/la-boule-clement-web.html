@@ -96,7 +96,7 @@
             function sauvegarderScore(timer) {
                   let nom = prompt("Score de " + timer + " secondes ! Entrez votre nom :")
 
-                  const eventId = Sentry.captureMessage("scores de la boule Clément");
+                  const eventId = Sentry.captureMessage("User Feedback");
                   const userFeedback = {
                       event_id: eventId,
                       name: nom,
