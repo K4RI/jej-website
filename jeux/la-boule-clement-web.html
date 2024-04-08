@@ -71,10 +71,14 @@
         <main>
 
 
-        <p><strong style="font-size: 1.1em;">DISCLAIMER : si la version web a un problème de chargement, le jeu est jouable en standalone <a href="la boule clément.zip">ici</a> </strong></p>
+        <p><strong style="font-size: 1.1em;">si la version web a un problème de chargement, le jeu est jouable en standalone <a href="la boule clément.zip">ici</a> </strong></p>
         <p>ok c'est la boule clément</p>
         <p>le but est d'attraper les douze bricoles le plus vite possible en déplaçant la boule clément avec les touches zqsd, on peut aussi réinit avec entrée</p>
-        <p>je mettrai peut-être un tableau des highscores, en attendant écrivez-moi si vous faites un sub 6</p><br>
+        <span id="erreur" style="font-size: 1.1em; color: red; display: none;"><strong>
+          <p>PAR CONTRE ATTENTION : si tu veux <u>envoyer ton score au tableau des highscores</u> en fin de partie, le module qui le gère ne peut pas s'importer à cause de ton bloqueur de pub ! (même si c'est pas une pub juste ça le bloque t'as capter lol)
+          <p>donc si tu veux il faut désactiver le bloqueur et recharger la page, sinon c'est pas grave tu peux quand même profiter du jeu ^^</p>
+          <br><br>
+        </strong></span>
         
         <div id="unity-container" class="unity-desktop">
             <canvas id="unity-canvas"></canvas>
@@ -92,17 +96,27 @@
           </div>
           <script>
 
+            var erreur = false;
+            if (typeof Sentry === 'undefined') {
+                document.getElementById("erreur").style.display = 'inline';
+                var erreur = true;
+            }
+
             // Fonction appelée par Unity, qui sauvegarde le score dans Sentry.
             function sauvegarderScore(timer) {
-                  let nom = prompt("Score de " + timer + " secondes ! Entrez votre nom :")
+              if (erreur) {
+                alert("feature bloquée à cause du bloqueur dsl")
+              } else {
+                let nom = prompt("Score de " + timer + " secondes ! Entrez votre nom :")
 
-                  const eventId = Sentry.captureMessage("User Feedback");
-                  const userFeedback = {
-                      event_id: eventId,
-                      name: nom,
-                      comments: "Score : " + timer,
-                  };
-                  Sentry.captureUserFeedback(userFeedback);
+                const eventId = Sentry.captureMessage("User Feedback");
+                const userFeedback = {
+                    event_id: eventId,
+                    name: nom,
+                    comments: "Score : " + timer,
+                };
+                Sentry.captureUserFeedback(userFeedback);
+              }
             }
 
             var buildUrl = "la-boule-clement-web/Build";
