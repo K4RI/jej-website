@@ -112,8 +112,8 @@
                 const eventId = Sentry.captureMessage("User Feedback");
                 const userFeedback = {
                     event_id: eventId,
-                    name: nom,
-                    comments: "Score : " + timer,
+                    name: "Score",
+                    comments: `${nom} / ${timer}`,
                 };
                 Sentry.captureUserFeedback(userFeedback);
               }
