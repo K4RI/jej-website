@@ -6,6 +6,7 @@
         <title>jej - la boule clément</title>
         <link rel="icon" type="image/x-icon" href="../img/jej.png">
         <link href="../css/style.css" rel="stylesheet">
+        <link href="../css/tables.css" rel="stylesheet">
         <link href="la-boule-clement-web/TemplateData/style.css" rel="stylesheet">
 
         <!-- Initialisation de Sentry -->
@@ -81,7 +82,30 @@
         </strong></span>
         
         <div id="unity-container" class="unity-desktop">
+          <div class="flex-container" style="display: flex; gap: 10px;">
             <canvas id="unity-canvas"></canvas>
+            
+            <table style="display: none; margin: auto; text-align: center;">
+              <!-- pas sûr de l'affichage pour l'instant...
+                  si activé, rajouter "left: -50px" au #unity-loading-bar de style.css -->
+                  
+            <colgroup>
+              <col style="width: 75px">
+              <col style="width: 75px">
+           </colgroup>
+              <thead>
+                <th>Nom</th>
+                <th>Score</th>
+              </thead>              
+              <tbody>
+                <tr>
+                  <td>zac</td>
+                  <td>5.42</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
             <div id="unity-loading-bar">
               <div id="unity-logo"></div>
               <div id="unity-progress-bar-empty">
