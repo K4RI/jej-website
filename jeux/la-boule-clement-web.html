@@ -11,11 +11,11 @@
 
         <!-- Initialisation de Sentry -->
         <script
-            src="https://js.sentry-cdn.com/7ac034c5bbd378a354f1bbca6c11dff7.min.js"
+            src="https://js.sentry-cdn.com/7ac034c5bbd378a354f1bbca6c11dff7.min.j"
             crossorigin="anonymous"
         ></script>
         <script
-            src="https://browser.sentry-cdn.com/7.109.0/bundle.tracing.replay.feedback.min.js"
+            src="https://browser.sentry-cdn.com/7.109.0/bundle.tracing.replay.feedback.min.j"
             integrity="sha384-UOHtopg/2oHFq5gWo4f6BqumWrpIqfa/oQLQmiDgvvmBHR3GYxNhnZsd241Rs8mt"
             crossorigin="anonymous"
         ></script>        
@@ -75,9 +75,14 @@
         <p><strong style="font-size: 1.1em;">si la version web a un problème de chargement, le jeu est jouable en standalone <a href="la boule clément.zip">ici</a> </strong></p>
         <p>ok c'est la boule clément</p>
         <p>le but est d'attraper les douze bricoles le plus vite possible en déplaçant la boule clément avec les touches zqsd, on peut aussi réinit avec entrée</p>
-        <span id="erreur" style="font-size: 1.1em; color: red; display: none;"><strong>
-          <p>PAR CONTRE ATTENTION : si tu veux <u>envoyer ton score au tableau des highscores</u> en fin de partie, le module qui le gère ne peut pas s'importer à cause de ton bloqueur de pub ! (même si c'est pas une pub juste ça le bloque t'as capter lol)
-          <p>donc si tu veux il faut désactiver le bloqueur et recharger la page, sinon c'est pas grave tu peux quand même profiter du jeu ^^</p>
+        <span id="erreur" style="font-size: 1em; color: red; display: none;"><strong>
+          <p><u>ATTENTION : le module d'envoi des highscores n'a pas pu s'importer.</u> il y a deux causes possibles :</p>
+            <ol>
+              <li>ou bien c'est ton bloqueur de pub qui a détecté et bloqué le module</li>
+              <li>ou bien tu es sur mobile, de toute manière le jeu se joue pas sur mobile.</li>
+            </ol>
+          <p></p>
+          <p>donc si tu veux t'enregistrer dans les highscores il faudra désactiver le bloqueur et recharger la page (promis y a zéro pub sur le site mdr), sinon c'est pas grave tu peux quand même profiter du jeu ^^</p>
           <br><br>
         </strong></span>
         
@@ -100,7 +105,7 @@
               <tbody>
                 <tr>
                   <td>zac</td>
-                  <td>5.42</td>
+                  <td>5.25</td>
                 </tr>
               </tbody>
             </table>
@@ -129,7 +134,7 @@
             // Fonction appelée par Unity, qui sauvegarde le score dans Sentry.
             function sauvegarderScore(timer) {
               if (erreur) {
-                alert("feature bloquée à cause du bloqueur dsl")
+                alert("feature bloquée à cause de ton bloqueur dsl cf texte en rouge")
               } else {
                 let nom = prompt("Score de " + timer + " secondes ! Entrez votre nom :")
 
