@@ -19,7 +19,7 @@ var timeouts = [];
 
 Decimal.set({ precision: 2*prec })
 
-let canvas = document.getElementById('app-canvas');
+let canvas = document.querySelector('.app-canvas');
 let context = canvas.getContext('2d');
 let tortue = new Turtle(canvas, pas);
 tortue.pendown();

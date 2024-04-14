@@ -7,7 +7,7 @@
     margin:auto;
 }
 
-#app-canvas {
+.app-canvas {
     display: block;
     float: left;
     border: 1px solid black;
@@ -34,7 +34,7 @@
     text-align: center;
 }
 
-input[type=number]{
+input[type=number]{ /* retire les petites flèches */
     -moz-appearance: textfield;
     appearance: textfield;
     text-align: center;

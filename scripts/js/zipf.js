@@ -171,9 +171,9 @@ function zipfing(text, name){
             autorange: true
         },
         legend: {
-            x: 1,        
-            xanchor: 'right',        
-            y: 1   
+            x: 1,
+            xanchor: 'right',
+            y: 1
         },
         margin: {
             l: 75,
@@ -183,7 +183,7 @@ function zipfing(text, name){
             pad: 4
         }
     };
-    let canvas = document.getElementById('app-canvas');
+    let canvas = document.querySelector('.app-canvas');
     Plotly.newPlot(canvas, data, layout);
     // https://plotly.com/javascript/configuration-options/
 
