@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <title>jej - paradoxe de bertrand</title>
+        <link rel="icon" type="image/x-icon" href="../img/jej.png">
+        <link href="../css/style.css" rel="stylesheet">
+        <link href="../css/apps.css" rel="stylesheet">
+        <script type="module" src="../scripts/js/bertrand.js"></script>
+
+        <!-- Import de KaTeX -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js" integrity="sha384-hIoBPJpTUs74ddyc4bFZSM1TVlQDA60VBbJS0oA934VSz82sBx1X7kSx2ATBDIyd" crossorigin="anonymous"></script>
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+            onload="renderMathInElement(document.body);"></script>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900&display=swap" rel="stylesheet">
+
+        <style>
+            input[type="range"] {
+                width:50%;
+            }
+        </style>
+
+    </head>
+    <body>
+        <a style="font-size: 0.9em"; href="../index.html"> < retour à l'accueil</a>
+        
+        <nav>
+            <div class="nav-container">
+                <a href="../a-propos.html"><span>à propos de jej</span></a>
+                <a href="../dessins.html"><span>dessins</span></a>
+                <a href="../videos.html"><span>vidéos</span></a>
+                <a href="../images.html"><span>images</span></a>
+                <a href="../textes.html"><span>textes</span></a>
+                <a href="../jeux.html"><span>jeux</span></a>
+                <a href="../postits.html"><span>post-its</span></a>
+                <a href="../remerciements.html"><span>special thanks</span></a>
+            </div>
+        </nav>
+
+        <header>
+            <a class="lien-titre" href="#">
+                <h1>paradoxe de bertrand</h1>
+            </a>
+        </header>
+
+        <main>
+
+        <p>on dessine un cercle, et dans ce cercle on trace des cordes (= des traits qui relient deux points du cercle) au hasard. comment se répartissent les longueurs de ces cordes ?</p>
+        <p>le <a href="https://www.youtube.com/watch?v=mZBwsm6B280" target="_blank">paradoxe de Bertrand</a> est un problème de géométrie montrant que cette répartition dépend de ce qu'on entend par "cordes tracées au hasard". dans cette page on va illustrer et expliquer 3 de ces définitions.</p>
+
+        <h2>1 - Extrémités au hasard</h2>
+        <p>ici pour tracer une corde, on pioche deux points uniformément sur le bord du cercle et on les relie.</p>
+
+        <div class="app-container">
+            <div class="app-commandes-up">
+                <form class="envoi">
+                    <input type="button" value="Simuler 1 corde" class="lancer-un"><br><br>
+                    Itérations : <strong><span class="iterations-span"></span></strong> &nbsp; &nbsp;
+                    50 <input type="range" min="50" max="100000" step="50" value="200" class="iterations"> 100000 &nbsp; &nbsp; &nbsp;
+                    <input type="button" value="Lancer" class="lancer">
+                </form>
+            </div>
+
+            <div class='app-canvas left' style="width:400px;height:400px;"></div>
+            <div class='app-canvas right' style="width:400px;height:400px;"></div>
+        </div>
+        <br>
+        <div class='math-proof'>
+            <input type="button" value="Explication" class="mathbutton" style="font-size: 1.1em;">
+            <br>
+            <div class="mathtext" style="display: none;">
+                Notons les deux points tirés \(a_1 = (cos \theta_1, \; sin\theta_1)\) et \(a_2 = (cos\theta_2, sin\theta_2)\), avec
+
+                $$ \theta_1, \theta_2 \sim \mathcal{U}(0, 2\pi)$$
+
+                La distance les séparant est :
+                $$ \begin{array}{rcll}
+                R & = & d(a_1, a_2) \\
+                & = & (cos \theta_1-cos \theta_2)^2 +  (sin \theta_1-sin \theta_2)^2 \\
+                & = & \sqrt{2 - 2 cos \theta_1 cos \theta_2 - 2 sin \theta_1 sin \theta_2} \\
+                & = & \sqrt{2 - 2 cos(\theta_1 - \theta_2)} \\
+                & = & \sqrt{2 - 2 cos(\theta_1 - \theta_2 \; mod \; 2\pi)} \\
+                \end{array} $$
+
+                \(\theta^* := \theta_1 - \theta_2 \; mod \; 2\pi\) suit également une loi \( \mathcal{U}(0, 2\pi) \).
+                
+                Intéressons-nous aux fonctions de répartition :
+                $$ \begin{array}{rcll}
+                \mathbb{P}(cos(\theta^*) \le x) & = & \mathbb{P}(\theta^* \ge arccos(x)) \\
+                & = & 1 - \frac{arccos(x)}{\pi} \\
+                \end{array} $$
+
+                Ce dont on déduit :
+                $$ \begin{array}{rcll}
+                F_R(x) & = & \mathbb{P}(R \le x) \\
+                & = & \mathbb{P}(\sqrt{2 - 2 cos(\theta^*)} \le x) \\
+                & = & \mathbb{P}(cos(\theta^*) \ge \frac{1-x^2}{2}) \\
+                & = & \frac{arccos(\frac{1-x^2}{2})}{\pi}
+                \end{array} $$
+
+                Enfin, la fonction de densité s'obtient en dérivant la précédente :
+                $$ f_R(x) = F_R'(x) = \frac{2}{\pi \sqrt{4-x^2}} \cdot \mathbb{1}_{[0, 2]}(x)$$
+                <input type="button" value="cacher" class="mathbutton">
+            </div>
+        </div>
+
+        
+
+        <h2>2 - Rayon au hasard</h2>
+        <p>dans cette méthode, on choisit une distance au centre aléatoirement 0 et 1, puis un point qui correspond. ce point est le centre d'une corde que l'on trace.</p>
+
+        <div class="app-container">
+            <div class="app-commandes-up">
+                <form class="envoi">
+                    <input type="button" value="Simuler 1 corde" class="lancer-un"><br><br>
+                    Itérations : <strong><span class="iterations-span"></span></strong> &nbsp; &nbsp;
+                    50 <input type="range" min="50" max="100000" step="50" value="200" class="iterations"> 100000 &nbsp; &nbsp; &nbsp;
+                    <input type="button" value="Lancer" class="lancer">
+                </form>
+            </div>
+
+            <div class='app-canvas left' style="width:400px;height:400px;"></div>
+            <div class='app-canvas right' style="width:400px;height:400px;"></div>
+        </div>
+        <div class='math-proof'>
+            <input type="button" value="Explication" class="mathbutton" style="font-size: 1.1em;">
+            <br>
+            <div class="mathtext" style="display: none;">
+                Le rayon \(r\) du point sélectionné (=la croix grise dans 'Simuler une corde') suit une loi uniforme
+                $$ r \sim \mathcal{U}(0, 1) $$
+
+                On remarque que le rayon et la corde forment un angle droit. D'après le théorème de Pythagore :
+                $$ r^2 + \left(\frac{R}{2}\right)^2 = 1^2$$
+                $$ \Leftrightarrow R = 2\sqrt{1-r^2}$$
+
+                Calculons à présent la loi de répartition de \(R\).
+                $$ \begin{array}{rcll}
+                F_R(x) & = & \mathbb{P}(R \le x) \\
+                & = & \mathbb{P}(2\sqrt{1-r^2} \le x) \\
+                & = & \mathbb{P}(r \ge \sqrt{1 - \frac{x^2}{4}}) \\
+                & = & 1 - \sqrt{1 - \frac{x^2}{4}}
+                \end{array} $$
+
+                Enfin, la fonction de densité s'obtient en dérivant la précédente :
+                $$ f_R(x) = F_R'(x) = \frac{x}{2 \sqrt{4-x^2}} \cdot \mathbb{1}_{[0, 2]}(x)$$
+                <input type="button" value="cacher" class="mathbutton">
+            </div>
+        </div>
+
+        
+
+        <h2>3 - Milieu au hasard</h2>
+        <p>enfin ici, on va piocher un point au hasard à l'intérieur du cercle. ce point est le centre d'une corde que l'on trace.</p>
+
+        <div class="app-container">
+            <div class="app-commandes-up">
+                <form class="envoi">
+                    <input type="button" value="Simuler 1 corde" class="lancer-un"><br><br>
+                    Itérations : <strong><span class="iterations-span"></span></strong> &nbsp; &nbsp;
+                    50 <input type="range" min="50" max="100000" step="50" value="200" class="iterations"> 100000 &nbsp; &nbsp; &nbsp;
+                    <input type="button" value="Lancer" class="lancer">
+                </form>
+            </div>
+
+            <div class='app-canvas left' style="width:400px;height:400px;"></div>
+            <div class='app-canvas right' style="width:400px;height:400px;"></div>
+        </div>
+        <div class='math-proof'>
+            <input type="button" value="Explication" class="mathbutton" style="font-size: 1.1em;">
+            <br>
+            <div class="mathtext" style="display: none;">
+                Le point (=la croix grise dans 'Simuler une corde') est tiré à l'intérieur du disque, on s'intéresse à sa distance \(r\) du centre. La probabilité qu'il se trouve dans \(D(0, x)\), càd le disque de rayon \(x\) autour du centre, équivaut au rapport entre l'aire de ce disque et l'aire du disque entier. <!-- \texttt{r} -->
+                $$ \mathbb{P}(r \le x) = \frac{\mathcal{A}_{D(0, x)}}{\mathcal{A}_{D(0, 1)}} = \frac{\pi x^2}{\pi 1^2} = x^2 $$
+
+                Puis, de la même manière que dans la preuve de la partie 2, on peut relier \(r\) avec la taille de la corde à l'aide du théorème de Pythagore :
+                $$ r^2 + \left(\frac{R}{2}\right)^2 = 1^2$$
+                $$ \Leftrightarrow R = 2\sqrt{1-r^2}$$
+
+                Calculons à présent la loi de répartition de \(R\).
+                $$ \begin{array}{rcll}
+                F_R(x) & = & \mathbb{P}(R \le x) \\
+                & = & \mathbb{P}(2\sqrt{1-r^2} \le x) \\
+                & = & \mathbb{P}(r \ge \sqrt{1 - \frac{x^2}{4}}) \\
+                & = & 1 - \left(\sqrt{1 - \frac{x^2}{4}}\right)^2 \\
+                & = & \frac{x^2}{4}
+                \end{array} $$
+
+                Enfin, la fonction de densité s'obtient en dérivant la précédente :
+                $$ f_R(x) = F_R'(x) = \frac{x}{2} \cdot \mathbb{1}_{[0, 2]}(x)$$
+
+                <input type="button" value="cacher" class="mathbutton">
+            </div>
+        </div>
+
+        </main>
+
+        <footer>
+            ___________________________
+            <p ><a href="https://www.youtube.com/@jej888" target="_blank">youtube</a> - 
+            <a href="https://twitter.com/chibre_optique" target="_blank">twitter</a> - 
+            <a href="https://www.instagram.com/nwaar888/" target="_blank">instagram</a> - 
+            mail : kariassoumani [at] hotmail.fr
+            </p>
+            <p>© smoking borzoi studios 2k24</p>
+        </footer> 
+
+    </body>
+</html>
