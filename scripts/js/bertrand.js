@@ -29,6 +29,7 @@ for (let i = 0; i < 3; i++) {
 for (let i = 0; i < 6; i++) {
     mathButtons[i].addEventListener("click", (event) => {
         mathTexts[~~(i/2)].style.display = mathTexts[~~(i/2)].style.display === 'inline' ? 'none' : 'inline';
+        // ~~(a/b) fournit le quotient de la division entière a/b
     })
 }
 
