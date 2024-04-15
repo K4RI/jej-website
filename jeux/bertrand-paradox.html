@@ -90,20 +90,20 @@
                 
                 Intéressons-nous aux fonctions de répartition :
                 $$ \begin{array}{rcll}
-                \mathbb{P}(cos(\theta^*) \le x) & = & \mathbb{P}(\theta^* \ge arccos(x)) \\
+                \forall x \in [-1, 1], \quad \mathbb{P}(cos(\theta^*) \le x) & = & \mathbb{P}(\theta^* \ge arccos(x)) \\
                 & = & 1 - \frac{arccos(x)}{\pi} \\
                 \end{array} $$
 
                 Ce dont on déduit :
                 $$ \begin{array}{rcll}
-                F_R(x) & = & \mathbb{P}(R \le x) \\
+                \forall x \in [0, 2], \quad F_R(x) & = & \mathbb{P}(R \le x) \\
                 & = & \mathbb{P}(\sqrt{2 - 2 cos(\theta^*)} \le x) \\
                 & = & \mathbb{P}(cos(\theta^*) \ge \frac{1-x^2}{2}) \\
                 & = & \frac{arccos(\frac{1-x^2}{2})}{\pi}
                 \end{array} $$
 
                 Enfin, la fonction de densité s'obtient en dérivant la précédente :
-                $$ f_R(x) = F_R'(x) = \frac{2}{\pi \sqrt{4-x^2}} \cdot \mathbb{1}_{[0, 2]}(x)$$
+                $$\forall x \in [0, 2], \quad f_R(x) = F_R'(x) = \frac{2}{\pi \sqrt{4-x^2}}$$
                 <input type="button" value="cacher" class="mathbutton">
             </div>
         </div>
@@ -139,14 +139,14 @@
 
                 Calculons à présent la loi de répartition de \(R\).
                 $$ \begin{array}{rcll}
-                F_R(x) & = & \mathbb{P}(R \le x) \\
+                \forall x \in [0, 2], \quad F_R(x) & = & \mathbb{P}(R \le x) \\
                 & = & \mathbb{P}(2\sqrt{1-r^2} \le x) \\
                 & = & \mathbb{P}(r \ge \sqrt{1 - \frac{x^2}{4}}) \\
                 & = & 1 - \sqrt{1 - \frac{x^2}{4}}
                 \end{array} $$
 
                 Enfin, la fonction de densité s'obtient en dérivant la précédente :
-                $$ f_R(x) = F_R'(x) = \frac{x}{2 \sqrt{4-x^2}} \cdot \mathbb{1}_{[0, 2]}(x)$$
+                $$ \forall x \in [0, 2], \quad f_R(x) = F_R'(x) = \frac{x}{2 \sqrt{4-x^2}}$$
                 <input type="button" value="cacher" class="mathbutton">
             </div>
         </div>
@@ -174,7 +174,7 @@
             <br>
             <div class="mathtext" style="display: none;">
                 Le point (=la croix grise dans 'Simuler une corde') est tiré à l'intérieur du disque, on s'intéresse à sa distance \(r\) du centre. La probabilité qu'il se trouve dans \(D(0, x)\), càd le disque de rayon \(x\) autour du centre, équivaut au rapport entre l'aire de ce disque et l'aire du disque entier. <!-- \texttt{r} -->
-                $$ \mathbb{P}(r \le x) = \frac{\mathcal{A}_{D(0, x)}}{\mathcal{A}_{D(0, 1)}} = \frac{\pi x^2}{\pi 1^2} = x^2 $$
+                $$ \forall x \in [0, 1], \quad \mathbb{P}(r \le x) = \frac{\mathcal{A}_{D(0, x)}}{\mathcal{A}_{D(0, 1)}} = \frac{\pi x^2}{\pi 1^2} = x^2 $$
 
                 Puis, de la même manière que dans la preuve de la partie 2, on peut relier \(r\) avec la taille de la corde à l'aide du théorème de Pythagore :
                 $$ r^2 + \left(\frac{R}{2}\right)^2 = 1^2$$
@@ -182,7 +182,7 @@
 
                 Calculons à présent la loi de répartition de \(R\).
                 $$ \begin{array}{rcll}
-                F_R(x) & = & \mathbb{P}(R \le x) \\
+                \forall x \in [0, 2], \quad F_R(x) & = & \mathbb{P}(R \le x) \\
                 & = & \mathbb{P}(2\sqrt{1-r^2} \le x) \\
                 & = & \mathbb{P}(r \ge \sqrt{1 - \frac{x^2}{4}}) \\
                 & = & 1 - \left(\sqrt{1 - \frac{x^2}{4}}\right)^2 \\
@@ -190,7 +190,7 @@
                 \end{array} $$
 
                 Enfin, la fonction de densité s'obtient en dérivant la précédente :
-                $$ f_R(x) = F_R'(x) = \frac{x}{2} \cdot \mathbb{1}_{[0, 2]}(x)$$
+                $$ \forall x \in [0, 2], \quad f_R(x) = F_R'(x) = \frac{x}{2}$$
 
                 <input type="button" value="cacher" class="mathbutton">
             </div>
