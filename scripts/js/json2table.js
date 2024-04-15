@@ -1,6 +1,6 @@
-/*
-  Utilisé pour postits.html
-  Remplit un tableau à partir d'un fichier .json, et des checkbox pour afficher selon la catégorie.
+/**
+  * Utilisé pour postits.html
+  * Remplit un tableau à partir d'un fichier .json, et des checkbox pour afficher selon la catégorie.
 */
 
 const dict = {
@@ -73,7 +73,7 @@ $.getJSON(data_file, function(data){
 const btnYes = document.getElementById("btn-yes")
 const btnNo = document.getElementById("btn-no")
 
-// Ici on ajoute les eventListener aux checkboxes
+/** association des groupes de colonnes aux checkboxes */
 Object.keys(dict).forEach(ind => {
     let btn = document.getElementById("btn-" + ind)
     btn.checked = false
@@ -89,7 +89,7 @@ Object.keys(dict).forEach(ind => {
     })
 })
 
-// Ici on ajoute les eventListener aux checkboxes "Tout cocher" et "Tout décocher"
+/** checkboxes "Tout cocher" et "Tout décocher" */
 btnYes.addEventListener("change", (event) => {
     if (btnYes.checked){
         btnNo.checked = false;
@@ -99,7 +99,6 @@ btnYes.addEventListener("change", (event) => {
         })
     }
 })
-
 document.getElementById("btn-no").addEventListener("change", (event) => {
     if (btnNo.checked){
         btnYes.checked = false;
@@ -109,5 +108,6 @@ document.getElementById("btn-no").addEventListener("change", (event) => {
         })
     }
 })
+
 btnYes.checked = true // on initialise à rien cocher
 btnYes.dispatchEvent(new Event("change"))

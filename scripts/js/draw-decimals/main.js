@@ -128,6 +128,7 @@ boutonReinit.addEventListener("click", (event) => {
     activations();
 })
 
+/** Traçage de la figure */
 boutonLancer.addEventListener("click", (event) => {
     tortue.reinitXY();
     context.clearRect(0, 0, canvas.width, canvas.height);
@@ -144,7 +145,7 @@ boutonLancer.addEventListener("click", (event) => {
 
     for (let i = 0; i < digits.length; i++){ // lance chaque dessin l'un après l'autre
         timeouts.push(
-            window.setTimeout(() => {
+            window.setTimeout(() => { // toutes les i millisecondes, la tortue avance et tourne
                 tortue.left(360 * digits[i]/base);
                 tortue.forward(pas);
             }, i * speed)
@@ -162,7 +163,7 @@ boutonTelecharger.addEventListener("click", (event) => {
 
 boutonTelecharger.disabled = true;
 
-// initialise les paramètres liées aux inputs/sliders
+/** Initialise les paramètres liées aux inputs/sliders */
 inputNum.dispatchEvent(new Event("input"));
 inputDenom.dispatchEvent(new Event("input"));
 inputBase.dispatchEvent(new Event("input"));

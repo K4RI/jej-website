@@ -10,13 +10,19 @@ export default class Turtle {
     }
 
     /** Replace le curseur au centre du canevas. */
-    reinitXY(val) {
+    reinitXY() {
         this.x = this.canvas.width / 2;
         this.y = this.canvas.height / 2;
         this.theta = 0;
     }
 
-    /** Trace une ligne de (x1, y1) vers (x2, y2). */
+    /**
+     * Trace une ligne de (x1, y1) vers (x2, y2).
+     * @param {Number} x1 - abscisse de départ
+     * @param {Number} y1 - ordonnée de départ
+     * @param {Number} x2 - abscisse d'arrivée
+     * @param {Number} y2 - ordonnée d'arrivée
+     * */
     line(x1, y1, x2, y2) {
         this.context.beginPath();
         this.context.moveTo(x1, y1);
@@ -26,7 +32,10 @@ export default class Turtle {
         };
     }
 
-    /** Avance la tortue d'une distance r. */
+    /**
+     * Avance la tortue d'une distance r.
+     * @param {Number} r - distance de déplacement
+     * */
     forward(r) {
         // Nouvelle position
         let xn = this.x + this.pas*r*Math.cos(this.theta*Math.PI/180);
@@ -38,17 +47,26 @@ export default class Turtle {
         this.y = yn;
     }
 
-    /** Tourne la tortue à gauche d'un angle th. */
+    /**
+     * Tourne la tortue à gauche d'un angle th.
+     * @param {Number} theta - angle de rotation
+     * */
     left(th) {
         this.theta = (this.theta - th)%360
     }
 
-    /** Tourne la tortue à droite d'un angle th. */
+    /**
+     * Tourne la tortue à droite d'un angle th.
+     * @param {Number} theta - angle de rotation
+     * */
     right(th) {
         this.theta = (this.theta + th)%360
     }
 
-    /** Change vers une couleur c. */
+    /**
+     * Change vers une couleur c.
+     * @param {string} c - la couleur choisie
+     * */
     color(c) {
         this.context.strokeStyle = c;
     }

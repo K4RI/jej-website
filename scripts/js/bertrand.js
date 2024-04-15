@@ -1,6 +1,10 @@
+/**
+ * JavaScript pour la page jeux/bertrand-paradox du site jej888.fr.
+ */
+
 import "https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.30.1/plotly.min.js"
 
-// initialisation des variables et des HTMLElements
+/** initialisation des variables et des HTMLElements */
 var maxIters = [200, 200, 200];
 var maxAffiche = 2000;
 
@@ -13,7 +17,7 @@ let textsIterations = document.querySelectorAll('.iterations-span');
 let mathButtons = document.querySelectorAll('.mathbutton');
 let mathTexts = document.querySelectorAll('.mathtext');
 
-// association des variables aux sliders
+/** association des variables aux sliders */
 for (let i = 0; i < 3; i++) {
     slidersIterations[i].addEventListener("change", (event) => {
         textsIterations[i].innerHTML = slidersIterations[i].value;
@@ -21,14 +25,15 @@ for (let i = 0; i < 3; i++) {
     })
 }
 
-// association des boutons d'affichage aux textes
+/** association des boutons d'affichage aux textes */
 for (let i = 0; i < 6; i++) {
     mathButtons[i].addEventListener("click", (event) => {
         mathTexts[~~(i/2)].style.display = mathTexts[~~(i/2)].style.display === 'inline' ? 'none' : 'inline';
     })
 }
 
-// définition des layouts
+/** définition des layouts */
+/** layout à gauche : cordes */
 let layoutLeft = {
     showlegend: false, // retirer la légende
     xaxis: {
@@ -55,6 +60,7 @@ let layoutLeft = {
     }
 }
 
+/** layout à droite : histogramme */
 const layoutRight = n => ({
     title: `<span style='font-size: 0.8em'>Histogramme de distribution pour ${n} cordes</span>`,
     margin: {
@@ -71,10 +77,11 @@ const layoutRight = n => ({
     }
 })
 
-const traceColorbar = { // le 1er élément sert juste pour la heatmap-colorbar
+/** élément placé au début des plotly-data, juste pour faire afficher la heatmap-colorbar. */
+const traceColorbar = {
     x: [0, 1e-309], // attention c'est un peu technique :
     y: [0, 1e-309], // plotly se casse dès qu'on atteint des pixels plus petits que 2^-1024 = 5e-309
-    z: [0, 2], // donc on choisit cette taille pour ne jamais pouvoir les afficher
+    z: [0, 2], // donc on choisit cette taille pour ne jamais pouvoir afficher ces pixels
     type: 'heatmap',
     colorscale: [
         [0, 'red'],
@@ -82,6 +89,7 @@ const traceColorbar = { // le 1er élément sert juste pour la heatmap-colorbar
     ]
 }
 
+/** les 3 fonctions générant des coordonnées aléatoires */
 function g1() {
     let th1 = 2*Math.PI*Math.random();
     let th2 = 2*Math.PI*Math.random();
@@ -89,7 +97,7 @@ function g1() {
             Math.cos(th2),
             Math.sin(th1),
             Math.sin(th2),
-            0,0];
+            0, 0];
 }
 function g2() {
     let r = Math.random();
@@ -113,6 +121,7 @@ function g3() {
 }
 const generators = [g1, g2, g3]
 
+/** les approximations des distributions pour chaque méthode */
 const f1 = (x) => 2/(Math.PI * Math.sqrt(4-x**2));
 const f2 = (x) => x/(2 * Math.sqrt(4-x**2));
 const f3 = (x) => x/2;
@@ -123,9 +132,10 @@ const fnames = [
     'x/2'
 ]
 
-
+/** simuler une seule corde */
 for (let i = 0; i < 3; i++) {
     boutonsLancerUn[i].addEventListener("click", (event) => {
+        /** affichage du cercle et de la corde, dans le canvas de gauche */
         let [x1, x2, y1, y2, r, theta] = generators[i]();
         var d = Math.sqrt((y2-y1)**2 + (x2-x1)**2);
         var data = [
@@ -133,7 +143,7 @@ for (let i = 0; i < 3; i++) {
             {
                 x: [x1, x2],
                 y: [y1, y2],
-                mode: 'lines+markers',
+                mode: 'lines+markers', // on affiche une corde et ses extrémités
                 line: {
                     color: `rgb(255, ${255*d/2}, 0)`,
                     width: 3,
@@ -142,7 +152,7 @@ for (let i = 0; i < 3; i++) {
                 hovertemplate: '(%{x}, %{y})<extra></extra>',
             }
         ];
-        if (i >= 1){
+        if (i >= 1){ // et si besoin (cas 2 et 3), le point intermédiaire de construction
             data.push({
                 x: [0, r*Math.cos(theta)],
                 y: [0, r*Math.sin(theta)],
@@ -155,8 +165,9 @@ for (let i = 0; i < 3; i++) {
                 hovertemplate: '(%{x}, %{y})<extra></extra>',
             })
         }
-
         Plotly.newPlot(canvasLeft[i], data, layoutLeft);
+
+        /** le descriptif de la construction, dans le canvas de droite */
         switch (i){
             case 0:
                 canvasRight[i].innerHTML = `
@@ -202,21 +213,23 @@ for (let i = 0; i < 3; i++) {
                     </div>
                 `;
                 break;
-        }
-        
+        }        
     })
 }
 
+/** simuler un grand nombre de cordes */
 for (let i = 0; i < 3; i++) {
     boutonsLancer[i].addEventListener("click", (event) => {
+        /** affichage du cercle et des cordes, dans le canvas de gauche */
         var data = [traceColorbar];
         var dists = [];
         for (let j = 0; j < maxIters[i]; j++) {
             
+            // établir les coordonnées des sommets de la corde
             let [x1, x2, y1, y2] = generators[i]();
             var d = Math.sqrt((y2-y1)**2 + (x2-x1)**2);
 
-            if (j < maxAffiche){
+            if (j < maxAffiche){ // s'il n'y en a pas déjà trop, on l'ajoute à la figure
                 var obj = {
                     x: [x1, x2],
                     y: [y1, y2],
@@ -231,9 +244,9 @@ for (let i = 0; i < 3; i++) {
             }
             dists.push(d);
         }
-
         Plotly.newPlot(canvasLeft[i], data, layoutLeft);
 
+        /** l'histogramme de distribution, dans le canvas de droite */
         var arange = Array.from({length: 200}, (_, j) => 0 + 0.01 * j); // de 0 à 1.99
         var datahist = [
             {

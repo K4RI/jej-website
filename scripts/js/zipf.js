@@ -1,13 +1,18 @@
+/**
+  * JavaScript pour la page jeux/zipf du site jej888.fr.
+*/
+
 import "https://cdnjs.cloudflare.com/ajax/libs/jschardet/3.2.0/jschardet.min.js"
 import "https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.30.1/plotly.min.js"
 
+/** initialisation des variables et des HTMLElements */
 let boutonFichier = document.getElementById("bouton-fichier");
 let envoi = document.getElementById("envoi");
-let envoiBouton = document.getElementById("envoi-bouton");
 let textErreur = document.getElementById("encoding-error");
 
 let btnsRadio = document.querySelectorAll("#zoneChoix input");
 
+/** les boutons radio de sélection d'un texte du corpus */
 btnsRadio.forEach(btn => {
     btn.checked = false;
     btn.addEventListener("change", async (event) => {
@@ -22,6 +27,7 @@ btnsRadio.forEach(btn => {
     })
 })
 
+/** les boutons de téléversement d'un fichier texte */
 boutonFichier.addEventListener("click", (event) => {
     textErreur.innerHTML = ""
 })
@@ -36,6 +42,12 @@ envoi.addEventListener("submit", (event) => {
     zipf(file);
 })
 
+/** 
+ * Crée un objet de type File à partir d'un chemin.
+ * @param {string} path - le chemin du fichier
+ * @param {string} name - le titre du fichier
+ * @return {File} un objet de type File correspondant
+ */
 async function createTxtFile(path, name){
     let response = await fetch(path);
     let data = await response.blob();
@@ -46,6 +58,10 @@ async function createTxtFile(path, name){
 }
 
 
+/** 
+ * Parse un texte et affiche le résultat du parsing sur la page.
+ * @param {File} file - un fichier texte
+ */
 async function zipf(file) {
     if (file.size > 10000000) {
         textErreur.innerHTML = "Fichier trop lourd !"
@@ -66,6 +82,11 @@ async function zipf(file) {
 }
 
 
+/** 
+ * Renvoie l'encodage d'un fichier texte.
+ * @param {File} file - un fichier texte
+ * @returns {string} son encodage (UTF-8, ascii...)
+ */
 function getEncoding(file){
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -81,6 +102,13 @@ function getEncoding(file){
     })
 }
 
+
+/** 
+ * Effectue une régression linéaire entre deux listes.
+ * @param {Array<Number>} y - la liste des ordonnées
+ * @param {Array<Number>} x - la liste des abscisses
+ * @returns {Object} les coefficients directeurs + les ordonnées à l'origine + l'erreur quadratique
+ */
 function linearRegression(y,x){
     var lr = {};
     var n = y.length;
@@ -103,10 +131,16 @@ function linearRegression(y,x){
     return lr;
 }
 
+
+/** 
+ * Appelé par zipf(). Termine le parsing.
+ * @param {string} text - le contenu du fichier 
+ * @param {string} name - le nom du fichier
+ */
 function zipfing(text, name){
     const mots = text.replace(/[^\p{L}]+/gu, ` `)
                      .toLowerCase()
-                     .split(" ");
+                     .split(" "); // que des lettres, en minuscule, split vers un array
     let n1 = mots.length;
     let compteur = {};
     mots.forEach(mot => {
@@ -128,7 +162,7 @@ function zipfing(text, name){
     let lr = linearRegression(yp, xp)
 
     var data = [
-        {
+        { // affichage des fréquences
             x: rangs,
             y: vals,
             text: keys,
@@ -145,7 +179,7 @@ function zipfing(text, name){
             hoverinfo:"x+y",
         },
         
-        {
+        { // affichage de la régression
             x: [rangs[0], rangs[n-1]],
             y: [rangs[0]**lr['slope'] * 10**lr['intercept'], rangs[n-1]**lr['slope'] * 10**lr['intercept'], 1],
             type: 'scatter',
@@ -186,9 +220,4 @@ function zipfing(text, name){
     let canvas = document.querySelector('.app-canvas');
     Plotly.newPlot(canvas, data, layout);
     // https://plotly.com/javascript/configuration-options/
-
 }
-
-
-
-
