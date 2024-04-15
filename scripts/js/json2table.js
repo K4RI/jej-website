@@ -109,5 +109,5 @@ document.getElementById("btn-no").addEventListener("change", (event) => {
     }
 })
 
-btnYes.checked = true // on initialise à rien cocher
+btnYes.checked = true // on initialise à tout cocher
 btnYes.dispatchEvent(new Event("change"))

@@ -150,6 +150,7 @@ function zipfing(text, name){
             compteur[mot] = 1;
         }
     });
+    // compteur contient des objets de clé 'mot' et de valeur 'nombre'. la ligne suivante trie ces objets par 'nombre'
     const occurrences = Object.fromEntries(Object.entries(compteur).sort((a, b) => a[1] - b[1]).reverse());
     const keys = Object.keys(occurrences); // les mots
     const vals = Object.values(occurrences); // les nombres d'occurrences, en ordonnées
