@@ -134,9 +134,9 @@ boutonsLancer.addEventListener('click', (event) => {
         margin: {
             l: 40, r: 10, b: 30, t: 20, pad: 0
         },
-        legend: {      
-          x: 1,      
-          xanchor: 'right',      
+        legend: {
+          x: 1,
+          xanchor: 'right',
           y: 1,
           "orientation": "h",
         }
@@ -145,6 +145,7 @@ boutonsLancer.addEventListener('click', (event) => {
     let pth = 2*longueurAiguilles/(Math.PI*larg)
     let pobs = cpt/maxIters
     commentaires.innerHTML = `
+    Avec l la longueur d'une aiguille et t la distance entre deux rainures,<br>
     Théorique : p* = 2l/πt = <strong>${pth.toFixed(5)}</strong><br>
     Observé : p = ${cpt} / ${maxIters} = <strong>${pobs.toFixed(5)}</strong><br>
     Marge d'erreur : ${(100 * (pobs-pth)/pth).toFixed(3)}%
