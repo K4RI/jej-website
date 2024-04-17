@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <title>jej - zipscribblemap france</title>
+        <link rel="icon" type="image/x-icon" href="../img/jej.png">
+        <link href="../css/style.css" rel="stylesheet">
+        <link href="../css/apps.css" rel="stylesheet">
+        <script type="module" src="../scripts/js/zipdecode.js"></script>
+        <script src="https://code.jquery.com/jquery-latest.js"></script>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900&display=swap" rel="stylesheet">
+
+    </head>
+    <body>
+        <a style="font-size: 0.9em"; href="../index.html"> < retour à l'accueil</a>
+        
+        <nav>
+            <div class="nav-container">
+                <a href="../a-propos.html"><span>à propos de jej</span></a>
+                <a href="../dessins.html"><span>dessins</span></a>
+                <a href="../videos.html"><span>vidéos</span></a>
+                <a href="../images.html"><span>images</span></a>
+                <a href="../textes.html"><span>textes</span></a>
+                <a href="../jeux.html"><span>jeux</span></a>
+                <a href="../postits.html"><span>post-its</span></a>
+                <a href="../remerciements.html"><span>special thanks</span></a>
+            </div>
+        </nav>
+
+        <header>
+            <a class="lien-titre" href="#">
+                <h1>zipdecode - france</h1>
+            </a>
+        </header>
+
+        <main>
+
+        <p>un jour dans les années 2000 un mec a eu l'idée de <a href="https://benfry.com/zipdecode/" target="_blank">faire afficher sur une carte des États-Unis les communes dont le code postal débute par un certain nombre</a>, donc je me suis dit que c'était une bonne idée de faire de même pour notre beau pays.</p>
+        <p><a href="villes_utf8.csv">le tableur utilisé</a> provient d'un vieux TD de ma 1ère année d'école. il contient la liste des communes de France avec leurs nombres d'habitants, leurs superficies, et en ce qui nous intéresse leur emplacements géographiques et leurs codes postaux. et <a href="france_vect.txt">un autre fichier</a> délimite les départements français.</p>
+        <br>
+            <div class="app-container">
+                <div class='app-canvas' style="width:500px;height:500px;"></div>
+
+                <div class="app-commandes" style="height:480px;">
+                    <br>
+                    Taille des points : <strong><span id="pointSize-span"></span></strong><br>
+                    1 <input type="range" min="1" max="10" step="1" value="2" class="slider" id="pointSize"> 10
+                    <br><br>
+                    Épaisseur de la bordure : <strong><span id="widthD-span"></span></strong><br>
+                    0.1 <input type="range" min="0.1" max="1" step="0.1" value="0.4" class="slider" id="widthD"> 1
+                    <br>
+
+                    <span id="loading" style="color:red; font-size: 0.9em;"> chargement... </span><br><br>
+                    Code postal débute par : <input type="number" name="zipcode" id="zipcode" value="" size="5" maxlength="5" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"><br><br>
+
+                    <select id="resolution" name="resolution" disabled="true">
+                        <option value="360">360x360</option>
+                        <option value="720">720x720</option>
+                        <option value="1080">1080x1080</option>
+                        <option value="1440">1440x1440</option>
+                        <option value="1920">1920x1920</option>
+                        <option value="2560">2560x2560</option>
+                        <option value="3140">3140x3140</option>
+                    </select> <input type="button" value="Télécharger image" id="telecharger" disabled="true">
+                </div>
+            </div>
+        </body>
+
+        </main>
+
+        <footer>
+            ___________________________
+            <p ><a href="https://www.youtube.com/@jej888" target="_blank">youtube</a> - 
+            <a href="https://twitter.com/chibre_optique" target="_blank">twitter</a> - 
+            <a href="https://www.instagram.com/nwaar888/" target="_blank">instagram</a> - 
+            mail : kariassoumani [at] hotmail.fr
+            </p>
+            <p>© smoking borzoi studios 2k24</p>
+        </footer> 
+
+    </body>
+</html>
