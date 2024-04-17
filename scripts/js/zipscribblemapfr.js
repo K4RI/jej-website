@@ -145,7 +145,7 @@ boutonTracer.addEventListener("click", async (event) => {
             y: ys,
             text: names,
             type: 'line',
-            line: {width: w, color: `rgb(255*Math.random(), 255*Math.random(), 255*Math.random())`},
+            line: {width: w, color: `rgb(${255*Math.random()}, ${255*Math.random()}, ${255*Math.random()})`},
             hovertemplate: '%{text}<extra></extra>',
             // hovertemplate: '%{text}<br>(%{y}, %{x})<extra></extra>',      
             showlegend: false,      
