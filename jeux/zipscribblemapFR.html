@@ -51,16 +51,17 @@
                     Épaisseur du trait : <strong><span id="width-span"></span></strong><br>
                 0.1 <input type="range" min="0.1" max="1" step="0.1" value="0.5" class="slider" id="width"> 1<br><br><br>
                     <input type="checkbox" id="deps"> <label for="deps">afficher les départements</label><br>
-                    <span id="wd">
+                    <span id="wd" style="display: none;">
                         Épaisseur de la bordure : <strong><span id="widthD-span"></span></strong><br>
                         0.1 <input type="range" min="0.1" max="1" step="0.1" value="0.4" class="slider" id="widthD"> 1
                         <br>
                     </span><br><br>
 
-                    <input type="button" value="Tracer" id="tracer">
-                    <input type="button" value="Réinit°" id="reinit"> <br><br>
+                    <span id="loading" style="color:red; font-size: 0.9em;"> chargement... </span><br><br>
+                    <input type="button" value="Tracer" id="tracer" disabled="true">
+                    <input type="button" value="Réinit°" id="reinit" disabled="true"> <br><br>
 
-                    <select id="resolution" name="resolution">
+                    <select id="resolution" name="resolution" disabled="true">
                         <option value="360">360x360</option>
                         <option value="720">720x720</option>
                         <option value="1080">1080x1080</option>
@@ -68,7 +69,7 @@
                         <option value="1920">1920x1920</option>
                         <option value="2560">2560x2560</option>
                         <option value="3140">3140x3140</option>
-                    </select> <input type="button" value="Télécharger image" id="telecharger">
+                    </select> <input type="button" value="Télécharger image" id="telecharger" disabled="true">
                 </div>
             </div>
         </body>
