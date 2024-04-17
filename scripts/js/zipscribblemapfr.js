@@ -62,10 +62,10 @@ boutonTelecharger.addEventListener("click", (event) => {
 })
 
 
-/** initialisation du chemin et des données */
 let relinLat = x => 9.067125875160348e-6*x -13.362329239550334
 let relinLong = x => 1.2408828030287988e-5*x -5.7279126035491315
 
+/** initialisation du chemin et des données */
 async function initPathRecords(){
     let depLong = x => (0.0294*x -5).toFixed(3)
     let depLat = x => (0.0215*x + 52.23).toFixed(3)
@@ -86,10 +86,15 @@ async function initPathRecords(){
         records = $.csv.toObjects(header + text, {separator: ";"});
     });
     
+    return [pathStr, records]
+}
+
+/** Séparer par département et trier le tableau */
+function sepsortRec(records){  
     // séparer les entrées par département
     let separatedRecords = {};
     for (let i = 0; i < records.length; i++) {
-        if(records[i]['nom'] == 'Asprières'){ // les dernières entrées qui déconnent
+        if(records[i]['nom'] == 'Asprières'){ // les dernières entrées avec la localisation qui déconne
             break;
         }
         let dep = ~~(records[i]['code_postal']/1000)
@@ -103,8 +108,7 @@ async function initPathRecords(){
     for (let key in separatedRecords){
         separatedRecords[key] = separatedRecords[key].sort((a, b) => a['code_postal'] - b['code_postal']);
     }
-    
-    return [pathStr, separatedRecords]
+    return separatedRecords;
 }
 
 selectRes.dispatchEvent(new Event("change"));
@@ -112,12 +116,14 @@ checkDeps.dispatchEvent(new Event("change"));
 sliderWidth.dispatchEvent(new Event("change"));
 sliderWidthD.dispatchEvent(new Event("change"));
 
-const [path, records] = await initPathRecords();
+const [path, record] = await initPathRecords();
+const records = sepsortRec(record);
+
 loading.style.display = 'none';
 boutonTracer.disabled = false;
 boutonReinit.disabled = false;
 
-boutonTracer.addEventListener("click", async (event) => {
+boutonTracer.addEventListener("click", (event) => {
     let shapes = afficheDeps ? [
         {
             type: 'path',
