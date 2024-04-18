@@ -153,7 +153,7 @@ for (let i = 0; i < 3; i++) {
                 hovertemplate: '(%{x}, %{y})<extra></extra>',
             }
         ];
-        if (i >= 1){ // et si besoin (cas 2 et 3), le point intermédiaire de construction
+        if (i == 1){ // et si besoin (cas 2 et 3), le point intermédiaire de construction
             data.push({
                 x: [0, r*Math.cos(theta)],
                 y: [0, r*Math.sin(theta)],
@@ -162,6 +162,15 @@ for (let i = 0; i < 3; i++) {
                     color: `black`,
                     width: 1,
                 },
+                marker: { size: 8, color: 'grey', symbol: 'x' },
+                hovertemplate: '(%{x}, %{y})<extra></extra>',
+            })
+        }
+        if (i == 2) {            
+            data.push({
+                x: [r*Math.cos(theta)],
+                y: [r*Math.sin(theta)],
+                mode: 'markers',
                 marker: { size: 8, color: 'grey', symbol: 'x' },
                 hovertemplate: '(%{x}, %{y})<extra></extra>',
             })

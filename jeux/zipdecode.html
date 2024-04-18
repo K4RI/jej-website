@@ -37,8 +37,9 @@
         </header>
 
         <main>
-
-        <p>un jour dans les années 2000 un mec a eu l'idée de <a href="https://benfry.com/zipdecode/" target="_blank">faire afficher sur une carte des États-Unis les communes dont le code postal débute par un certain nombre</a>, donc je me suis dit que c'était une bonne idée de faire de même pour notre beau pays.</p>
+        
+        <i style="font-size: 0.8em";>(petite sœur de <a href="zipscribblemapFR.html">zipscribblemapFR</a>)</i>
+        <p>un jour dans les années 2000 un mec a eu l'idée de <a href="https://benfry.com/zipdecode/" target="_blank">faire afficher sur une carte des États-Unis les communes dont le code postal débute par un certain nombre</a>, donc je me suis dit que c'était une bonne idée de faire de même pour notre beau pays. Il suffit d'entrer un nombre dans le champ sur la droite, et cocher "zoom" pour y voir de plus près.</p>
         <p><a href="villes_utf8.csv">le tableur utilisé</a> provient d'un vieux TD de ma 1ère année d'école. il contient la liste des communes de France avec leurs nombres d'habitants, leurs superficies, et en ce qui nous intéresse leur emplacements géographiques et leurs codes postaux. et <a href="france_vect.txt">un autre fichier</a> délimite les départements français.</p>
         <br>
             <div class="app-container">
@@ -47,7 +48,7 @@
                 <div class="app-commandes" style="height:480px;">
                     <br>
                     Taille des points : <strong><span id="pointSize-span"></span></strong><br>
-                    1 <input type="range" min="1" max="10" step="1" value="2" class="slider" id="pointSize"> 10
+                    1 <input type="range" min="1" max="10" step="1" value="5" class="slider" id="pointSize"> 10
                     <br><br>
                     Épaisseur de la bordure : <strong><span id="widthD-span"></span></strong><br>
                     0.1 <input type="range" min="0.1" max="1" step="0.1" value="0.4" class="slider" id="widthD"> 1

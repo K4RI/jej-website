@@ -9,6 +9,12 @@
         <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
         <script type="module" src="../scripts/js/buffon.js"></script>
 
+        <!-- Import de KaTeX -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js" integrity="sha384-hIoBPJpTUs74ddyc4bFZSM1TVlQDA60VBbJS0oA934VSz82sBx1X7kSx2ATBDIyd" crossorigin="anonymous"></script>
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+            onload="renderMathInElement(document.body);"></script>
+
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900&display=swap" rel="stylesheet">
@@ -38,8 +44,8 @@
 
         <main>
 
-        <p>sur un parquet avec des planches parallèles et également espacées, on laisse tomber un tas d'aiguilles. combien d'entre elles vont tomber à cheval sur deux planches ?</p>
-        <p>l'expérience de <a href="https://en.wikipedia.org/wiki/Buffon%27s_needle_problem" target="_blank">l'aiguille de Buffon</a> trouve une expression de cette probabilité.</p>
+        <p>sur un parquet avec des planches parallèles et également espacées, on laisse tomber un tas d'aiguilles. quelle proportion d'entre elles vont tomber à cheval sur deux planches ?</p>
+        <p>cette expérience est appelée "<a href="https://en.wikipedia.org/wiki/Buffon%27s_needle_problem" target="_blank">l'aiguille de Buffon</a>", et l'appli ci-dessous la simule. en fonction de la longueur \(l\) des aiguilles et de la largeur \(t\) des planches, la proportion théoriquement attendue d'aiguilles qui seront entre deux planches vaut <span id="kat">\(p^* = \frac{2l}{\pi t}\)</span>. on la compare avec la proportion obtenue expérimentalement.</p>
 
         <div class="app-container">
             <div class='app-canvas' style="width:600px;height:400px;">
