@@ -70,12 +70,24 @@ async function initPathRecords(){
     let depLong = x => (0.0294*x -5).toFixed(3)
     let depLat = x => (0.0215*x + 52.23).toFixed(3)
 
-    let pathStr = 'M '
-    await $.get('../../jeux/france_vect.txt', function( data ) { // on lit le texte du csv
+    let paths = []
+    await $.get('../../jeux/france_vect.txt', function( data ) { // on lit le texte
         const header = 'x0 y0 x1 y1\n'
-        let records = $.csv.toObjects(header + data, {separator: " "});    
-        for (let i = 0; i < records.length - 1; i++) {
-            pathStr += `${depLong(records[i]['x0'])},${depLat(-records[i]['y0'])} L`
+        let records = $.csv.toObjects(header + data, {separator: " "});
+
+        let pathStr = 'M '
+        // les coordonnées précédentes
+        let x0p = records[0]['x0'], y0p = -records[0]['y0']
+        for (let i = 1; i < records.length; i++) {
+            let x0 = records[i]['x0'], y0 = -records[i]['y0']
+            if ((x0-x0p)**2 + (y0-y0p)**2 > 60){ // s'il y a un trop grand écart
+                // console.log(x0, y0, x0p, y0p, (x0-x0p)**2 + (y0-y0p)**2)
+                paths.push(pathStr);
+                pathStr = 'M '
+            }
+            pathStr += `${depLong(x0)},${depLat(y0)} L`
+            x0p = x0, y0p = y0;
+            
         }
     })
     
@@ -86,7 +98,7 @@ async function initPathRecords(){
         records = $.csv.toObjects(header + text, {separator: ";"});
     });
     
-    return [pathStr, records]
+    return [paths, records]
 }
 
 /** Séparer par département et trier le tableau */
@@ -116,7 +128,7 @@ checkDeps.dispatchEvent(new Event("change"));
 sliderWidth.dispatchEvent(new Event("change"));
 sliderWidthD.dispatchEvent(new Event("change"));
 
-const [path, record] = await initPathRecords();
+const [paths, record] = await initPathRecords();
 const records = sepsortRec(record);
 
 loading.style.display = 'none';
@@ -124,13 +136,16 @@ boutonTracer.disabled = false;
 boutonReinit.disabled = false;
 
 boutonTracer.addEventListener("click", (event) => {
-    let shapes = afficheDeps ? [
-        {
-            type: 'path',
-            path: path,
-            line: {color: 'black', width: wd}
-        }
-    ] : [];
+    let shapes = [];
+    if (afficheDeps){
+        paths.forEach((p) => {
+            shapes.push({
+                type: 'path',
+                path: p,
+                line: {color: 'black', width: wd}
+            })
+        })
+    }
 
     let layout = {
         shapes: shapes,
@@ -148,10 +163,10 @@ boutonTracer.addEventListener("click", (event) => {
             l: 40, r: 10, b: 30, t: 20, pad: 0
         },
         legend: {
-          x: 1,
-          xanchor: 'right',
-          y: 1,
-          "orientation": "h",
+            x: 1,
+            xanchor: 'right',
+            y: 1,
+            "orientation": "h",
         }
     }
 
