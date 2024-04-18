@@ -51,9 +51,10 @@
                     <br><br>
                     Épaisseur de la bordure : <strong><span id="widthD-span"></span></strong><br>
                     0.1 <input type="range" min="0.1" max="1" step="0.1" value="0.4" class="slider" id="widthD"> 1
-                    <br>
+                    <br><br>
+                    <input type="checkbox" id="zoom" > <label for="zoom">zoom</label><br><br><br>
 
-                    <span id="loading" style="color:red; font-size: 0.9em;"> chargement... </span><br><br>
+                    <span id="loading" style="color:red; font-size: 0.9em;"> chargement... <br></span>
                     Code postal débute par : <input type="number" name="zipcode" id="zipcode" value="" size="5" maxlength="5" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"><br><br>
 
                     <select id="resolution" name="resolution" disabled="true">
