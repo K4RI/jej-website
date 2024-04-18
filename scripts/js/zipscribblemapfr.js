@@ -58,7 +58,7 @@ selectRes.addEventListener("change", (event) => {
 })
 
 boutonTelecharger.addEventListener("click", (event) => {
-    Plotly.downloadImage(canvas, {format: 'png', width: resolution, height: resolution, filename: `zipscribblemap_${resolution}x${resolution}`});
+    Plotly.downloadImage(canvas, {format: 'png', width: resolution, height: resolution, filename: `zipscribblemap_${resolution}p`});
 })
 
 
