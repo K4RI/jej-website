@@ -170,15 +170,15 @@ function tracer(){
         let aspectRatioT = (Mx-mx)/(My-my)
 
         /** l'espace que l'on souhaite laisser autour de l'enveloppe des points */
-        let fact = 1.3
+        let fact = 1.7
 
         if (aspectRatioT < aspectRatio){ // il faut étendre les x
             let xc = (mx+Mx)/2, xr = (My-my)*aspectRatio
             layout['xaxis']['range'] = extendRange(xc - xr/2, xc + xr/2, fact)
-            layout['yaxis']['range'] = extendRange(my, My, 1.1)
+            layout['yaxis']['range'] = extendRange(my, My, fact)
         } else { // il faut étendre les y
             let yc = (my+My)/2, yr = (Mx-mx)/aspectRatio
-            layout['xaxis']['range'] = extendRange(mx, Mx, 1.1)
+            layout['xaxis']['range'] = extendRange(mx, Mx, fact)
             layout['yaxis']['range'] = extendRange(yc - yr/2, yc + yr/2, fact)
         }
     }
