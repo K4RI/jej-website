@@ -33,26 +33,37 @@ sliderIterations.addEventListener("change", (event) => {
     N = parseInt(sliderIterations.value);
 })
 
+/** Dans une formule de maths, remplace les x par leur implémentation Math.x */
+function mathReplaceAll(s, formules){
+    for (let i in formules){
+        // si f n'est pas précédé par 'Math.', on remplace par 'Math.f'
+        s = s.replace(new RegExp(`(?<!Math\.a*)${formules[i]}`, 'g'), `Math.${formules[i]}`)
+    }
+    return s
+}
+
 inputFunc.addEventListener("change", (event) => {
-    // f = eval('x => x+2')
-    // f = eval('x => Math.sin(x)')
-    // f = eval('x => Math.cos(x)')
     funcErreur.style.display = 'none'
     try {
         fNom = inputFunc.value
-        f = eval(`x => ${fNom}`)
-        let test = f(0)
+        let fNomParsed = mathReplaceAll(fNom, ['acosh', 'acos', 'asinh', 'asin', 'atanh', 'atan', 'cosh', 'sinh', 'tanh',
+                                               'cos', 'sin', 'exp', 'sqrt', 'log10', 'log', 'floor', 'round', 'trunc', 'max', 'min'])
+                                                .replaceAll('pi', 'Math.PI')
+        console.log(fNomParsed)
+        f = eval(`x => ${fNomParsed}`) // exemple : aaa -> ReferenceError
+        let test = f(x1) // exemple : Math.aaa -> NaN
         if (isNaN(test)){
             throw new SyntaxError('NaN')
         }
         feuxVertsLancer()
     } catch(e) {
+        console.log(e)
         boutonLancer.disabled = true // fonction non définie, ou vide
         if (e instanceof ReferenceError || e instanceof SyntaxError){ // fonction non-valide
             funcErreur.style.display = 'inline'
         }
     }
-})
+}) // cosh(x)*cos(x)*acosh(x)*acos(1/x)
 
 inputx1.addEventListener("change", (event) => {
     bornesErreur.style.display = 'none'
@@ -66,6 +77,7 @@ inputx1.addEventListener("change", (event) => {
         boutonLancer.disabled = true
     } else { 
         feuxVertsLancer()
+        inputFunc.dispatchEvent(new Event("change"));
     }
     // x1 = 0, x2 = Math.PI
 })
@@ -82,6 +94,7 @@ inputx2.addEventListener("change", (event) => {
         boutonLancer.disabled = true
     } else { 
         feuxVertsLancer()
+        inputFunc.dispatchEvent(new Event("change"));
     }
 })
 
@@ -101,12 +114,11 @@ boutonLancer.addEventListener("click", (event) => {
         if (y < y1){ y1 = y }
         if (y > y2){ y2 = y }
         if (!(isFinite(y))){
-            funcErreur2.innerHTML = `fonction divergente en x=${xi} !<br>`
+            funcErreur2.innerHTML = `fonction divergente ou non-définie en x=${x} !<br>`
             funcErreur2.style.display = 'inline'
             return;
         }
     }
-    y1 *= 1.2, y2 *= 1.2
 
     /** Nombre de tirages où f(x) < 0, resp f(x) > 0. */
     let Nmoins = 0, Nplus = 0
@@ -164,27 +176,32 @@ boutonLancer.addEventListener("click", (event) => {
         {
             x: xs, y: ys,
             mode: 'line',
-            name: fNom
+            showlegend: true,
+            name: 'y = ' + fNom,
         },
         {
             x: xPlus, y: yPlus,
             mode: 'markers', marker: { size: s1, color: 'lightgreen', symbol: 'o' }, hovertemplate: '(%{x}, %{y})<extra></extra>',
-            name: 'Plus'
+            showlegend: false,
+            name: 'Plus',
         },
         {
             x: xPlusInf, y: yPlusInf,
             mode: 'markers', marker: { size: s2, color: 'green', symbol: 'o' }, hovertemplate: '(%{x}, %{y})<extra></extra>',
-            name: 'PlusInf'
+            showlegend: false,
+            name: 'PlusInf',
         },
         {
             x: xMoins, y: yMoins,
             mode: 'markers', marker: { size: s1, color: 'orange', symbol: 'o' }, hovertemplate: '(%{x}, %{y})<extra></extra>',
-            name: 'Moins'
+            showlegend: false,
+            name: 'Moins',
         },
         {
             x: xMoinsSup, y: yMoinsSup,
             mode: 'markers', marker: { size: s2, color: 'red', symbol: 'o' }, hovertemplate: '(%{x}, %{y})<extra></extra>',
-            name: 'MoinsSup'
+            showlegend: false,
+            name: 'MoinsSup',
         }
     ]
     let layout = {
@@ -199,25 +216,32 @@ boutonLancer.addEventListener("click", (event) => {
             l: 40, r: 40, b: 40, t: 40, pad: 4
         },
         legend: {
-            xref: 'container', x: 1, xanchor: 'right', y: 1, "orientation": "h", font: {size: 0.4},
+            x: 1, y: 1.1, xanchor: 'right', "orientation": "h",
         },
         itemwidth: 20
     }
 
     Plotly.newPlot(canvas, data, layout);
-    document.getElementById('commentaires').innerHTML = `
-        Sous zéro :<br>
-            &nbsp;&nbsp; <span style='color: red'>${Nmoinssup}</span>/<span style='color: orange'>${Nmoins}</span> points sur la courbe<br>
-            &nbsp;&nbsp; Aire totale sous zéro : ${surfaceIntegreeMoins.toFixed(3)}<br>
-            &nbsp;&nbsp; Donc I- = ${Anegative.toFixed(3)}<br><br>
 
-        Sur zéro :<br>
+    let HTMLpos = Nplus ? `
+        Aire positive :<br>
             &nbsp;&nbsp; <span style='color: green'>${Nplusinf}</span>/<span style='color: lightgreen'>${Nplus}</span> points sous la courbe<br>
             &nbsp;&nbsp; Aire totale sur zéro : ${surfaceIntegreePlus.toFixed(3)}<br>
-            &nbsp;&nbsp; Donc I+ = ${Apositive.toFixed(3)}<br><br>
-        
+            &nbsp;&nbsp; Donc I<sup>+</sup> = ${Apositive.toFixed(3)}<br><br>
+    ` : ''
+
+    let HTMLneg = Nmoins ? `            
+        Aire négative :<br>
+        &nbsp;&nbsp; <span style='color: red'>${Nmoinssup}</span>/<span style='color: orange'>${Nmoins}</span> points sur la courbe<br>
+        &nbsp;&nbsp; Aire totale sous zéro : ${surfaceIntegreeMoins.toFixed(3)}<br>
+        &nbsp;&nbsp; Donc I<sup>-</sup> = ${Anegative.toFixed(3)}<br><br>
+    ` : ''
+    
+    document.getElementById('commentaires').innerHTML = `
+        ${HTMLpos}
+        ${HTMLneg}        
         Donc l'aire totale vaut :<br>
-            &nbsp;&nbsp; I = I+ - I- = <strong>${(Apositive - Anegative).toFixed(3)}</strong>
+            &nbsp;&nbsp; I = I<sup>+</sup> - I<sup>-</sup> = <strong>${(Apositive - Anegative).toFixed(3)}</strong>
     `
 })
 
@@ -226,7 +250,3 @@ sliderIterations.dispatchEvent(new Event("change"));
 inputx1.dispatchEvent(new Event("change"));
 inputx2.dispatchEvent(new Event("change"));
 inputFunc.dispatchEvent(new Event("change"));
-
-
- /// TODO : eh gros la légende sur une ligne on fait comment
-    /// et parser le nom de la fonction aussi
