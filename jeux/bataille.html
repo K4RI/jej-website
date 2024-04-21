@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <title>jej - bataille</title>
+        <link rel="icon" type="image/x-icon" href="../img/jej.png">
+        <link href="../css/style.css" rel="stylesheet">
+        <link href="../css/apps.css" rel="stylesheet">
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <script type="module" src="../scripts/js/bataille.js"></script>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900&display=swap" rel="stylesheet">
+
+        <style>
+            ::placeholder {
+                font-size: 0.6em;
+            }
+        </style>
+
+    </head>
+    <body>
+        <a style="font-size: 0.9em"; href="../index.html"> < retour à l'accueil</a>
+        
+        <nav>
+            <div class="nav-container">
+                <a href="../a-propos.html"><span>à propos de jej</span></a>
+                <a href="../dessins.html"><span>dessins</span></a>
+                <a href="../videos.html"><span>vidéos</span></a>
+                <a href="../images.html"><span>images</span></a>
+                <a href="../textes.html"><span>textes</span></a>
+                <a href="../jeux.html"><span>jeux</span></a>
+                <a href="../postits.html"><span>post-its</span></a>
+                <a href="../remerciements.html"><span>special thanks</span></a>
+            </div>
+        </nav>
+
+        <header>
+            <a class="lien-titre" href="#">
+                <h1>bataille</h1>
+            </a>
+        </header>
+
+        <main>
+
+        <p>tout le monde sait ce que c'est la bataille je vais rien apprendre à personne. l'autre jour j'étais tombé sur <a href="https://www.cristal.univ-lille.fr/~jdelahay/pls/1995/030.pdf">un article de 1995</a>, qui s'intéresse à la durée moyenne d'une partie ainsi qu'à la probabilité d'avoir une partie infinie.</p>
+        <p>ainsi donc cette petite page admet deux features : la simulation d'une partie de bataille (puisque c'est un jeu ne demandant pas de choix), et le calcul de quelques statistiques sur la durée moyenne d'une partie.</p>
+
+        <div class="app-container">
+            <div class='app-canvas' style="width:600px;height:500px;">
+            </div>
+
+            <div class="app-commandes" style="padding: 3px 10px;height:500px;">
+                Nombre de couleurs : <strong><span id="couleurs-span"></span></strong><br>
+                1 <input type="range" min="1" max="7" step="1" value="4" class="slider" id="couleurs"> 7<br><br>
+                Nombre de cartes par couleur : <strong><span id="valeurs-span"></span></strong><br>
+                1 <input type="range" min="1" max="20" step="1" value="13" class="slider" id="valeurs"> 20<br><br>
+
+                <label for="choix">Mode de récupération des cartes d'un pli :</label><br>
+                <select id="choix" name="choix">
+                    <option value="0">Aléatoire</option>
+                    <option value="1">La carte la plus haute d'abord</option>
+                    <option value="2">La carte du joueur 1 d'abord</option>
+                </select><br><br>
+
+                <input type="checkbox" id="carteinter"><label for="carteinter" checked>carte intermédiaire lors d'une bataille</label><br><br>
+
+                <input type="button" value="Lancer une partie" id="lancer"> <input type="button" value="Réinitialiser la partie" id="reinit"> <br><br><br>
+                
+                Nombre de parties à simuler : <strong><span id="parties-span"></span></strong><br>
+                1000 <input type="range" min="1000" max="30000" step="1000" value="10000" class="slider" id="parties"> 30000<br>
+                <input type="button" value="Simulations !!" id="simul"><br><br>
+                <div id="commentaires" style="text-align: left; font-size: 0.85em; padding: 5px 15px;"></div>
+            </div>
+        </div>
+
+        </main>
+
+        <footer>
+            ___________________________
+            <p ><a href="https://www.youtube.com/@jej888" target="_blank">youtube</a> - 
+            <a href="https://twitter.com/chibre_optique" target="_blank">twitter</a> - 
+            <a href="https://www.instagram.com/nwaar888/" target="_blank">instagram</a> - 
+            mail : kariassoumani [at] hotmail.fr
+            </p>
+            <p>© smoking borzoi studios 2k24</p>
+        </footer> 
+
+    </body>
+</html>

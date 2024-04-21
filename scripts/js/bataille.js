@@ -9,12 +9,15 @@ const arrCouleurs = ['pique', 'trèfle', 'çoeur', 'carreau']
 /** lors d'une bataille, ajoute-t-on une carte au milieu ? */
 var carteIntermediaire = true
 
+/** nombre de parties à simuler */
+var nParties = 10000
+
 /** ordre de récupération des cartes à la fin du pli :
  * 0 : aléatoire
  * 1 : le gagnant d'abord
  * 2 : le joueur 1 d'abord
 */
-var ordreRecup = 1
+var ordreRecup = 0
 
 /** le nombre de manches après lequel on considère qu'une partie est "infinie" */
 const limite = 20000
@@ -31,9 +34,47 @@ let paquet1, paquet2
 */
 
 
-/** Mélange un array selon l'algorithme de Fisher-Yates.
+let canvas = document.querySelector('.app-canvas');
+let sliderValeurs = document.getElementById('valeurs');
+let textValeurs = document.getElementById('valeurs-span');
+let sliderCouleurs = document.getElementById('couleurs');
+let textCouleurs = document.getElementById('couleurs-span');
+let sliderParties = document.getElementById('parties');
+let textParties = document.getElementById('parties-span');
+let checkIntermediaire = document.getElementById('carteinter');
+let selectOrdre = document.getElementById('choix');
+let baliseCommentaires = document.getElementById('commentaires');
+let boutonLancer = document.getElementById('lancer');
+let boutonReinit = document.getElementById('reinit');
+let boutonSimul = document.getElementById('simul');
+
+/** association des boutons aux paramètres */
+sliderValeurs.addEventListener("change", (event) => {
+    textValeurs.innerHTML = sliderValeurs.value;
+    N = parseInt(sliderValeurs.value);
+})
+
+sliderCouleurs.addEventListener("change", (event) => {
+    textCouleurs.innerHTML = sliderCouleurs.value;
+    M = parseInt(sliderCouleurs.value);
+})
+
+sliderParties.addEventListener("change", (event) => {
+    textParties.innerHTML = sliderParties.value;
+    nParties = parseInt(sliderParties.value);
+})
+
+checkIntermediaire.addEventListener("change", (event) => {
+    carteIntermediaire = checkIntermediaire.checked;
+})
+
+selectOrdre.addEventListener("change", (event) => {
+    ordreRecup = parseInt(selectOrdre.value);
+})
+
+/** Mélange une liste selon l'algorithme de Fisher-Yates.
  *  Les permutations ont toutes la même probabilité.
- *  De complexité O(n), avec n la longueur de l'array.
+ *  De complexité O(n), avec n la longueur de la liste.
 */
 function shuffle(arr) {
     let j, index, temp;
@@ -66,13 +107,16 @@ function ordre(c1, c2){
         case 0: // aléatoire
             return Math.random() > 0.5 ? [c1, c2] : [c2, c1]
         case 1: // le gagnant d'abord
-            return (c1%N < c2%N) ? [c1, c2] : [c2, c1]
+            return (c1%N > c2%N) ? [c1, c2] : [c2, c1]
         case 2: // le joueur 1 d'abord
             return [c1, c2]
     }
 }
 
-/** Simule une manche de bataille. */
+/** Simule une manche de bataille.
+ * @param {bool} v Si True, afficher en console le détail de la partie.
+ * @param {Array<Number>} main La pile en cours en cas de bataille.
+*/
 function manche(v, main = []){
     let c1 = paquet1.shift()
     let c2 = paquet2.shift()
@@ -99,7 +143,9 @@ function manche(v, main = []){
     }
 }
 
-/** Simule une partie de bataille. */
+/** Simule une partie de bataille.
+ * @param {bool} v Si True (par défaut), afficher en console le détail de la partie.
+*/
 function partie(v=true){
     let cartes = shuffle([...Array(N*M).keys()]);    
     paquet1 = cartes.slice(0, N*M/2)
@@ -129,7 +175,6 @@ const mean = array => array.length ? array.reduce((a, b) => a + b) / array.lengt
 const median = array => numSort(array)[~~(array.length/2)]
 
 function test(){
-    let nParties = 100000
     let nInfinies = 0
     let parties = []
     for (let i=0; i<nParties; i++){
@@ -140,17 +185,66 @@ function test(){
             nInfinies++
         }
     }
+    return [parties, nInfinies]
 
-    console.log(`${N} VALEURS x ${M} COULEURS = ${N*M} CARTES
-    Ordre : ${ordreRecup == 0 ? 'aléatoire' : ordreRecup == 1 ? 'gagnant en premier' : 'joueur 1 en premier'}
-    Carte intermédiaire : ${carteIntermediaire ? 'OUI' : 'NON'}
+    // console.log(`${N} VALEURS x ${M} COULEURS = ${N*M} CARTES
+    // Ordre : ${ordreRecup == 0 ? 'aléatoire' : ordreRecup == 1 ? 'gagnant en premier' : 'joueur 1 en premier'}
+    // Carte intermédiaire : ${carteIntermediaire ? 'OUI' : 'NON'}
 
-    Parties infinies (+ de ${limite} tours) : ${nInfinies}/${nParties}
-    Parties finies les plus longues : ${numSort(parties).reverse().slice(0, 5)}
-    Moyenne : ${mean(parties)}
-    Médiane : ${median(parties)}`)
+    // Parties infinies (+ de ${limite} tours) : ${nInfinies}/${nParties}
+    // Parties finies les plus longues : ${numSort(parties).reverse().slice(0, 5)}
+    // Moyenne : ${mean(parties).toFixed(2)}
+    // Médiane : ${median(parties)}`)
 }
-test()
+
+
+boutonLancer.addEventListener("click", (event) => {
+    partie()
+})
+
+boutonSimul.addEventListener("click", (event) => {
+    let [parties, nInfinies] = test()    
+
+    baliseCommentaires.innerHTML = `Résultats :<br>
+    &nbsp; - Parties "infinies" (+ de ${limite} tours) : ${nInfinies}/${nParties}<br>
+    &nbsp; - Parties les plus longues :<br>
+    &nbsp; &nbsp; &nbsp; [${numSort(parties).reverse().slice(0, 5)}]<br>
+    &nbsp; - Moyenne : ${mean(parties).toFixed(2)}<br>
+    &nbsp; - Médiane : ${median(parties)}`
+
+    
+    let datahist = [{
+        x: parties,
+        type: 'histogram',
+        nbinsx: Math.min(300, Math.max(...parties)),
+        // name: `Nombre de parties`,
+        hovertemplate: '<b>Durée</b> <br>%{x} manches : %{y} parties<extra></extra>',
+    }]
+
+    let layout = {
+        title: `<span style='font-size: 0.8em'>Histogramme de distribution des durées de ${nParties} parties</span>`,
+        xaxis: {
+            title: {
+                text: "durée d'une partie"
+            },
+            // type: 'log',
+            autorange: true
+        },
+        margin: { l: 40, r: 40, b: 50, t: 40, pad: 4 },
+        showlegend: false,
+        legend: { x: 1, xanchor: 'right', y: 1 }
+    }
+    
+    Plotly.newPlot(canvas, datahist, layout);
+})
+
+
+sliderValeurs.dispatchEvent(new Event("change"));
+sliderCouleurs.dispatchEvent(new Event("change"));
+sliderParties.dispatchEvent(new Event("change"));
+checkIntermediaire.checked = true
+checkIntermediaire.dispatchEvent(new Event("change"));
+selectOrdre.dispatchEvent(new Event("change"));
 
 /**
  * déjà en mettant un aléatoire dans l'ordre de jeu entre les 2 joueurs, on a plus aucune partie infinie !
