@@ -2,13 +2,18 @@
   * JavaScript pour la page jeux/montecarlo du site jej888.fr.
 */
 
+// max(x**2 - 1, 0) - 5*max(0.25-x**2,0), entre -2 et 2
+// cos(2*pi*(4*x - x**2))*sqrt(log(1+x**2)), entre 0 et 1
+
 /** initialisation des variables et des HTMLElements */
 
 /** Nombre de tirages */
-let N = 0;
-let f, fNom;
+let N = 0
+/** La fonction */
+let f, fNom
 /** Les bornes d'intégration. */
-let x1 = 0, x2 = 0;
+let x1 = 0, x2 = 0
+let y1 = 0, y2 = 0
 const maxAffiche = 5000
 
 let sliderIterations = document.getElementById('iterations');
@@ -42,60 +47,106 @@ function mathReplaceAll(s, formules){
     return s
 }
 
+/**
+ * Vérifie si la fonction f est bien définie sur [x1, x2], et modifie les bornes verticales y1 et y2.
+ * Si f est infini ou NaN, il le note dans la boîte et désactive le lancement.
+*/
+function testBornes(){
+    funcErreur.innerHTML = ''
+    y1 = 0, y2 = 0
+    let y;
+    for (let i = 0; i <= N; i++){
+        let x = x1 + (i/N)*(x2-x1)
+        y = f(x)
+        if (isNaN(y)) { // ex : sqrt(x-1) ou "aaa"
+            console.log(new RangeError(`erreur de syntaxe, ou fonction non-définie en x=${x}`))
+            funcErreur.innerHTML = `erreur de syntaxe, ou<br>fonction non-définie en x=${x}<br>`
+            boutonLancer.disabled = true
+            return
+        } else if (!(isFinite(y))){ // ex : 1/x
+            console.log(new RangeError(`fonction divergente en x=${x}`))
+            funcErreur.innerHTML = `fonction divergente en x=${x} !<br>`
+            boutonLancer.disabled = true
+            return
+        } 
+        if (y < y1){ y1 = y }
+        if (y > y2){ y2 = y }
+    }
+}
+
 inputFunc.addEventListener("change", (event) => {
-    funcErreur.style.display = 'none'
+    funcErreur.innerHTML = ''
+    bornesErreur.innerHTML = ''    
+    inputx1.disabled = false
+    inputx2.disabled = false
+    boutonLancer.disabled = false
+
+    fNom = inputFunc.value
+    if (fNom == '') { // ex : ""
+        inputx1.disabled = true
+        inputx2.disabled = true
+        boutonLancer.disabled = true
+        return
+    }
+    fNom = fNom.replaceAll('Math.', '')
+    let fNomParsed = mathReplaceAll(fNom, ['acosh', 'acos', 'asinh', 'asin', 'atanh', 'atan', 'cosh', 'sinh', 'tanh',
+                                            'cos', 'sin', 'exp', 'sqrt', 'log10', 'log', 'floor', 'round', 'trunc', 'max', 'min', 'abs'])
+                                            .replaceAll('pi', 'Math.PI')
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math
+    console.log(fNomParsed)
+    
     try {
-        fNom = inputFunc.value
-        let fNomParsed = mathReplaceAll(fNom, ['acosh', 'acos', 'asinh', 'asin', 'atanh', 'atan', 'cosh', 'sinh', 'tanh',
-                                               'cos', 'sin', 'exp', 'sqrt', 'log10', 'log', 'floor', 'round', 'trunc', 'max', 'min'])
-                                                .replaceAll('pi', 'Math.PI')
-        console.log(fNomParsed)
-        f = eval(`x => ${fNomParsed}`) // exemple : aaa -> ReferenceError
-        let test = f(x1) // exemple : Math.aaa -> NaN
-        if (isNaN(test)){
-            throw new SyntaxError('NaN')
-        }
-        feuxVertsLancer()
+        f = eval(`x => ${fNomParsed}`)
+        let testReferenceError = f(x1)
     } catch(e) {
         console.log(e)
-        boutonLancer.disabled = true // fonction non définie, ou vide
-        if (e instanceof ReferenceError || e instanceof SyntaxError){ // fonction non-valide
-            funcErreur.style.display = 'inline'
+        if (e instanceof ReferenceError){ // ex : aaa
+            funcErreur.innerHTML = `faute d'orthographe !<br>`
+        } else if (e instanceof SyntaxError){ // ex : x^^2
+            funcErreur.innerHTML = `faute de syntaxe !<br>`
         }
+        inputx1.disabled = true
+        inputx2.disabled = true
+        boutonLancer.disabled = true
+        return
     }
-}) // cosh(x)*cos(x)*acosh(x)*acos(1/x)
+
+    testBornes()
+})
 
 inputx1.addEventListener("change", (event) => {
-    bornesErreur.style.display = 'none'
+    bornesErreur.innerHTML = ''
+    boutonLancer.disabled = false
+
     x1 = parseFloat(inputx1.value)
     if (isNaN(x1)){ // si input vide par exemple
         inputx1.value = 0
         x1 = 0
     }
-    if (x1 >= x2){
-        bornesErreur.style.display = 'inline'
+    if (x1 >= x2){ // ex : x1 = 2, x2 = 1
+        bornesErreur.innerHTML = `bornes dans le mauvais sens !`
         boutonLancer.disabled = true
-    } else { 
-        feuxVertsLancer()
-        inputFunc.dispatchEvent(new Event("change"));
+        return
     }
+    testBornes()
     // x1 = 0, x2 = Math.PI
 })
 
 inputx2.addEventListener("change", (event) => {
-    bornesErreur.style.display = 'none'
+    bornesErreur.innerHTML = ''
+    boutonLancer.disabled = false
+
     x2 = parseFloat(inputx2.value)
     if (isNaN(x2)){
         inputx2.value = 0
         x2 = 0
     }
     if (x1 >= x2){
-        bornesErreur.style.display = 'inline'
+        bornesErreur.innerHTML = `bornes dans le mauvais sens !`
         boutonLancer.disabled = true
-    } else { 
-        feuxVertsLancer()
-        inputFunc.dispatchEvent(new Event("change"));
+        return
     }
+    testBornes()
 })
 
 /** Tire uniformément un nombre dans l'intervalle [a,b]. */
@@ -104,21 +155,6 @@ let uniform = function(a,b){
 }
 
 boutonLancer.addEventListener("click", (event) => {
-    // Détermination des min et max en dimension verticale
-    funcErreur.style.display = 'none'
-    funcErreur2.style.display = 'none'
-    let y1 = 0, y2 = 0
-    for (let i = 0; i <= N; i++){
-        let x = x1 + (i/N)*(x2-x1)
-        let y = f(x)
-        if (y < y1){ y1 = y }
-        if (y > y2){ y2 = y }
-        if (!(isFinite(y))){
-            funcErreur2.innerHTML = `fonction divergente ou non-définie en x=${x} !<br>`
-            funcErreur2.style.display = 'inline'
-            return;
-        }
-    }
 
     /** Nombre de tirages où f(x) < 0, resp f(x) > 0. */
     let Nmoins = 0, Nplus = 0
@@ -181,44 +217,35 @@ boutonLancer.addEventListener("click", (event) => {
         },
         {
             x: xPlus, y: yPlus,
-            mode: 'markers', marker: { size: s1, color: 'lightgreen', symbol: 'o' }, hovertemplate: '(%{x}, %{y})<extra></extra>',
+            mode: 'markers', marker: { size: s1, color: 'lightgreen', symbol: 'o'}, hovertemplate: '(%{x}, %{y})<extra></extra>',
             showlegend: false,
             name: 'Plus',
         },
         {
             x: xPlusInf, y: yPlusInf,
-            mode: 'markers', marker: { size: s2, color: 'green', symbol: 'o' }, hovertemplate: '(%{x}, %{y})<extra></extra>',
+            mode: 'markers', marker: { size: s2, color: 'green', symbol: 'o'}, hovertemplate: '(%{x}, %{y})<extra></extra>',
             showlegend: false,
             name: 'PlusInf',
         },
         {
             x: xMoins, y: yMoins,
-            mode: 'markers', marker: { size: s1, color: 'orange', symbol: 'o' }, hovertemplate: '(%{x}, %{y})<extra></extra>',
+            mode: 'markers', marker: { size: s1, color: 'orange', symbol: 'o'}, hovertemplate: '(%{x}, %{y})<extra></extra>',
             showlegend: false,
             name: 'Moins',
         },
         {
             x: xMoinsSup, y: yMoinsSup,
-            mode: 'markers', marker: { size: s2, color: 'red', symbol: 'o' }, hovertemplate: '(%{x}, %{y})<extra></extra>',
+            mode: 'markers', marker: { size: s2, color: 'red', symbol: 'o'}, hovertemplate: '(%{x}, %{y})<extra></extra>',
             showlegend: false,
             name: 'MoinsSup',
         }
     ]
     let layout = {
         hovermode:'closest',
-        xaxis: {
-            range: [x1, x2],
-        },      
-        yaxis: {
-            range: [y1, y2],
-        },
-        margin: {
-            l: 40, r: 40, b: 40, t: 40, pad: 4
-        },
-        legend: {
-            x: 1, y: 1.1, xanchor: 'right', "orientation": "h",
-        },
-        itemwidth: 20
+        xaxis: { range: [x1, x2] },      
+        yaxis: { range: [y1, y2] },
+        margin: { l: 40, r: 40, b: 40, t: 40, pad: 4 },
+        legend: { x: 1, y: 1.1, xanchor: 'right', "orientation": "h"},
     }
 
     Plotly.newPlot(canvas, data, layout);
@@ -247,6 +274,8 @@ boutonLancer.addEventListener("click", (event) => {
 
 
 sliderIterations.dispatchEvent(new Event("change"));
-inputx1.dispatchEvent(new Event("change"));
-inputx2.dispatchEvent(new Event("change"));
 inputFunc.dispatchEvent(new Event("change"));
+if (!(inputx1.disabled)){
+    inputx1.dispatchEvent(new Event("change"));
+    inputx2.dispatchEvent(new Event("change"));
+}
