@@ -55,7 +55,7 @@
                 Nombre de couleurs : <strong><span id="couleurs-span"></span></strong><br>
                 1 <input type="range" min="1" max="7" step="1" value="4" class="slider" id="couleurs"> 7<br><br>
                 Nombre de cartes par couleur : <strong><span id="valeurs-span"></span></strong><br>
-                1 <input type="range" min="1" max="20" step="1" value="13" class="slider" id="valeurs"> 20<br><br>
+                1 <input type="range" min="1" max="13" step="1" value="13" class="slider" id="valeurs"> 13<br><br>
 
                 <label for="choix">Mode de récupération des cartes d'un pli :</label><br>
                 <select id="choix" name="choix">
@@ -69,8 +69,10 @@
                 <input type="button" value="Lancer une partie" id="lancer"> <input type="button" value="Réinitialiser la partie" id="reinit"> <br><br><br>
                 
                 Nombre de parties à simuler : <strong><span id="parties-span"></span></strong><br>
-                1000 <input type="range" min="1000" max="30000" step="1000" value="10000" class="slider" id="parties"> 30000<br>
+                1000 <input type="range" min="1000" max="100000" step="1000" value="10000" class="slider" id="parties"> 100000
+                <br>
                 <input type="button" value="Simulations !!" id="simul"><br><br>
+                <i id="attention" style="font-size: 0.7em; color:red;"></i>
                 <div id="commentaires" style="text-align: left; font-size: 0.85em; padding: 5px 15px;"></div>
             </div>
         </div>

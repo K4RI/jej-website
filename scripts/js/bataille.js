@@ -22,6 +22,9 @@ var ordreRecup = 0
 /** le nombre de manches après lequel on considère qu'une partie est "infinie" */
 const limite = 20000
 
+/** indicateur de si une partie est en cours ou non */
+let partieEnCours = false
+
 let paquet1, paquet2, tour
 /**[2 pique, ..., A pique,
     2 trèfle, ..., A trèfle,
@@ -43,10 +46,31 @@ let sliderParties = document.getElementById('parties');
 let textParties = document.getElementById('parties-span');
 let checkIntermediaire = document.getElementById('carteinter');
 let selectOrdre = document.getElementById('choix');
+let baliseAttention = document.getElementById('attention');
 let baliseCommentaires = document.getElementById('commentaires');
 let boutonLancer = document.getElementById('lancer');
 let boutonReinit = document.getElementById('reinit');
 let boutonSimul = document.getElementById('simul');
+
+let canvasText = document.createElement('div')
+canvasText.id = 'canvas-text'
+canvasText.style.padding = '5px'
+canvasText.style.margin = '10px'
+canvasText.style.fontSize = '0.9em'
+
+/** Combien de manches sont affichées */
+let nLines = 5
+for (let i=0; i<nLines; i++){
+    canvasText.appendChild(document.createElement('div'))
+    canvasText.childNodes[i].style.margin = '10px'
+}
+
+/** Réinitialise le div à l'intérieur du canvas. */
+function reinitCanvasText(){
+    for (let i=0; i<nLines; i++){
+        canvasText.childNodes[i].innerHTML = ''
+    }
+}
 
 /** association des boutons aux paramètres */
 sliderValeurs.addEventListener("change", (event) => {
@@ -70,6 +94,12 @@ checkIntermediaire.addEventListener("change", (event) => {
 
 selectOrdre.addEventListener("change", (event) => {
     ordreRecup = parseInt(selectOrdre.value);
+    if (ordreRecup != 0){
+        baliseAttention.innerHTML = "attention ! ce mode de récupération occasionne des parties infinies, qui en cas de simulations peuvent être longues à vérifier. pensez à placer le curseur 'Nombre de parties à simuler' à une très faible valeur pour commencer.<br>"
+        baliseCommentaires.innerHTML = ''
+    } else {
+        baliseAttention.innerHTML = ''
+    }
 })
 
 /** Mélange une liste selon l'algorithme de Fisher-Yates.
@@ -113,6 +143,39 @@ function ordre(c1, c2){
     }
 }
 
+let currentLine = 0
+
+/** Met à jour le canvas à la fin d'une manche. */
+function updateCanvasText(HTMLToAdd){
+    if (currentLine == nLines){
+        currentLine = -1
+    }
+
+    if (currentLine == -1){ // si toutes les lignes sont prises, on glisse vers le haut
+        let child = canvasText.childNodes[0]
+        canvasText.removeChild(child)
+        child.innerHTML = HTMLToAdd
+        canvasText.appendChild(child)
+    } else {
+        canvasText.childNodes[currentLine].innerHTML = HTMLToAdd
+        currentLine++
+    }
+}
+
+/** La taille d'affichage du paquet de cartes en fonction de son effectif. */
+function sizeFont(n){
+    return (n > 85 ? 0.5 :
+            n > 78 ? 0.55 :
+            n > 70 ? 0.6 :
+            n > 65 ? 0.65 :
+            n > 62 ? 0.7 :
+            n > 55 ? 0.6 :
+            n > 52 ? 0.65 :
+            n > 50 ? 0.7 :
+            n > 45 ? 0.75 :
+            n > 40 ? 0.8 :
+            n > 35 ? 0.9 : 1)
+}
 /** Simule une manche de bataille.
  * @param {bool} v Si True, afficher en console le détail de la partie.
  * @param {bool} d Si True, afficher sur le document le détail de la partie.
@@ -120,73 +183,107 @@ function ordre(c1, c2){
 */
 function manche(v, d, main = []){
     tour++
+    let HTMLToAdd = ''
     if (v) console.log(`\nTOUR N°${tour} :
         ${paquet1.length} : ${paquet1.map(e => valeur(e))}
         ${paquet2.length} : ${paquet2.map(e => valeur(e))}
     `)
-    if (d) canvas.innerHTML = `\nTOUR N°${tour} :<br>
-    &nbsp; &nbsp; ${paquet1.length} : ${paquet1.map(e => valeur(e))}<br>
-    &nbsp; &nbsp; ${paquet2.length} : ${paquet2.map(e => valeur(e))}
-`
+    if (d){
+        let s1 = sizeFont(paquet1.length)
+        let s2 = sizeFont(paquet2.length)
+        HTMLToAdd = `<strong>_________TOUR N°${tour} :</strong><br>
+    &nbsp; &nbsp; Joueur - ${paquet1.length} : <span style='font-size:${s1}em'>${paquet1.map(e => valeur(e))}</span><br>
+    &nbsp; &nbsp; Ordi &nbsp;&nbsp;&nbsp;- ${paquet2.length} : <span style='font-size:${s2}em'>${paquet2.map(e => valeur(e))}</span><br>`
+    }
+
     let c1 = paquet1.shift()
     let c2 = paquet2.shift()
     main.push(...ordre(c1, c2))
     if (v) console.log(valeur(c1) + ' ' + valeur(c2))
+    if (d) HTMLToAdd += `&nbsp; &nbsp; cartes tirées : ${valeur(c1)} ${valeur(c2)}<br>`
 
-    if (c1%N > c2%N){
+    if (c1%N > c2%N){ // joueur 1 gagne
         paquet1.push(...main)
         if (v) console.log("----1 l'emporte")
-    } else if (c2%N > c1%N){
+        if (d) HTMLToAdd += `&nbsp; &nbsp; <span style='color:green'>Vous l'emportez : ${paquet1.length}-${paquet2.length}</span><br>`
+        updateCanvasText(HTMLToAdd)
+
+    } else if (c2%N > c1%N){ // joueur 2 gagne
         paquet2.push(...main)
         if (v) console.log("----2 l'emporte")
-    } else if (paquet1.length && paquet2.length){ // égalité : une carte puis on rejoue
+        if (d) HTMLToAdd += `&nbsp; &nbsp; <span style='color:red'>L'ordi l'emporte : ${paquet1.length}-${paquet2.length}</span><br>`
+        updateCanvasText(HTMLToAdd)
+
+    } else if (paquet1.length && paquet2.length){ // égalité : chacun pose une carte puis on rejoue
         if (carteIntermediaire){
             c1 = paquet1.shift()
             c2 = paquet2.shift()
             main.push(...ordre(c1, c2))
         }
-        if (v) console.log("égalité !!")
+        if (v) console.log("BATAILLE !!")
         if (v) console.log('avec la main : ', main.map(e => valeur(e)))
+        if (d) HTMLToAdd += `&nbsp; &nbsp; <span style='color:dimgray'>BATAILLE !! on relance avec la pile [${main.map(e => valeur(e))}]</span>`
+        updateCanvasText(HTMLToAdd)
+
         if (paquet1.length && paquet2.length){
             tour--
             manche(v, d, main)
         }
+    } else { // égalité mais quelqu'un n'a plus de carte...
+        if (d){
+            if (paquet1.length){
+                HTMLToAdd += "L'ordi n'a plus de cartes à jouer..."
+            } else {
+                if (paquet2.length){
+                    HTMLToAdd += "Vous n'avez plus de cartes à jouer..."
+                } else {
+                    HTMLToAdd += "Plus personne n'a de cartes à jouer..."
+                }
+            }
+        }
+        updateCanvasText(HTMLToAdd)
     }
 }
 
 /** Réintialise les conditions de la partie. */
-function initPartie(){    
-    let cartes = shuffle([...Array(N*M).keys()]);    
+function initPartie(){
+    let cartes = shuffle([...Array(N*M).keys()])
     paquet1 = cartes.slice(0, N*M/2)
     paquet2 = cartes.slice(N*M/2, N*M)
-    tour = 0;
+    tour = 0
+    partieEnCours = true
 }
 
 /** Simule une partie de bataille.
- * @param {bool} v Si True (par défaut), afficher en console le détail de la partie.
- * @param {bool} d Si True (pas par défaut), afficher sur le document le détail de la partie.
+ * @param {bool} v Si true (par défaut), afficher en console le détail de la partie.
+ * @param {bool} d Si true (pas par défaut), afficher sur le document le détail de la partie.
+ * @returns {bool} true si la partie s'est terminée, false si elle est "infinie"
 */
 function partie(v=true){
     initPartie()
     while(paquet1.length && paquet2.length && tour < limite){
         manche(v, false)
     }
+    partieEnCours = false
     if (paquet1.length && paquet2.length){
         if (v) console.log('limite atteinte...')
-        return 0
+        return false
     } else {
-        if (v) console.log(paquet1.length ? 'joueur 1 gagne' : 'joueur 2 gagne')
+        if (v) console.log(paquet1.length ? 'JOUEUR 1 GAGNE' : paquet2.length ? 'JOUEUR 2 GAGNE' : 'MATCH NUL')
         if (v) console.log(tour + ' tours')
-        return tour
+        return true
     }
 }
 
+/** Simule un grand nombre de parties de bataille.
+ * @returns {Array} parties : la liste des longueurs des parties
+ * @returns {Number} nInfinies : le nombre obtenu de parties "infinies"
+ */
 function test(){
     let nInfinies = 0
     let parties = []
     for (let i=0; i<nParties; i++){
-        let tour = partie(false)
-        if (tour){
+        if (partie(false)){ // on lance une partie sans verbose
             parties.push(tour)
         } else {
             nInfinies++
@@ -210,39 +307,67 @@ const mean = array => array.length ? array.reduce((a, b) => a + b) / array.lengt
 const median = array => numSort(array)[~~(array.length/2)]
 
 boutonLancer.addEventListener("click", (event) => {
-    if (tour){ // partie déjà débutée
+    if (partieEnCours){ // la partie a déjà débuté
         if (paquet1.length && paquet2.length){
             manche(true, true)
-        } else {
-            console.log(paquet1.length ? 'joueur 1 gagne' : 'joueur 2 gagne')
+        } else { // fin de partie...
+            console.log(paquet1.length ? 'JOUEUR 1 GAGNE' : paquet2.length ? 'JOUEUR 2 GAGNE' : 'MATCH NUL')
             console.log(tour + ' tours')
-            canvas.innerHTML = `VAINQUEUR : ${paquet1.length ? 'JOUEUR 1' : 'JOUEUR 2'}`
-            boutonLancer.value = "Lancer une partie"
+            tour++
+            if (paquet1.length){
+                updateCanvasText(`<strong style='font-size:1.2em;color:green'>'VOUS AVEZ GAGNÉ !'</strong> - ${tour-1} tours`)
+            } else if (paquet2.length){
+                updateCanvasText(`<strong style='font-size:1.2em;color:red'>'Vous avez perdu...'</strong> - ${tour-1} tours`)
+            } else {
+                updateCanvasText(`<strong style='font-size:1.2em'>'Match nul !?'</strong> - ${tour-1} tours`)
+            }
+            partieEnCours = false
+            sliderCouleurs.disabled = false
+            sliderValeurs.disabled = false
+            selectOrdre.disabled = false
+            checkIntermediaire.disabled = false
+            boutonLancer.value = "Relancer une partie"
         }        
     } else {
         initPartie()
+        
+        sliderCouleurs.disabled = true
+        sliderValeurs.disabled = true
+        selectOrdre.disabled = true
+        checkIntermediaire.disabled = true
+        canvas.innerHTML = '' // on le vide du précédent texte, ou du plotly
+        reinitCanvasText()
+        canvas.appendChild(canvasText)// on y remet un texte avec rien dedans
         manche(true, true)
         boutonLancer.value = "Manche suivante"
     }
 })
 
 boutonReinit.addEventListener("click", (event) => {
-    tour = 0
-    canvas.innerHTML = ''
+    reinitCanvasText()
+    partieEnCours = false
+    sliderCouleurs.disabled = false
+    sliderValeurs.disabled = false
+    selectOrdre.disabled = false
+    checkIntermediaire.disabled = false
     boutonLancer.value = "Lancer une partie"
 })
 
 boutonSimul.addEventListener("click", (event) => {
-    canvas.innerHTML = ''
-    baliseCommentaires.innerHTML = `<i style="font-size: 0.9em; color:red; text-align:center;">chargement...</i>`
-    // document.getElementById('loading').style.display = 'inline'
+    canvas.innerHTML = '' // on retire le plotly précédent, ou le canvasText
+    reinitCanvasText()
+    boutonLancer.value = "Lancer une partie"
+    sliderCouleurs.disabled = false
+    sliderValeurs.disabled = false
+    selectOrdre.disabled = false
+    checkIntermediaire.disabled = false
+    baliseCommentaires.innerHTML = `<i style="font-size: 0.9em; color:red;">chargement...</i>`
     let parties, nInfinies
     setTimeout(() => {
         // console.log('chargement...')
         [parties, nInfinies] = test()
-            
-        // console.log(parties.length)
-
+ 
+        baliseAttention.innerHTML = ''
         baliseCommentaires.innerHTML = `Résultats :<br>
         &nbsp; - Parties "infinies" (+ de ${limite} tours) : ${nInfinies}/${nParties}<br>
         &nbsp; - Parties les plus longues :<br>
@@ -254,7 +379,7 @@ boutonSimul.addEventListener("click", (event) => {
         let datahist = [{
             x: parties,
             type: 'histogram',
-            xbins: { start: 0, end: numSort(parties)[~~(0.997*parties.length)] },
+            xbins: { start: 0, end: numSort(parties)[Math.ceil(0.997*parties.length)]+1 },
             nbinsx: Math.min(300, Math.max(...parties)),
             // name: `Nombre de parties`,
             hovertemplate: '<b>Durée</b> <br>%{x} manches : %{y} parties<extra></extra>',
@@ -285,9 +410,25 @@ checkIntermediaire.checked = true
 checkIntermediaire.dispatchEvent(new Event("change"));
 selectOrdre.dispatchEvent(new Event("change"));
 
+window.onload = function(event) {
+    let w = parseInt(canvas.offsetHeight);
+    console.log(typeof(w))
+    canvasText.style.fontSize = w/600 + 'em'
+    console.log(w/500 + 'em')
+};
+window.onresize = function(event) {
+    let w = parseInt(canvas.offsetHeight);
+    console.log(typeof(w))
+    canvasText.style.fontSize = w/600 + 'em'
+    console.log(w/500 + 'em')
+};
+
 /**
  * déjà en mettant un aléatoire dans l'ordre de jeu entre les 2 joueurs, on a plus aucune partie infinie !
  * alors que dans l'ordre prédéfini (gagnant puis perdant), elles existent... https://arxiv.org/pdf/1007.1371.pdf
  * https://www.cristal.univ-lille.fr/~jdelahay/pls/1995/030.pdf
  * https://math.pugetsound.edu/~mspivey/War.pdf
+ * 
+ * Autres idées de statistiques : proportion moyenne de batailles, de batailles doubles voire triples, trouver des cycles
 */
+
