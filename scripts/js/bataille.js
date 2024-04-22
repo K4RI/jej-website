@@ -302,10 +302,6 @@ function test(){
 }
 
 
-const numSort = array => array.sort((a, b) => a - b)
-const mean = array => array.length ? array.reduce((a, b) => a + b) / array.length : 'VIDE';
-const median = array => numSort(array)[~~(array.length/2)]
-
 boutonLancer.addEventListener("click", (event) => {
     if (partieEnCours){ // la partie a déjà débuté
         if (paquet1.length && paquet2.length){
@@ -352,6 +348,11 @@ boutonReinit.addEventListener("click", (event) => {
     checkIntermediaire.disabled = false
     boutonLancer.value = "Lancer une partie"
 })
+
+
+const numSort = array => array.sort((a, b) => a - b)
+const mean = array => array.length ? array.reduce((a, b) => a + b) / array.length : 'VIDE';
+const median = array => numSort(array)[~~(array.length/2)]
 
 boutonSimul.addEventListener("click", (event) => {
     canvas.innerHTML = '' // on retire le plotly précédent, ou le canvasText
@@ -412,15 +413,11 @@ selectOrdre.dispatchEvent(new Event("change"));
 
 window.onload = function(event) {
     let w = parseInt(canvas.offsetHeight);
-    console.log(typeof(w))
     canvasText.style.fontSize = w/600 + 'em'
-    console.log(w/500 + 'em')
 };
 window.onresize = function(event) {
     let w = parseInt(canvas.offsetHeight);
-    console.log(typeof(w))
     canvasText.style.fontSize = w/600 + 'em'
-    console.log(w/500 + 'em')
 };
 
 /**
@@ -429,6 +426,6 @@ window.onresize = function(event) {
  * https://www.cristal.univ-lille.fr/~jdelahay/pls/1995/030.pdf
  * https://math.pugetsound.edu/~mspivey/War.pdf
  * 
- * Autres idées de statistiques : proportion moyenne de batailles, de batailles doubles voire triples, trouver des cycles
+ * Autres idées de statistiques : grapher les médianes en fonction des paramètres, proportion moyenne de batailles, de batailles doubles voire triples, détection des cycles
 */
 
