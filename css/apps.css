@@ -13,6 +13,7 @@
     border: 1px solid black;
     background-color: white;
     margin: 10px 10px;
+    overflow: hidden;
 }
 
 .app-commandes {
@@ -43,4 +44,25 @@ input[type=number]{ /* retire les petites flèches */
     -moz-appearance: textfield;
     appearance: textfield;
     text-align: center;
+}
+
+input[type=range]{
+    width: 60%;
+}
+
+select{
+    width: 60%;
+}
+
+
+@media screen and (max-width: 1060px) {  
+    .app-canvas {
+        height : auto !important;
+        aspect-ratio : 1 / 1 !important;
+        width:min(100vw, 80vh) !important;
+    }
+
+    .app-commandes {
+        width:min(100vw, 80vh) !important;
+    }
 }
