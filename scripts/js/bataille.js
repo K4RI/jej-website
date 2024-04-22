@@ -22,7 +22,7 @@ var ordreRecup = 0
 /** le nombre de manches après lequel on considère qu'une partie est "infinie" */
 const limite = 20000
 
-let paquet1, paquet2
+let paquet1, paquet2, tour
 /**[2 pique, ..., A pique,
     2 trèfle, ..., A trèfle,
     2 coeur, ..., A coeur,
@@ -115,9 +115,19 @@ function ordre(c1, c2){
 
 /** Simule une manche de bataille.
  * @param {bool} v Si True, afficher en console le détail de la partie.
+ * @param {bool} d Si True, afficher sur le document le détail de la partie.
  * @param {Array<Number>} main La pile en cours en cas de bataille.
 */
-function manche(v, main = []){
+function manche(v, d, main = []){
+    tour++
+    if (v) console.log(`\nTOUR N°${tour} :
+        ${paquet1.length} : ${paquet1.map(e => valeur(e))}
+        ${paquet2.length} : ${paquet2.map(e => valeur(e))}
+    `)
+    if (d) canvas.innerHTML = `\nTOUR N°${tour} :<br>
+    &nbsp; &nbsp; ${paquet1.length} : ${paquet1.map(e => valeur(e))}<br>
+    &nbsp; &nbsp; ${paquet2.length} : ${paquet2.map(e => valeur(e))}
+`
     let c1 = paquet1.shift()
     let c2 = paquet2.shift()
     main.push(...ordre(c1, c2))
@@ -138,27 +148,28 @@ function manche(v, main = []){
         if (v) console.log("égalité !!")
         if (v) console.log('avec la main : ', main.map(e => valeur(e)))
         if (paquet1.length && paquet2.length){
-            manche(v, main)
+            tour--
+            manche(v, d, main)
         }
     }
 }
 
-/** Simule une partie de bataille.
- * @param {bool} v Si True (par défaut), afficher en console le détail de la partie.
-*/
-function partie(v=true){
+/** Réintialise les conditions de la partie. */
+function initPartie(){    
     let cartes = shuffle([...Array(N*M).keys()]);    
     paquet1 = cartes.slice(0, N*M/2)
     paquet2 = cartes.slice(N*M/2, N*M)
+    tour = 0;
+}
 
-    let tour = 0;
+/** Simule une partie de bataille.
+ * @param {bool} v Si True (par défaut), afficher en console le détail de la partie.
+ * @param {bool} d Si True (pas par défaut), afficher sur le document le détail de la partie.
+*/
+function partie(v=true){
+    initPartie()
     while(paquet1.length && paquet2.length && tour < limite){
-        if (v) console.log(`\nTOUR N°${tour} :
-            ${paquet1.length} : ${paquet1.map(e => valeur(e))}
-            ${paquet2.length} : ${paquet2.map(e => valeur(e))}
-        `)
-        manche(v)
-        tour++
+        manche(v, false)
     }
     if (paquet1.length && paquet2.length){
         if (v) console.log('limite atteinte...')
@@ -169,10 +180,6 @@ function partie(v=true){
         return tour
     }
 }
-
-const numSort = array => array.sort((a, b) => a - b)
-const mean = array => array.length ? array.reduce((a, b) => a + b) / array.length : 'VIDE';
-const median = array => numSort(array)[~~(array.length/2)]
 
 function test(){
     let nInfinies = 0
@@ -198,44 +205,76 @@ function test(){
 }
 
 
+const numSort = array => array.sort((a, b) => a - b)
+const mean = array => array.length ? array.reduce((a, b) => a + b) / array.length : 'VIDE';
+const median = array => numSort(array)[~~(array.length/2)]
+
 boutonLancer.addEventListener("click", (event) => {
-    partie()
+    if (tour){ // partie déjà débutée
+        if (paquet1.length && paquet2.length){
+            manche(true, true)
+        } else {
+            console.log(paquet1.length ? 'joueur 1 gagne' : 'joueur 2 gagne')
+            console.log(tour + ' tours')
+            canvas.innerHTML = `VAINQUEUR : ${paquet1.length ? 'JOUEUR 1' : 'JOUEUR 2'}`
+            boutonLancer.value = "Lancer une partie"
+        }        
+    } else {
+        initPartie()
+        manche(true, true)
+        boutonLancer.value = "Manche suivante"
+    }
+})
+
+boutonReinit.addEventListener("click", (event) => {
+    tour = 0
+    canvas.innerHTML = ''
+    boutonLancer.value = "Lancer une partie"
 })
 
 boutonSimul.addEventListener("click", (event) => {
-    let [parties, nInfinies] = test()    
+    canvas.innerHTML = ''
+    baliseCommentaires.innerHTML = `<i style="font-size: 0.9em; color:red; text-align:center;">chargement...</i>`
+    // document.getElementById('loading').style.display = 'inline'
+    let parties, nInfinies
+    setTimeout(() => {
+        // console.log('chargement...')
+        [parties, nInfinies] = test()
+            
+        // console.log(parties.length)
 
-    baliseCommentaires.innerHTML = `Résultats :<br>
-    &nbsp; - Parties "infinies" (+ de ${limite} tours) : ${nInfinies}/${nParties}<br>
-    &nbsp; - Parties les plus longues :<br>
-    &nbsp; &nbsp; &nbsp; [${numSort(parties).reverse().slice(0, 5)}]<br>
-    &nbsp; - Moyenne : ${mean(parties).toFixed(2)}<br>
-    &nbsp; - Médiane : ${median(parties)}`
+        baliseCommentaires.innerHTML = `Résultats :<br>
+        &nbsp; - Parties "infinies" (+ de ${limite} tours) : ${nInfinies}/${nParties}<br>
+        &nbsp; - Parties les plus longues :<br>
+        &nbsp; &nbsp; &nbsp; [${numSort(parties).reverse().slice(0, 5)}]<br>
+        &nbsp; - Moyenne : ${mean(parties).toFixed(2)}<br>
+        &nbsp; - Médiane : ${median(parties)}`
 
-    
-    let datahist = [{
-        x: parties,
-        type: 'histogram',
-        nbinsx: Math.min(300, Math.max(...parties)),
-        // name: `Nombre de parties`,
-        hovertemplate: '<b>Durée</b> <br>%{x} manches : %{y} parties<extra></extra>',
-    }]
-
-    let layout = {
-        title: `<span style='font-size: 0.8em'>Histogramme de distribution des durées de ${nParties} parties</span>`,
-        xaxis: {
-            title: {
-                text: "durée d'une partie"
+        
+        let datahist = [{
+            x: parties,
+            type: 'histogram',
+            xbins: { start: 0, end: numSort(parties)[~~(0.997*parties.length)] },
+            nbinsx: Math.min(300, Math.max(...parties)),
+            // name: `Nombre de parties`,
+            hovertemplate: '<b>Durée</b> <br>%{x} manches : %{y} parties<extra></extra>',
+        }]
+        let layout = {
+            title: `<span style='font-size: 0.8em'>Histogramme de distribution des durées de ${nParties} parties</span>`,
+            xaxis: {
+                title: {
+                    text: "durée d'une partie"
+                },
+                // type: 'log',
+                autorange: true
             },
-            // type: 'log',
-            autorange: true
-        },
-        margin: { l: 40, r: 40, b: 50, t: 40, pad: 4 },
-        showlegend: false,
-        legend: { x: 1, xanchor: 'right', y: 1 }
-    }
-    
-    Plotly.newPlot(canvas, datahist, layout);
+            margin: { l: 40, r: 40, b: 50, t: 40, pad: 4 },
+            showlegend: false,
+            legend: { x: 1, xanchor: 'right', y: 1 }
+        }
+        
+        Plotly.newPlot(canvas, datahist, layout);
+    },0)
 })
 
 
