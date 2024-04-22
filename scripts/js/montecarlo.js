@@ -155,6 +155,7 @@ let uniform = function(a,b){
 }
 
 boutonLancer.addEventListener("click", (event) => {
+    event.preventDefault();
 
     /** Nombre de tirages où f(x) < 0, resp f(x) > 0. */
     let Nmoins = 0, Nplus = 0

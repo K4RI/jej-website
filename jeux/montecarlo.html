@@ -52,19 +52,21 @@
             </div>
 
             <div class="app-commandes" style="padding: 3px 10px;height:450px;">
-                Nombre de points : <strong><span id="iterations-span"></span></strong><br>
-                0 <input type="range" min="0" max="1000000" step="1000" value="100000" class="slider" id="iterations"> 1000000<br><br>
+                <form>
+                    Nombre de points : <strong><span id="iterations-span"></span></strong><br>
+                    0 <input type="range" min="0" max="1000000" step="1000" value="100000" class="slider" id="iterations"> 1000000<br><br>
 
-                <!--  cosh(x)*cos(x)*acosh(x)*acos(1/x) -->
-                f(x) = <input type="text" name="func" id="func" value="cos(2*pi*(4*x - x**2))*sqrt(log(1+x**2))" placeholder="Ex. : 2*x, x**2, cos, sin, exp, sqrt, log, floor, round, abs, min, max" size="33"><br>
-                <span id="func-erreur" style="color:red; font-size: 0.8em;"></span>
-                <br>
+                    <!--  cosh(x)*cos(x)*acosh(x)*acos(1/x) -->
+                    f(x) = <input type="text" name="func" id="func" value="cos(2*pi*(4*x - x**2))*sqrt(log(1+x**2))" placeholder="Ex. : 2*x, x**2, cos, sin, exp, sqrt, log, floor, round, abs, min, max" size="33"><br>
+                    <span id="func-erreur" style="color:red; font-size: 0.8em;"></span>
+                    <br>
 
-                Intégrer entre <input name="x1" id="x1" value="0" size="5" maxlength="10" oninput="this.value = this.value.replace(/[^0-9.-]/g, '');"> et <input name="x2" id="x2" value="1" size="5" maxlength="10" oninput="this.value = this.value.replace(/[^0-9.-]/g, '').replace(/(\..*?)\..*/g, '$1');"><br>
-                <span id="bornes-erreur" style="color:red; font-size: 0.8em;"></span>
-                <br>
+                    Intégrer entre <input name="x1" id="x1" value="0" size="5" maxlength="10" oninput="this.value = this.value.replace(/[^0-9.-]/g, '');"> et <input name="x2" id="x2" value="1" size="5" maxlength="10" oninput="this.value = this.value.replace(/[^0-9.-]/g, '').replace(/(\..*?)\..*/g, '$1');"><br>
+                    <span id="bornes-erreur" style="color:red; font-size: 0.8em;"></span>
+                    <br>
 
-                <input type="button" value="Lancer" id="lancer">
+                    <input type="submit" value="Lancer" id="lancer">
+                </form>
                 <br>
                 <div id="commentaires" style="text-align: left; font-size: 0.85em; padding: 5px 15px;"></div>
             </div>
