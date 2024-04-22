@@ -25,6 +25,9 @@ const limite = 20000
 /** indicateur de si une partie est en cours ou non */
 let partieEnCours = false
 
+/** est-ce qu'on affiche en échelle logarithmique */
+let logPlot = false
+
 let paquet1, paquet2, tour
 /**[2 pique, ..., A pique,
     2 trèfle, ..., A trèfle,
@@ -45,6 +48,7 @@ let textCouleurs = document.getElementById('couleurs-span');
 let sliderParties = document.getElementById('parties');
 let textParties = document.getElementById('parties-span');
 let checkIntermediaire = document.getElementById('carteinter');
+let checkLog = document.getElementById('logplot');
 let selectOrdre = document.getElementById('choix');
 let baliseAttention = document.getElementById('attention');
 let baliseCommentaires = document.getElementById('commentaires');
@@ -81,6 +85,7 @@ sliderValeurs.addEventListener("change", (event) => {
 sliderCouleurs.addEventListener("change", (event) => {
     textCouleurs.innerHTML = sliderCouleurs.value;
     M = parseInt(sliderCouleurs.value);
+    checkIntermediaire.disabled = (M==1)
 })
 
 sliderParties.addEventListener("change", (event) => {
@@ -92,10 +97,15 @@ checkIntermediaire.addEventListener("change", (event) => {
     carteIntermediaire = checkIntermediaire.checked;
 })
 
+checkLog.addEventListener("change", (event) => {
+    logPlot = checkLog.checked;
+    if (parties && parties.length){ tracer() }
+})
+
 selectOrdre.addEventListener("change", (event) => {
     ordreRecup = parseInt(selectOrdre.value);
-    if (ordreRecup != 0){
-        baliseAttention.innerHTML = "attention ! ce mode de récupération occasionne des parties infinies, qui en cas de simulations peuvent être longues à vérifier. pensez à placer le curseur 'Nombre de parties à simuler' à une très faible valeur pour commencer.<br>"
+    if (ordreRecup == 2){
+        baliseAttention.innerHTML = "attention ! ce mode de récupération occasionne souvent des parties infinies, qui en cas de simulations peuvent être longues à vérifier. pensez à placer le curseur 'Nombre de parties à simuler' à une très faible valeur pour commencer.<br>"
         baliseCommentaires.innerHTML = ''
     } else {
         baliseAttention.innerHTML = ''
@@ -325,6 +335,7 @@ boutonLancer.addEventListener("click", (event) => {
             boutonLancer.value = "Relancer une partie"
         }        
     } else {
+        parties = [], nInfinies = 0
         initPartie()
         
         sliderCouleurs.disabled = true
@@ -350,10 +361,37 @@ boutonReinit.addEventListener("click", (event) => {
 })
 
 
+function tracer(){
+    let datahist = [{
+        x: parties,
+        type: 'histogram',
+        xbins: { start: 0, end: numSort(parties)[Math.ceil(0.997*parties.length)]+1 },
+        nbinsx: Math.min(300, Math.max(...parties)),
+        // name: `Nombre de parties`,
+        hovertemplate: '<b>Durée</b> <br>%{x} manches : %{y} parties<extra></extra>',
+    }]
+    let layout = {
+        title: `<span style='font-size: 0.8em'>Histogramme de distribution des durées de ${parties.length + nInfinies} parties</span>`,
+        xaxis: {
+            title: {
+                text: "durée d'une partie"
+            },
+            type: logPlot ? 'log' : '-',
+            autorange: true
+        },
+        margin: { l: 40, r: 40, b: 50, t: 40, pad: 4 },
+        showlegend: false,
+        legend: { x: 1, xanchor: 'right', y: 1 }
+    }
+    
+    Plotly.newPlot(canvas, datahist, layout);
+}
+
 const numSort = array => array.sort((a, b) => a - b)
 const mean = array => array.length ? array.reduce((a, b) => a + b) / array.length : 'VIDE';
 const median = array => numSort(array)[~~(array.length/2)]
 
+let parties, nInfinies
 boutonSimul.addEventListener("click", (event) => {
     canvas.innerHTML = '' // on retire le plotly précédent, ou le canvasText
     reinitCanvasText()
@@ -363,7 +401,7 @@ boutonSimul.addEventListener("click", (event) => {
     selectOrdre.disabled = false
     checkIntermediaire.disabled = false
     baliseCommentaires.innerHTML = `<i style="font-size: 0.9em; color:red;">chargement...</i>`
-    let parties, nInfinies
+    
     setTimeout(() => {
         // console.log('chargement...')
         [parties, nInfinies] = test()
@@ -375,31 +413,7 @@ boutonSimul.addEventListener("click", (event) => {
         &nbsp; &nbsp; &nbsp; [${numSort(parties).reverse().slice(0, 5)}]<br>
         &nbsp; - Moyenne : ${mean(parties).toFixed(2)}<br>
         &nbsp; - Médiane : ${median(parties)}`
-
-        
-        let datahist = [{
-            x: parties,
-            type: 'histogram',
-            xbins: { start: 0, end: numSort(parties)[Math.ceil(0.997*parties.length)]+1 },
-            nbinsx: Math.min(300, Math.max(...parties)),
-            // name: `Nombre de parties`,
-            hovertemplate: '<b>Durée</b> <br>%{x} manches : %{y} parties<extra></extra>',
-        }]
-        let layout = {
-            title: `<span style='font-size: 0.8em'>Histogramme de distribution des durées de ${nParties} parties</span>`,
-            xaxis: {
-                title: {
-                    text: "durée d'une partie"
-                },
-                // type: 'log',
-                autorange: true
-            },
-            margin: { l: 40, r: 40, b: 50, t: 40, pad: 4 },
-            showlegend: false,
-            legend: { x: 1, xanchor: 'right', y: 1 }
-        }
-        
-        Plotly.newPlot(canvas, datahist, layout);
+        tracer()
     },0)
 })
 
@@ -409,8 +423,11 @@ sliderCouleurs.dispatchEvent(new Event("change"));
 sliderParties.dispatchEvent(new Event("change"));
 checkIntermediaire.checked = true
 checkIntermediaire.dispatchEvent(new Event("change"));
+checkLog.checked = false
+checkLog.dispatchEvent(new Event("change"));
 selectOrdre.dispatchEvent(new Event("change"));
 
+/** Rendre la taille du texte proportionnelle à la taille du canvas */
 window.onload = function(event) {
     let w = parseInt(canvas.offsetHeight);
     canvasText.style.fontSize = w/600 + 'em'
@@ -426,6 +443,7 @@ window.onresize = function(event) {
  * https://www.cristal.univ-lille.fr/~jdelahay/pls/1995/030.pdf
  * https://math.pugetsound.edu/~mspivey/War.pdf
  * 
- * Autres idées de statistiques : grapher les médianes en fonction des paramètres, proportion moyenne de batailles, de batailles doubles voire triples, détection des cycles
+ * Autres idées de statistiques : grapher les médianes en fonction des paramètres n m, proportion moyenne de batailles, de batailles doubles voire triples, détection des cycles
+ * 
 */
 

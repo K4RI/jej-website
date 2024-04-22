@@ -78,7 +78,8 @@
                 Nombre de parties à simuler : <strong><span id="parties-span"></span></strong><br>
                 1000 <input type="range" min="1000" max="100000" step="1000" value="1000" class="slider" id="parties"> 100000
                 <br>
-                <input type="button" value="Simulations !!" id="simul"><br><br>
+                <input type="checkbox" id="logplot"><label for="logplot" checked>échelle logarithmique</label><br><br>
+                <input type="button" value="Simulations !!" id="simul"><br>
                 <i id="attention" style="font-size: 0.7em; color:red;"></i>
                 <div id="commentaires" style="text-align: left; font-size: 0.85em; padding: 5px 15px;"></div>
             </div>
@@ -126,7 +127,7 @@
         </table>
         <p><sup>(1) c'est le non-déterminisme de cette variante qui avait permis de démontrer mathématiquement l'absence de parties infinies pour m=1 couleur. par cette heuristique, on peut conjecturer qu'il en est de même pour les autres m, en particulier notre m=4...</sup></p>
         <p><sup>(2) toutes les parties semblent a priori finies dans cette variante... mais lorsque l'on simule 1 million de parties à m=4 n=7 un jeu de vingt-huit cartes, il apparaît, respectivement avec et sans carte intermédiaire, des parties infinies dans 0.015% et 0.1% des cas ! pareil pour m=4 n=5, dans 0.0008% et 0.002% des cas !! c'est dingue non !!</sup> </p>
-        <p><sup>je n'ai trouvé aucune partie infinie pour les autres n. pour n=1,2,3 le nombre de configurations initiales de paquets étant inférieur à 20000 (cf. <a href="https://www.cristal.univ-lille.fr/~jdelahay/pls/1995/030.pdf">1995</a>), je peux présumer qu'à 1 million de parties elles sont toutes été vérifiées. pour n=4, il y a environ 31 millions de parties possibles ; rien trouvé sur 100 millions de tests, où le problème du collectionneur de coupons (cf. <a href="https://cahier-de-prepa.fr/mpsi-leconte/download?id=35">2023</a> non c'est le même auteur que 1995 ?? légende !) indique que j'aurais pourtant visité 1-e<sup>-100/31</sup>=96% des parties. et pour n≥5 il y en a plus de 150 milliards, impossible de toutes les parcourir... mais même si je n'en ai trouvé aucune, les contre-exemples ci-dessus montrent qu'on est jamais à l'abri d'une infime probabilité !</sup> </p>
+        <p><sup>je n'ai trouvé aucune partie infinie pour les autres n. pour n=1,2,3 le nombre de configurations initiales de paquets étant inférieur à 20000 (cf. <a href="https://www.cristal.univ-lille.fr/~jdelahay/pls/1995/030.pdf">1995</a>), je peux présumer avec quasi-quasi-certitude qu'à 1 million de tests elles ont toutes été vérifiées. pour n=4, il y a environ 31 millions de parties possibles ; rien trouvé sur 200 millions de tests, où le problème du collectionneur de coupons (cf. <a href="https://cahier-de-prepa.fr/mpsi-leconte/download?id=35">2023</a> non c'est le même auteur que 1995 ?? légende !) indique que j'aurais pourtant visité 1-e<sup>-200/31</sup>=99.8% des parties. et pour n≥5 il y en a plus de 150 milliards, impossible de toutes les parcourir... mais même si je n'en ai trouvé aucune, les contre-exemples ci-dessus montrent qu'on est jamais à l'abri d'une infime probabilité !</sup> </p>
         <sup>(3) les indicateurs de moyenne et de maximum montrent que dans l'infime fraction des parties qui se terminent, elles le font très rapidement. l'assomption faite "+ de 20000 manches ⇒ infini" est d'autant plus forte, car s'il n'y en a aucune de durée 200 à 20000, il paraît fort plausible qu'il n'y en ait aucune de durée >20000.</sup>
 
         <p>rien à voir mais je trouve assez comique que les articles 2010 et 2011 se citent mutuellement hahaha</p>

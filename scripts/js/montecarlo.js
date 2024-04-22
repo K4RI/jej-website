@@ -4,6 +4,7 @@
 
 // max(x**2 - 1, 0) - 5*max(0.25-x**2,0), entre -2 et 2
 // cos(2*pi*(4*x - x**2))*sqrt(log(1+x**2)), entre 0 et 1
+// 2*min(x**2-1,0)+sqrt(abs(x)), entre -5 et 5
 
 /** initialisation des variables et des HTMLElements */
 
