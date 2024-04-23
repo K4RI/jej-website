@@ -170,6 +170,8 @@ boutonTracer.addEventListener("click", (event) => {
         }
     }
 
+    // facteur pour les couleurs aléatoires. + élévé -> couleurs + foncées
+    let a = 1.3
     let data = []
     // dans chaque liste départementale, l'entrer dans le data
     for (let key in records){
@@ -184,7 +186,7 @@ boutonTracer.addEventListener("click", (event) => {
             y: ys,
             text: names,
             type: 'line',
-            line: {width: w, color: `rgb(${255*Math.random()}, ${255*Math.random()}, ${255*Math.random()})`},
+            line: {width: w, color: `rgb(${255*Math.random()/a}, ${255*Math.random()/a}, ${255*Math.random()/a})`},
             hovertemplate: '%{text}<extra></extra>',
             // hovertemplate: '%{text}<br>(%{y}, %{x})<extra></extra>',      
             showlegend: false,      
