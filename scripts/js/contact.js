@@ -16,7 +16,6 @@ if (typeof Sentry === 'undefined') {
 
 formulaire.addEventListener('submit', (event) => {
     event.preventDefault();
-    alert('Message envoyé !');
     setTimeout(function(){
         window.location.href = 'index.html'
     }, 1000);
@@ -30,5 +29,7 @@ formulaire.addEventListener('submit', (event) => {
         email: tContact.value,
         comments: `--- ${tTitre.value} ---\n${tMessage.value}`,
     };
+    console.log(userFeedback)
     Sentry.captureUserFeedback(userFeedback);
+    alert('Message envoyé !');
 })

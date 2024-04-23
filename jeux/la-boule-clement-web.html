@@ -18,29 +18,7 @@
             src="https://browser.sentry-cdn.com/7.109.0/bundle.tracing.replay.feedback.min.js"
             integrity="sha384-UOHtopg/2oHFq5gWo4f6BqumWrpIqfa/oQLQmiDgvvmBHR3GYxNhnZsd241Rs8mt"
             crossorigin="anonymous"
-        ></script>        
-
-        <script> // https://docs.sentry.io/platforms/javascript/
-          Sentry.init({
-              dsn: "https://7ac034c5bbd378a354f1bbca6c11dff7@o4507037759111168.ingest.us.sentry.io/4507037763895296",
-              
-              integrations: [
-                  Sentry.feedbackIntegration({
-                  // Additional SDK configuration goes in here, for example:
-                  colorScheme: "system",
-                  }),
-              ],
-
-              beforeSend(event, hint) {
-                  // Check if it is an exception, and if so, show the report dialog
-                  if (event.exception && event.event_id) {
-                      Sentry.showReportDialog({ eventId: event.event_id });
-                  }
-                  return event;
-              },
-          });
-      </script>
-        <!-- Fin de l'initialisation de Sentry -->
+        ></script>
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -90,23 +68,18 @@
           <div class="flex-container" style="display: flex; gap: 10px;">
             <canvas id="unity-canvas"></canvas>
             
-            <table style="display: none; margin: auto; text-align: center;">
+            <table style="margin-top: 0; text-align: center;width: 170px;">
               <!-- pas sûr de l'affichage pour l'instant...
                   si activé, rajouter "left: -50px" au #unity-loading-bar de style.css -->
-                  
-            <colgroup>
-              <col style="width: 75px">
-              <col style="width: 75px">
-           </colgroup>
+              
               <thead>
                 <th>Nom</th>
                 <th>Score</th>
               </thead>              
               <tbody>
-                <tr>
-                  <td>zac</td>
-                  <td>5.25</td>
-                </tr>
+                <tr> <td>zac</td> <td>5.25</td> </tr>
+                <tr> <td>théo</td> <td>6.65</td> </tr>
+                <tr> <td>césar</td> <td>7.88</td> </tr>
               </tbody>
             </table>
           </div>
@@ -131,7 +104,7 @@
                 var erreur = true;
             }
 
-            // Fonction appelée par Unity, qui sauvegarde le score dans Sentry.
+            /** Fonction appelée par Unity, qui sauvegarde le score dans Sentry. */
             function sauvegarderScore(timer) {
               if (erreur) {
                 alert("feature bloquée à cause de ton bloqueur dsl cf texte en rouge")
@@ -144,6 +117,7 @@
                     name: "Score",
                     comments: `${nom} / ${timer}`,
                 };
+                console.log(userFeedback)
                 Sentry.captureUserFeedback(userFeedback);
               }
             }

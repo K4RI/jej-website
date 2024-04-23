@@ -17,27 +17,6 @@
             crossorigin="anonymous"
         ></script>
 
-        <script> // https://docs.sentry.io/platforms/javascript/
-            Sentry.init({
-                dsn: "https://7ac034c5bbd378a354f1bbca6c11dff7@o4507037759111168.ingest.us.sentry.io/4507037763895296",
-                
-                integrations: [
-                    Sentry.feedbackIntegration({
-                    // Additional SDK configuration goes in here, for example:
-                    colorScheme: "system",
-                    }),
-                ],
-
-                beforeSend(event, hint) {
-                    // Check if it is an exception, and if so, show the report dialog
-                    if (event.exception && event.event_id) {
-                        Sentry.showReportDialog({ eventId: event.event_id });
-                    }
-                    return event;
-                },
-            });
-        </script>
-
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900&display=swap" rel="stylesheet">
