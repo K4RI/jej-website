@@ -12,10 +12,21 @@
             crossorigin="anonymous"
         ></script>
         <script
-            src="https://browser.sentry-cdn.com/7.109.0/bundle.tracing.replay.feedback.min.js"
-            integrity="sha384-UOHtopg/2oHFq5gWo4f6BqumWrpIqfa/oQLQmiDgvvmBHR3GYxNhnZsd241Rs8mt"
+            src="https://browser.sentry-cdn.com/7.112.1/bundle.tracing.replay.feedback.min.js"
+            integrity="sha384-MVg62ETpDguyyv7fpqWHeT8uUghhNkJYTbMbCQhds/SaS8MjekWVRdUYXv0SnrcX"
             crossorigin="anonymous"
         ></script>
+        
+        <script> // pour l'ajouter dans l'onglet "User Feedback"
+            Sentry.init({
+                dsn: "https://7ac034c5bbd378a354f1bbca6c11dff7@o4507037759111168.ingest.us.sentry.io/4507037763895296",
+                integrations: [
+                    Sentry.feedbackIntegration({
+                    colorScheme: "system",
+                    }),
+                ],
+            });
+        </script>
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

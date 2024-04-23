@@ -15,10 +15,21 @@
             crossorigin="anonymous"
         ></script>
         <script
-            src="https://browser.sentry-cdn.com/7.109.0/bundle.tracing.replay.feedback.min.js"
-            integrity="sha384-UOHtopg/2oHFq5gWo4f6BqumWrpIqfa/oQLQmiDgvvmBHR3GYxNhnZsd241Rs8mt"
+            src="https://browser.sentry-cdn.com/7.112.1/bundle.tracing.replay.feedback.min.js"
+            integrity="sha384-MVg62ETpDguyyv7fpqWHeT8uUghhNkJYTbMbCQhds/SaS8MjekWVRdUYXv0SnrcX"
             crossorigin="anonymous"
         ></script>
+        
+        <script> // pour l'ajouter dans l'onglet "User Feedback"
+            Sentry.init({
+                dsn: "https://7ac034c5bbd378a354f1bbca6c11dff7@o4507037759111168.ingest.us.sentry.io/4507037763895296",
+                integrations: [
+                    Sentry.feedbackIntegration({
+                    colorScheme: "system",
+                    }),
+                ],
+            });
+        </script>
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -69,15 +80,14 @@
             <canvas id="unity-canvas"></canvas>
             
             <table style="margin-top: 0; text-align: center;width: 170px;">
-              <!-- pas sûr de l'affichage pour l'instant...
-                  si activé, rajouter "left: -50px" au #unity-loading-bar de style.css -->
-              
+              <!-- si activé, rajouter "left: -50px" au #unity-loading-bar de style.css -->              
               <thead>
                 <th>Nom</th>
                 <th>Score</th>
               </thead>              
               <tbody>
                 <tr> <td>zac</td> <td>5.25</td> </tr>
+                <tr> <td>numa</td> <td>6.30</td> </tr>
                 <tr> <td>théo</td> <td>6.65</td> </tr>
                 <tr> <td>césar</td> <td>7.88</td> </tr>
               </tbody>
@@ -119,6 +129,9 @@
                 };
                 console.log(userFeedback)
                 Sentry.captureUserFeedback(userFeedback);
+                setTimeout(function(){
+                    location.reload()
+                }, 1000);
               }
             }
 
