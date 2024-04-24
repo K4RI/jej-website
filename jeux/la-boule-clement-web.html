@@ -64,6 +64,7 @@
         <p><strong style="font-size: 1.1em;">si la version web a un problème de chargement, le jeu est jouable en standalone <a href="la boule clément.zip">ici</a> </strong></p>
         <p>ok c'est la boule clément</p>
         <p>le but est d'attraper les douze bricoles le plus vite possible en déplaçant la boule clément avec les touches zqsd, on peut aussi réinit avec entrée</p>
+        <p>une feature assez sympa c'est le tableau sur la droite :) à la fin de ta run si tu as été rapide, il y a une touche pour envoyer ton score afin qu'il aille dans le tableau, qui se réaffiche une fois par jour. bon courage pour atteindre le sommet !</p>
         <span id="erreur" style="font-size: 1em; color: red; display: none;"><strong>
           <p><u>ATTENTION : le module d'envoi des highscores n'a pas pu s'importer.</u> il y a deux causes possibles :</p>
             <ol>
@@ -74,21 +75,20 @@
           <p>donc si tu veux t'enregistrer dans les highscores il faudra désactiver le bloqueur et recharger la page (promis y a zéro pub sur le site mdr), sinon c'est pas grave tu peux quand même profiter du jeu ^^</p>
           <br><br>
         </strong></span>
-        <p></p>
         
         <div id="unity-container" class="unity-desktop">
-          <div class="flex-container" style="display: flex; gap: 10px;">
+          <div class="flex-container" style="display: flex; gap: 5px;">
             <canvas id="unity-canvas"></canvas>
             
-            <table style="margin-top: 0; text-align: center;width: 170px;">
-              <!-- si activé, rajouter "left: -50px" au #unity-loading-bar de style.css -->              
+            <table style="margin-top: 0; text-align: center;">
+              <!-- si activé, rajouter "left: -50px" au #unity-loading-bar de style.css -->
               <thead>
                 <th>Nom</th>
                 <th>Score</th>
-              </thead>              
+              </thead>
               <tbody>
-                <tr> <td>zac</td> <td>5.12</td> </tr>
-                <tr> <td>nicolas</td> <td>5.55</td> </tr>
+                <tr> <td>zac</td> <td>5.05</td> </tr>
+                <tr> <td>nicolas</td> <td>5.42</td> </tr>
                 <tr> <td>numa</td> <td>6.30</td> </tr>
                 <tr> <td>théo</td> <td>6.65</td> </tr>
                 <tr> <td>césar</td> <td>7.88</td> </tr>
@@ -122,6 +122,9 @@
                 alert("feature bloquée à cause de ton bloqueur dsl cf texte en rouge")
               } else {
                 let nom = prompt("Score de " + timer + " secondes ! Entrez votre nom :")
+                while (!nom){
+                  nom = prompt("Entrez votre nom j'ai dit ohlala :")
+                }
 
                 const eventId = Sentry.captureMessage("User Feedback");
                 const userFeedback = {
