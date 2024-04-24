@@ -63,6 +63,8 @@ select{
     }
 
     .app-commandes {
+        height : auto !important;
+        aspect-ratio : 3 / 5 !important;
         width:min(100vw, 80vh) !important;
     }
 }

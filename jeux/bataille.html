@@ -58,7 +58,7 @@
             <div class='app-canvas' style="width:600px;height:500px;">
             </div>
 
-            <div class="app-commandes" style="padding: 3px 10px;height:500px;">
+            <div class="app-commandes" style="padding: 3px 10px;height:510px;">
                 Nombre de couleurs : <strong><span id="couleurs-span"></span></strong><br>
                 1 <input type="range" min="1" max="7" step="1" value="4" class="slider" id="couleurs"> 7<br><br>
                 Nombre de cartes par couleur : <strong><span id="valeurs-span"></span></strong><br>
@@ -71,9 +71,9 @@
                     <option value="2">La carte du joueur 1 d'abord</option>
                 </select><br><br>
 
-                <input type="checkbox" id="carteinter"><label for="carteinter" checked>carte intermédiaire lors d'une bataille</label><br><br>
+                <input type="checkbox" id="carteinter"><label for="carteinter" checked="true"/>carte intermédiaire lors d'une bataille</label><br><br>
 
-                <input type="button" value="Lancer une partie" id="lancer"> <input type="button" value="Réinitialiser la partie" id="reinit"> <br><br><br>
+                <input type="button" value="Lancer une partie" id="lancer"> <input type="button" value="Réinitialiser la partie" id="reinit"> <br>_________________<br><br>
                 
                 Nombre de parties à simuler : <strong><span id="parties-span"></span></strong><br>
                 1000 <input type="range" min="1000" max="100000" step="1000" value="1000" class="slider" id="parties"> 100000
@@ -86,17 +86,20 @@
         </div>
 
         <h2>Observations</h2>
+        <h3>Résultats connus</h3>
         <p>les articles mentionnés plus haut ont démontré mathématiquement certains résultats concernant l'existence des parties infinies. en notant m le nombre de couleurs et n le nombre de valeurs :</p>
         <ul>
-            <li> pour m=4 (carte la plus haute d'abord & sans carte intermédiaire), <a href="https://www.cristal.univ-lille.fr/~jdelahay/pls/1995/030.pdf">1995</a> montre qu'il n'existe pas de parties infinies pour n=1 ou 2, mais qu'il en existe pour n=3,4,6,7,8 et tout multiple de 4.</li>
+            <li> pour m=4 (carte la plus haute d'abord & sans carte intermédiaire), <a href="https://www.cristal.univ-lille.fr/~jdelahay/pls/1995/030.pdf">1995</a> montre qu'il n'existe aucune partie infinie pour n=1 ou 2, mais qu'il en existe pour n=3,4,6,7,8 et tout multiple de 4.</li>
             <li> pour m=1 (carte la plus haute d'abord), <a href="https://www.emis.de/journals/INTEGERS/papers/kg2/kg2.pdf">2010</a> montre qu'il existe une partie infinie pour tout les n qui ne sont pas de forme 2<sup>k</sup> ou 3·2<sup>k</sup></li>
             <li> pour m=4 (carte du joueur 1 d'abord), <a href="https://arxiv.org/pdf/1007.1371.pdf">2011</a> montre qu'il existe une partie infinie pour n=13</li>
             <li> pour m=1 (carte du joueur 1 d'abord), <a href="https://arxiv.org/pdf/1007.1371.pdf">2011</a> montre qu'il existe une partie infinie pour n=6</li>
-            <li> pour m=1 (ordre aléatoire), <a href="https://arxiv.org/pdf/1007.1371.pdf">2011</a> montre qu'il n'existe pas de parties infinies pour tout n</li>
+            <li> pour m=1 (ordre aléatoire), <a href="https://arxiv.org/pdf/1007.1371.pdf">2011</a> montre qu'il n'existe aucune partie infinie pour tout n</li>
         </ul>
-        <p>de mon côté, l'outil ne vérifie pas (encore !) de façon mathématique et rigoureuse qu'une partie est bien infinie. dans les cas déterministes, càd les ordres "carte la plus haute d'abord" et "carte du joueur 1 d'abord", cela pourrait se vérifier en constatant la présence d'un cycle. de par l'absence totale observée de parties finissant après 13000 manches, je me suis donc contenté de considérer qu'à partir de 20000 manches, la partie était infinie.</p>
 
-        <p>en tapotant de ci de là, j'ai fait quelques simulations (que vous pouvez refaire vous-même !) sur 100000 parties dans le cas classique m=4 et n=13 d'un jeu de cinquante-deux cartes, afin de trouver empiriquement dans quelles configurations l'on trouvait des parties infinies.</p>
+        <h3>Mes simulations</h3>
+        <p>de mon côté, l'outil ne vérifie pas (encore !) de façon mathématique et rigoureuse qu'une partie est bien infinie. dans les cas déterministes, càd les ordres "carte la plus haute d'abord" et "carte du joueur 1 d'abord", cela pourrait se vérifier en constatant la présence d'un cycle. à une règle du jeu fixée, par surjectivité de la fonction reliant les configurations initiales de paquets à leurs nombres de manches, il existe nécessairement un nombre de manches maximal pour les parties finies. de par l'absence totale observée de parties finissant après 15000 manches, je me suis contenté de considérer que le maximum était d'un ordre de grandeur similaire, et donc qu'à partir de 20000 manches la partie était "infinie".</p>
+
+        <p>en tapotant de ci de là, j'ai fait quelques simulations (que vous pouvez refaire vous-même !) sur 100000 parties dans le cas classique m=4 et n=13 d'un jeu de cinquante-deux cartes, afin d'estimer empiriquement dans quelles configurations l'on trouvait des parties infinies.</p>
 
         <table style="text-align: center; width: 90%;">
             <colgroup>
@@ -112,26 +115,32 @@
             <tr>
                 <td><strong>Aléatoire<sup>(1)</sup></strong></td>
                 <td>0% de parties infinies <i style="font-size: 0.8em">moy: 430, max: 4000</i></td>
-                <td>0% de parties infinies <i style="font-size: 0.8em">moy: 430, max: 4000</i></td>
+                <td>0% de parties infinies <i style="font-size: 0.8em">moy: 580, max: 5000</i></td>
             </tr>
             <tr>
                 <td><strong>Plus haute d'abord</strong><sup>(2)</sup></td>
-                <td>0% de parties infinies <i style="font-size: 0.8em">moy: 250, max: 1500</i></td>
-                <td>0% de parties infinies <i style="font-size: 0.8em">moy: 300, max: 2000</i></td>
+                <td>0% de parties infinies <i style="font-size: 0.8em">moy: 250, max: 1700</i></td>
+                <td>0% de parties infinies <i style="font-size: 0.8em">moy: 320, max: 2200</i></td>
             </tr>
             <tr>
                 <td><strong>Joueur 1 d'abord</strong></td>
-                <td>41.3% de parties infinies <i style="font-size: 0.8em">moy: 1700, max: 13000</i></td>
-                <td>99.8% de parties infinies<sup>(3)</sup> <i style="font-size: 0.8em">moy: 100, max: 200</i></td>
+                <td>41.3% de parties infinies <i style="font-size: 0.8em">moy: 1800, max: 15000</i></td>
+                <td>99.8% de parties infinies<sup>(3)</sup> <i style="font-size: 0.8em">moy: 90, max: 100</i></td>
             </tr>
         </table>
+
         <p><sup>(1) c'est le non-déterminisme de cette variante qui avait permis de démontrer mathématiquement l'absence de parties infinies pour m=1 couleur. par cette heuristique, on peut conjecturer qu'il en est de même pour d'autres m, en particulier notre m=4...</sup></p>
-        <p><sup>(2) toutes les parties semblent a priori finies dans cette variante... mais lorsque l'on simule 1 million de parties à m=4 n=7 un jeu de vingt-huit cartes, il apparaît, respectivement avec et sans carte intermédiaire, des parties infinies dans 0.015% et 0.1% des cas ! pareil pour m=4 n=5, dans 0.0008% et 0.002% des cas !! c'est dingue non !!</sup> </p>
-        <p><sup>je n'ai trouvé aucune partie infinie pour les autres n. pour n=1,2,3 le nombre de configurations initiales de paquets étant inférieur à 20000 (cf. <a href="https://www.cristal.univ-lille.fr/~jdelahay/pls/1995/030.pdf">1995</a>), je peux présumer avec quasi-quasi-certitude qu'à 1 million de tests elles ont toutes été vérifiées. pour n=4, il y a environ 31 millions de parties possibles ; rien trouvé sur 200 millions de tests, où le problème du collectionneur de coupons (cf. <a href="https://cahier-de-prepa.fr/mpsi-leconte/download?id=35">2023</a> non c'est le même auteur que 1995 ?? légende !) indique que j'aurais pourtant visité 1-e<sup>-200/31</sup>=99.8% des parties possibles. et pour n≥5 il y en a plus de 150 milliards, impossible de toutes les parcourir... mais même si je n'en ai trouvé aucune, les contre-exemples ci-dessus montrent qu'on est jamais à l'abri d'une infime probabilité !</sup> </p>
-        <sup>(3) les indicateurs de moyenne et de maximum montrent que dans l'infime fraction des parties qui se terminent, elles le font très rapidement. l'assomption faite "+ de 20000 manches ⇒ infini" est d'autant plus forte, car s'il n'y en a aucune de durée 200 à 20000, il paraît fort plausible qu'il n'y en ait aucune de durée >20000.</sup>
+
+        <p><sup>(2) toutes les parties semblent a priori finies dans cette variante... mais lorsque l'on simule 1 million de parties à m=4 n=7 un jeu de vingt-huit cartes, il apparaît, respectivement avec et sans carte intermédiaire, des parties infinies dans 0.015% et 0.1% des cas* ! pareil pour m=4 n=5, dans 0.0008% et 0.002% des cas* !! c'est dingue non !! </sup><br>
+        <sup>je n'ai trouvé aucune partie infinie pour les autres n. pour n=1,2,3 le nombre de configurations initiales de paquets étant inférieur à 20000 (cf. <a href="https://www.cristal.univ-lille.fr/~jdelahay/pls/1995/030.pdf">1995</a>), je peux présumer avec quasi-quasi-certitude qu'à 1 million de tests elles ont toutes été vérifiées. pour n=4, il y a environ 31 millions de parties possibles ; rien trouvé sur 200 millions de tests, où le problème du collectionneur de coupons (cf. <a href="https://cahier-de-prepa.fr/mpsi-leconte/download?id=35">2023</a> non c'est le même auteur que 1995 ?? légende !) indique que j'aurais pourtant visité 1-e<sup>-200/31</sup>=99.8% des parties possibles. et pour n≥5 il y en a plus de 150 milliards, impossible de toutes les parcourir... mais même si je n'en ai trouvé aucune, les contre-exemples ci-dessus montrent qu'on est jamais à l'abri d'une infime probabilité !<br>
+            <sup>(*je me dois d'être transparent... ces observations ne sont plus reproducibles depuis une légère màj des règles dans mon code. pour suivre l'article de 1995, à la fin d'une bataille on ramasse d'abord les cartes du haut puis vers le bas, alors qu'avant c'était toute la pile en une fois donc l'inverse. et voilà super, je ne trouve plus aucune partie infinie quelque soit le n. les mystères de la science.)</sup></sup>
+        </p>
+
+        <p><sup>(3) les indicateurs de moyenne et de maximum montrent que dans l'infime fraction des parties qui se terminent, elles le font très rapidement. l'assomption faite "+ de 20000 manches ⇒ infini" est d'autant plus forte, car s'il n'y en a aucune de durée 200 à 20000, il paraît fort plausible qu'il n'y en ait aucune de durée >20000.</sup></p>
+
+        <br><br>
 
         <p>rien à voir mais je trouve assez comique que les articles 2010 et 2011 se citent mutuellement hahaha</p>
-
 
         </main>
 

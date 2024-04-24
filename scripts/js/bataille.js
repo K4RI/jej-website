@@ -1,45 +1,40 @@
-/** nombre de valeurs */
+/** @type {Number} nombre de valeurs */
 var N = 13
 const arrValeurs = ['2','3','4','5','6','7','8','9','10','V','D','R','A']
 
-/** nombre de couleurs */
+/** @type {Number} nombre de couleurs */
 var M = 4
 const arrCouleurs = ['pique', 'trèfle', 'çoeur', 'carreau']
 
-/** lors d'une bataille, ajoute-t-on une carte au milieu ? */
+/** @type {boolean} lors d'une bataille, ajoute-t-on une carte au milieu ? */
 var carteIntermediaire = true
 
-/** nombre de parties à simuler */
+/** @type {Number} nombre de parties à simuler */
 var nParties = 10000
 
 /** ordre de récupération des cartes à la fin du pli :
  * 0 : aléatoire
  * 1 : le gagnant d'abord
- * 2 : le joueur 1 d'abord
+ * 2 : le joueur 1 d'abord @type {Number} 
 */
 var ordreRecup = 0
 
-/** le nombre de manches après lequel on considère qu'une partie est "infinie" */
+/** @type {Number} le nombre de manches après lequel on considère qu'une partie est "infinie" */
 const limite = 20000
 
-/** indicateur de si une partie est en cours ou non */
+/** @type {Boolean} indicateur de si une partie est en cours ou non */
 let partieEnCours = false
 
-/** est-ce qu'on affiche en échelle logarithmique */
+/** @type {Boolean} est-ce qu'on affiche en échelle logarithmique */
 let logPlot = false
 
-let paquet1, paquet2, tour
-/**[2 pique, ..., A pique,
-    2 trèfle, ..., A trèfle,
-    2 coeur, ..., A coeur,
-    2 carreau, ..., A carreau]
+/** @type {Array<Number>} les paquets de chaque joueur */
+let paquet, paquet1, paquet2
 
-    couleur : ~~(i/13)
-    valeur : i%13
-        faire correspondre avec 2 3 4 5 6 7 8 9 10 V D R A
-*/
+let /** @type {Number} le compteur de tours */ tour, /** le compteur de cartes jouées */ carte
 
 
+/** les HTMLElements de la page pour les contrôles */
 let canvas = document.querySelector('.app-canvas');
 let sliderValeurs = document.getElementById('valeurs');
 let textValeurs = document.getElementById('valeurs-span');
@@ -56,13 +51,14 @@ let boutonLancer = document.getElementById('lancer');
 let boutonReinit = document.getElementById('reinit');
 let boutonSimul = document.getElementById('simul');
 
+/** le canvas l'on écrit le déroulement de la partie */
 let canvasText = document.createElement('div')
 canvasText.id = 'canvas-text'
 canvasText.style.padding = '5px'
 canvasText.style.margin = '10px'
 canvasText.style.fontSize = '0.9em'
 
-/** Combien de manches sont affichées */
+/** @type {Number} combien de manches sont affichées dans le canvas */
 let nLines = 5
 for (let i=0; i<nLines; i++){
     canvasText.appendChild(document.createElement('div'))
@@ -76,7 +72,7 @@ function reinitCanvasText(){
     }
 }
 
-/** association des boutons aux paramètres */
+/** Association des boutons aux paramètres */
 sliderValeurs.addEventListener("change", (event) => {
     textValeurs.innerHTML = sliderValeurs.value;
     N = parseInt(sliderValeurs.value);
@@ -133,7 +129,6 @@ function valeur(n){
         return arrValeurs[n%N]
     }
     return n%N + 1
-    
 }
 function couleur(n){
     return arrCouleurs[~~(n/N)]
@@ -145,7 +140,9 @@ function nomCarteShort(n){
     return `${valeur(n)}${couleur(n)[0]}`
 }
 
-/** Calcule l'ordre de récupération des cartes */
+/** Calcule l'ordre de récupération des cartes
+ *  @returns {Array<Number>} les deux cartes remises en ordre.
+*/
 function ordre(c1, c2){
     switch (ordreRecup){
         case 0: // aléatoire
@@ -157,9 +154,9 @@ function ordre(c1, c2){
     }
 }
 
+/** @type {Number} La ligne actuelle du canvas où l'on écrit.  */
 let currentLine = 0
-
-/** Met à jour le canvas à la fin d'une manche. */
+/** Met à jour le canvas à la fin d'une manche. Utilisé dans manche(). */
 function updateCanvasText(HTMLToAdd){
     if (currentLine == nLines){
         currentLine = -1
@@ -176,7 +173,8 @@ function updateCanvasText(HTMLToAdd){
     }
 }
 
-/** La taille d'affichage du paquet de cartes en fonction de son effectif. */
+/** La taille d'affichage du paquet de cartes en fonction de son effectif.
+ */
 function sizeFont(n){
     return (n > 85 ? 0.5 :
             n > 78 ? 0.55 :
@@ -190,6 +188,7 @@ function sizeFont(n){
             n > 40 ? 0.8 :
             n > 35 ? 0.9 : 1)
 }
+
 /** Simule une manche de bataille.
  * @param {bool} v Si True, afficher en console le détail de la partie.
  * @param {bool} d Si True, afficher sur le document le détail de la partie.
@@ -212,6 +211,7 @@ function manche(v, d, main = []){
 
     let c1 = paquet1.shift()
     let c2 = paquet2.shift()
+    carte++
     main.unshift(...ordre(c1, c2)) // on récup la dernière bataille, puis celle d'avant, etc...
     if (v) console.log(valeur(c1) + ' ' + valeur(c2))
     if (d) HTMLToAdd += `&nbsp; &nbsp; cartes tirées : ${valeur(c1)} ${valeur(c2)}<br>`
@@ -232,6 +232,7 @@ function manche(v, d, main = []){
         if (carteIntermediaire){
             c1 = paquet1.shift()
             c2 = paquet2.shift()
+            carte++
             main.unshift(...ordre(c1, c2))
         }
         if (v) console.log("BATAILLE !!")
@@ -261,16 +262,17 @@ function manche(v, d, main = []){
 
 /** Réintialise les conditions de la partie. */
 function initPartie(){
-    let cartes = shuffle([...Array(N*M).keys()])
-    paquet1 = cartes.slice(0, N*M/2)
-    paquet2 = cartes.slice(N*M/2, N*M)
+    paquet = shuffle([...Array(N*M).keys()])
+    paquet1 = paquet.slice(0, N*M/2)
+    paquet2 = paquet.slice(N*M/2, N*M)
     tour = 0
+    carte = 0
     partieEnCours = true
 }
 
 /** Simule une partie de bataille.
- * @param {bool} v Si true (par défaut), afficher en console le détail de la partie.
- * @param {bool} d Si true (pas par défaut), afficher sur le document le détail de la partie.
+ * @param {bool} v Si true (par défaut oui), afficher en console le détail de la partie.
+ * @param {bool} d Si true (par défaut non), afficher sur le document le détail de la partie.
  * @returns {Number} 0 si elle est "infinie", 1 si elle est nulle, 2 sinon
 */
 function partie(v=true){
@@ -284,57 +286,56 @@ function partie(v=true){
         return 0
     } else {
         if (v) console.log(paquet1.length ? 'JOUEUR 1 GAGNE' : paquet2.length ? 'JOUEUR 2 GAGNE' : 'MATCH NUL')
-        if (v) console.log(tour + ' tours')
+        if (v) console.log(tour + ' tours, ' + carte + ' cartes')
         return (paquet1.length || paquet2.length) ? 2 : 1
     }
 }
 
-let parties, nInfinies, nNulles
+// Les statistiques de la dernière simulation. Sont conservées en global afin de pouvoir modifier l'affichage.
+let /** @type {Array<Number>} les durées de parties (en tours) */ parties,
+    /** @type {Array<Number>} les durées de parties (en cartes jouées */ pcartes,
+    /** @type {Number} le nomnbre de parties infinies */ nInfinies,
+    /** @type {Number} le nombre de parties en match nul */ nNulles    
+
 /** Simule un nombre nParties de parties de bataille.
- * @returns {Array} parties : la liste des longueurs des parties
- * @returns {Number} nNulles : le nombre obtenu de parties nulles
- * @returns {Number} nInfinies : le nombre obtenu de parties "infinies"
+ * @returns {Array} parties, nNulles, nInfinies : cf. ci-dessus.
  */
 function test(){
-    let nInfinies = 0
-    let nNulles = 0
-    let parties = []
+    let parties = [], pcartes = [], nInfinies = 0, nNulles = 0
+    // let cc = []
     for (let i=0; i<nParties; i++){
         switch (partie(false)){ // on lance une partie sans verbose
             case 0:
                 nInfinies++; break;
             case 1:
-                parties.push(tour); nNulles++; break;
+                parties.push(tour); pcartes.push(carte); nNulles++;
+                // if (tour==4){cc.push(JSON.stringify(paquet.map(e => valeur(e))))}
+                break;
             case 2:
-                parties.push(tour); break;
+                parties.push(tour); pcartes.push(carte);
+                // if (tour==4){cc.push(JSON.stringify(paquet.map(e => valeur(e))))}
+                break;
         }
     }
-    return [parties, nNulles, nInfinies]
-
-    // console.log(`${N} VALEURS x ${M} COULEURS = ${N*M} CARTES
-    // Ordre : ${ordreRecup == 0 ? 'aléatoire' : ordreRecup == 1 ? 'gagnant en premier' : 'joueur 1 en premier'}
-    // Carte intermédiaire : ${carteIntermediaire ? 'OUI' : 'NON'}
-
-    // Parties infinies (+ de ${limite} tours) : ${nInfinies}/${nParties}
-    // Parties finies les plus longues : ${numSort(parties).reverse().slice(0, 5)}
-    // Moyenne : ${mean(parties).toFixed(2)}
-    // Médiane : ${median(parties)}`)
+    // console.log(cc.reduce(function (acc, curr) { return acc[curr] ? ++acc[curr] : acc[curr] = 1, acc }, {}))
+    return [parties, pcartes, nNulles, nInfinies]
 }
 
 
+/** Bouton pour lancer d'une manche et l'afficher dans le canvas. */
 boutonLancer.addEventListener("click", (event) => {
     if (partieEnCours){ // la partie a déjà débuté
         if (paquet1.length && paquet2.length){
             manche(true, true)
         } else { // fin de partie...
             console.log(paquet1.length ? 'JOUEUR 1 GAGNE' : paquet2.length ? 'JOUEUR 2 GAGNE' : 'MATCH NUL')
-            console.log(tour + ' tours')
+            console.log(tour + ' tours, ' + carte + ' cartes')
             if (paquet1.length){
-                updateCanvasText(`<strong style='font-size:1.2em;color:green'>'VOUS AVEZ GAGNÉ !'</strong> - ${tour} tours`)
+                updateCanvasText(`<strong style='font-size:1.2em;color:green'>'VOUS AVEZ GAGNÉ !'</strong> - ${tour} tours, ${carte} cartes`)
             } else if (paquet2.length){
-                updateCanvasText(`<strong style='font-size:1.2em;color:red'>'Vous avez perdu...'</strong> - ${tour} tours`)
+                updateCanvasText(`<strong style='font-size:1.2em;color:red'>'Vous avez perdu...'</strong> - ${tour} tours, ${carte} cartes`)
             } else {
-                updateCanvasText(`<strong style='font-size:1.2em'>'Match nul !?'</strong> - ${tour} tours`)
+                updateCanvasText(`<strong style='font-size:1.2em'>'Match nul !?'</strong> - ${tour} tours, ${carte} cartes`)
             }
             partieEnCours = false
             sliderCouleurs.disabled = false
@@ -344,9 +345,8 @@ boutonLancer.addEventListener("click", (event) => {
             boutonLancer.value = "Relancer une partie"
         }        
     } else {
-        parties = [], nInfinies = 0
-        initPartie()
-        
+        parties = [], pcartes = [], nInfinies = 0
+        initPartie()        
         sliderCouleurs.disabled = true
         sliderValeurs.disabled = true
         selectOrdre.disabled = true
@@ -369,26 +369,30 @@ boutonReinit.addEventListener("click", (event) => {
     boutonLancer.value = "Lancer une partie"
 })
 
-
+/** Trace l'histogramme. */
 function tracer(){
     let datahist = [{
         x: parties,
         type: 'histogram',
         xbins: { start: 0, end: numSort(parties)[Math.ceil(0.997*parties.length)]+1 },
         nbinsx: Math.min(300, Math.max(...parties)),
-        // name: `Nombre de parties`,
         hovertemplate: '<b>Durée</b> <br>%{x} manches : %{y} parties<extra></extra>',
     }]
     let layout = {
         title: `<span style='font-size: 0.8em'>Histogramme de distribution des durées de ${parties.length + nInfinies} parties</span>`,
         xaxis: {
             title: {
-                text: "durée d'une partie"
+                text: "durée d'une partie (en tours)"
             },
             type: logPlot ? 'log' : '-',
             autorange: true
         },
-        margin: { l: 40, r: 40, b: 50, t: 40, pad: 4 },
+        yaxis: {
+            title: {
+                text: "nombre de parties avec cette durée"
+            },
+        },
+        margin: { l: 60, r: 40, b: 60, t: 60, pad: 4 },
         showlegend: false,
         legend: { x: 1, xanchor: 'right', y: 1 }
     }
@@ -398,8 +402,9 @@ function tracer(){
 
 const numSort = array => array.sort((a, b) => a - b)
 const mean = array => array.length ? array.reduce((a, b) => a + b) / array.length : 'VIDE';
-const median = array => numSort(array)[~~(array.length/2)]
+// const median = array => [~~(array.length/2)]
 
+/** Simuler des parties et afficher leurs statistiques. */
 boutonSimul.addEventListener("click", (event) => {
     canvas.innerHTML = '' // on retire le plotly précédent, ou le canvasText
     reinitCanvasText()
@@ -411,17 +416,16 @@ boutonSimul.addEventListener("click", (event) => {
     baliseCommentaires.innerHTML = `<i style="font-size: 0.9em; color:red;">chargement...</i>`
     
     setTimeout(() => {
-        // console.log('chargement...')
-        [parties, nNulles, nInfinies] = test()
- 
+        [parties, pcartes, nNulles, nInfinies] = test()
+        let parties_sorted = numSort(parties), pcartes_sorted = numSort(pcartes), nn = parties.length 
         baliseAttention.innerHTML = ''
         baliseCommentaires.innerHTML = `Résultats :<br>
-        &nbsp; - Parties "infinies" (+ de ${limite} tours) : ${nInfinies}/${nParties}<br>
+        &nbsp; <span style="font-size:0.9em">- Parties "infinies" (+ de ${limite} tours) : ${nInfinies}/${nParties}</span><br>
         &nbsp; - Parties nulles : ${nNulles}/${nParties}<br>
-        &nbsp; - Parties les plus longues :<br>
-        &nbsp; &nbsp; &nbsp; [${numSort(parties).reverse().slice(0, 5)}]<br>
-        &nbsp; - Moyenne : ${mean(parties).toFixed(2)}<br>
-        &nbsp; - Médiane : ${median(parties)}`
+        &nbsp; - Parties les plus courtes ... longues :<br>
+        &nbsp; &nbsp; &nbsp; &nbsp; [${parties_sorted.slice(0, 3)}] &nbsp; ... &nbsp; [${parties_sorted.slice(nn-3, nn)}]<br>
+        &nbsp; - Moyenne : ${mean(parties).toFixed(2)} tours, ${mean(pcartes).toFixed(2)} cartes<br>
+        &nbsp; - Médiane : ${parties_sorted[~~(nn/2)]} tours, ${pcartes_sorted[~~(nn/2)]} cartes`
         tracer()
     },0)
 })
@@ -430,20 +434,26 @@ boutonSimul.addEventListener("click", (event) => {
 sliderValeurs.dispatchEvent(new Event("change"));
 sliderCouleurs.dispatchEvent(new Event("change"));
 sliderParties.dispatchEvent(new Event("change"));
-// checkIntermediaire.checked = true
+checkIntermediaire.checked = true
 checkIntermediaire.dispatchEvent(new Event("change"));
 // checkLog.checked = false
 checkLog.dispatchEvent(new Event("change"));
 selectOrdre.dispatchEvent(new Event("change"));
 
+
+let commandes = document.querySelector('.app-commandes')
 /** Rendre la taille du texte proportionnelle à la taille du canvas */
 window.onload = function(event) {
     let w = parseInt(canvas.offsetHeight);
     canvasText.style.fontSize = w/600 + 'em'
+    w = parseInt(commandes.offsetWidth);
+    commandes.style.fontSize = w/320 + 'em'
 };
 window.onresize = function(event) {
     let w = parseInt(canvas.offsetHeight);
     canvasText.style.fontSize = w/600 + 'em'
+    w = parseInt(commandes.offsetWidth);
+    commandes.style.fontSize = w/320 + 'em'
 };
 
 /**
