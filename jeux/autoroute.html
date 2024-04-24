@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <title>jej - autoroute</title>
+        <link rel="icon" type="image/x-icon" href="../img/jej.png">
+        <link href="../css/style.css" rel="stylesheet">
+        <link href="../css/apps.css" rel="stylesheet">
+        <link href="../css/tables.css" rel="stylesheet">
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <script type="module" src="../scripts/js/autoroute.js"></script>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900&display=swap" rel="stylesheet">
+
+        <style>
+            ::placeholder {
+                font-size: 0.6em;
+            }
+
+            .carte-container {
+                display: flex;
+                padding: 10px;
+                margin: 10px;
+                font-size: 0.9em;
+
+                justify-content: space-evenly;
+                align-items: center;
+                height: 40vh;
+            }
+
+            .carte {
+                aspect-ratio: 1/2;
+                height: 50%;
+                line-height:20vh; /* la moitié du height du container */
+                border: 1px solid black;
+            }
+
+            .selected {                
+                box-shadow: 5px 5px 5px red; /* horizontal vertical adoucissement couleur */
+            }
+        </style>
+
+    </head>
+    <body>
+        <a style="font-size: 0.9em"; href="../index.html"> < retour à l'accueil</a>
+        
+        <nav>
+            <div class="nav-container">
+                <a href="../a-propos.html"><span>à propos de jej</span></a>
+                <a href="../dessins.html"><span>dessins</span></a>
+                <a href="../videos.html"><span>vidéos</span></a>
+                <a href="../images.html"><span>images</span></a>
+                <a href="../textes.html"><span>textes</span></a>
+                <a href="../jeux.html"><span>jeux</span></a>
+                <a href="../postits.html"><span>post-its</span></a>
+                <a href="../remerciements.html"><span>special thanks</span></a>
+            </div>
+        </nav>
+
+        <header>
+            <a class="lien-titre" href="#">
+                <h1>autoroute</h1>
+            </a>
+        </header>
+
+        <main>
+
+        <p>l'autoroute est un jeu de boisson</p>
+
+        <div class="app-container">
+            <div class='app-canvas' style="width:600px;height:500px; text-align:center; padding: 5px">
+            </div>
+
+            <div class="app-commandes" style="padding: 10px 10px;height:500px;">
+                <br>
+                Taille de l'autoroute : <strong><span id="taille-span"></span></strong><br>
+                2 <input type="range" min="2" max="7" step="1" value="5" class="slider" id="taille"> 7<br>
+
+                Nombre de cartes par couleur : <strong><span id="valeurs-span"></span></strong><br>
+                1 <input type="range" min="1" max="13" step="1" value="13" class="slider" id="valeurs"> 13<br>
+
+                <input type="checkbox" id="peage"><label for="peage" checked>péage ?</label><br><br>
+
+                <input type="button" value="Lancer une partie" id="lancer"> <input type="button" value="Réinitialiser la partie" id="reinit"> <br><br><br><br>_________________<br><br>
+                
+                Nombre de parties à simuler : <strong><span id="parties-span"></span></strong><br>
+                10 <input type="range" min="0" max="12" step="1" value="5" class="slider" id="parties"> 1000000
+                <br>
+                <!-- <input type="checkbox" id="logplot"><label for="logplot" checked>échelle logarithmique</label><br><br> -->
+                <input type="button" value="Simulations !!" id="simul"><br>
+                <i id="attention" style="font-size: 0.7em; color:red;"></i>
+                <div id="commentaires" style="text-align: left; font-size: 0.85em; padding: 5px 15px;"></div>
+            </div>
+        </div>
+
+        </main>
+
+        <footer>
+            ___________________________
+            <p ><a href="https://www.youtube.com/@jej888" target="_blank">youtube</a> - 
+            <a href="https://twitter.com/chibre_optique" target="_blank">twitter</a> - 
+            <a href="https://www.instagram.com/nwaar888/" target="_blank">instagram</a> - 
+            mail : kariassoumani [at] hotmail.fr
+            </p>
+            <p>© smoking borzoi studios 2k24</p>
+        </footer> 
+
+    </body>
+</html>
