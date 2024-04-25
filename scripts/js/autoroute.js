@@ -6,6 +6,7 @@ const arrCouleurs = ['♠', '♣', '♥', '♦']
 /** @type {Boolean} avec ou sans péage ? */
 var peage = false
 var peageFini = false
+var jpeage
 
 /** @type {Number} nombre de parties à simuler */
 var nParties = 10000
@@ -89,7 +90,7 @@ function canvasInit(){  // affiche toute la partie de gauche pour la partie
     canvas.appendChild(divPeage)
     for (let j=0; j<taille; j++){
         canvasText.childNodes[j].classList.remove('selected')
-        updateCard(canvasText.childNodes[j], ligne[j], peage && j==(taille-1)/2)
+        updateCard(canvasText.childNodes[j], ligne[j], peage && j==jpeage)
     }
 }
 
@@ -100,8 +101,7 @@ sliderTaille.addEventListener("change", (event) => {
     textTaille.innerHTML = sliderTaille.value;
     taille = parseInt(sliderTaille.value);
     changeCanvasSize(taille)
-    checkPeage.disabled = (taille%2==0)
-    peage = checkPeage.checked && (taille%2==1)
+    peage = checkPeage.checked    
 })
 
 sliderValeurs.addEventListener("change", (event) => {
@@ -182,7 +182,7 @@ function manche({auto = true, choix = false, v = true, d = false}){
         paquet = shuffle([...Array(4*N).keys()].filter(e => !(e in ligne))) // on re-remplit puis mélange le paquet
     }
 
-    if (peage && !peageFini && i == (taille-1)/2){ // péage
+    if (peage && !peageFini && i == jpeage){ // péage
         if (v) console.log(`\n-----Ligne ${i+1}\n${valeurArray(ligne)} - péage !`)
         peages++
         let /** la carte du péage */ carteSecrete = ligne[i]
@@ -265,7 +265,7 @@ function manche({auto = true, choix = false, v = true, d = false}){
         }
     }
 
-    if (peage && !peageFini && i == (taille-1)/2){
+    if (peage && !peageFini && i == jpeage){
         if (v) console.log("Tut tut c'est le péage !")
         if (d){
             canvasText.childNodes[i].classList.add('selected')
@@ -289,12 +289,12 @@ function manche({auto = true, choix = false, v = true, d = false}){
         partieEnCours = false
         sliderTaille.disabled = false
         sliderValeurs.disabled = false
-        checkPeage.disabled = (taille%2==0)
+        checkPeage.disabled = false
     }
 }
 
 /** Réinitialise les conditions de la partie, càd le paquet, ligne, i, points. */
-function initPartie(){    
+function initPartie(){
     paquet = shuffle([...Array(4*N).keys()]) // crée le nouveau paquet
     ligne = paquet.slice(0, taille) // et la première ligne devant
     paquet = paquet.slice(taille, 4*N)
@@ -351,7 +351,7 @@ function test(){
 }
 
 
-/** Bouton pour vancer d'une manche et l'afficher dans le canvas. */
+/** Bouton pour lancer d'une manche et l'afficher dans le canvas. */
 boutonLancer.addEventListener("click", (event) => {
     parties = []
     initPartie()
@@ -367,7 +367,12 @@ boutonLancer.addEventListener("click", (event) => {
     canvas.innerHTML = '' // on le vide du précédent texte, ou du plotly
     baliseCommentaires.innerHTML = `<br>valeurs dans le paquet : ${arrValeurs.slice(0,N)}<br><br>`
     if (peage) {
-        baliseCommentaires.innerHTML += `---tentatives du péage :<br>`
+        baliseCommentaires.innerHTML += `---tentatives du péage :<br>`        
+        if (taille%2){ // impair
+            jpeage = (taille-1)/2
+        } else {
+            jpeage = taille/2 - Math.floor(2*Math.random())
+        }
     }
 
     canvasInit()
@@ -390,13 +395,14 @@ boutonReinit.addEventListener("click", (event) => {
     i = 0, points = 0
     sliderTaille.disabled = false
     sliderValeurs.disabled = false
-    checkPeage.disabled = (taille%2==0)
+    checkPeage.disabled = false
     partieEnCours = false
     canvas.innerHTML = '' // on le vide du précédent texte, ou du plotly
     boutonReinit.disabled = true
     boutonLancer.value = "Lancer une partie"
 })
 
+// toSorted() pour ne pas le modifier ? mais comme on s'en fiche de le copier eh c bon
 const numSort = array => array.sort((a, b) => a - b)
 const mean = array => array.length ? array.reduce((a, b) => a + b) / array.length : 'VIDE';
 
@@ -434,12 +440,10 @@ function tracer(){
 
 /** Simuler des parties et afficher leurs statistiques. */
 boutonSimul.addEventListener("click", (event) => {
-    // canvas.innerHTML = '' // on retire le plotly précédent, ou le canvasText
-    // reinitCanvasText()
     boutonLancer.value = "Lancer une partie"
     sliderTaille.disabled = false
     sliderValeurs.disabled = false
-    checkPeage.disabled = (taille%2==0)
+    checkPeage.disabled = false
     boutonReinit.disabled = true
     baliseCommentaires.innerHTML += `<br><i style="font-size: 0.9em; color:red;">chargement...</i>`
     
