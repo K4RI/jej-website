@@ -35,8 +35,9 @@ function feuxVertsLancer(){
 }
 
 sliderIterations.addEventListener("change", (event) => {
-    textIterations.innerHTML = sliderIterations.value;
-    N = parseInt(sliderIterations.value);
+    let listeIterations = [10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000] // 13
+    N = listeIterations[sliderIterations.value];
+    textIterations.innerHTML = N;
 })
 
 /** Dans une formule de maths, remplace les x par leur implémentation Math.x */
@@ -75,6 +76,26 @@ function testBornes(){
     }
 }
 
+let fs = [f = x => Math.cos(2*Math.PI*(4*x - x**2))*Math.sqrt(Math.log(1+x**2)),
+          f = x => Math.max(x**2 - 1, 0) - 5*Math.max(0.25-x**2,0),
+          f = x => 2*Math.min(x**2-1,0)+Math.sqrt(Math.abs(x))]
+let fNoms = ["cos(2*pi*(4*x - x**2))*sqrt(log(1+x**2))",
+             "max(x**2 - 1, 0) - 5*max(0.25-x**2,0)",
+             "2*min(x**2-1,0)+sqrt(abs(x))"]
+let l = document.querySelectorAll('input[type=radio]')
+l.forEach(btn => {
+    btn.addEventListener("change", () => {
+        f = fs[btn.value]
+        fNom = fNoms[btn.value]
+        inputFunc.value = fNom
+        console.log(f, fNom)
+    })
+})
+
+l[0].dispatchEvent(new Event("change"));
+inputFunc.disabled = true
+
+/*
 inputFunc.addEventListener("change", (event) => {
     funcErreur.innerHTML = ''
     bornesErreur.innerHTML = ''    
@@ -97,7 +118,7 @@ inputFunc.addEventListener("change", (event) => {
     console.log(fNomParsed)
     
     try {
-        f = eval(`x => ${fNomParsed}`)
+        // f = eval(`x => ${fNomParsed}`) // AAAAAAAH IL FAUT PAS FAIRE ÇA C'EST PAS BIEN !!!!
         let testReferenceError = f(x1)
     } catch(e) {
         console.log(e)
@@ -114,6 +135,7 @@ inputFunc.addEventListener("change", (event) => {
 
     testBornes()
 })
+*/
 
 inputx1.addEventListener("change", (event) => {
     bornesErreur.innerHTML = ''
@@ -276,7 +298,7 @@ boutonLancer.addEventListener("click", (event) => {
 
 
 sliderIterations.dispatchEvent(new Event("change"));
-inputFunc.dispatchEvent(new Event("change"));
+// inputFunc.dispatchEvent(new Event("change"));
 if (!(inputx1.disabled)){
     inputx1.dispatchEvent(new Event("change"));
     inputx2.dispatchEvent(new Event("change"));
