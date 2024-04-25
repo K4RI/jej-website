@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <title>jej - le jeu de charlène</title>
+        <link rel="icon" type="image/x-icon" href="../img/jej.png">
+        <link href="../css/style.css" rel="stylesheet">
+        <link href="../css/apps.css" rel="stylesheet">
+        <link href="../css/plateau.css" rel="stylesheet">
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <script type="module" src="../scripts/js/halloween-charlene.js"></script>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900&display=swap" rel="stylesheet">
+
+    </head>
+    <body>
+        <a style="font-size: 0.9em"; href="../index.html"> < retour à l'accueil</a>
+        
+        <nav>
+            <div class="nav-container">
+                <a href="../a-propos.html"><span>à propos de jej</span></a>
+                <a href="../dessins.html"><span>dessins</span></a>
+                <a href="../videos.html"><span>vidéos</span></a>
+                <a href="../images.html"><span>images</span></a>
+                <a href="../textes.html"><span>textes</span></a>
+                <a href="../jeux.html"><span>jeux</span></a>
+                <a href="../postits.html"><span>post-its</span></a>
+                <a href="../remerciements.html"><span>special thanks</span></a>
+            </div>
+        </nav>
+
+        <header>
+            <a class="lien-titre" href="#">
+                <h1>le jeu de charlène pour halloween</h1>
+            </a>
+        </header>
+
+        <main>
+
+        <p>en octobre 2023, ma pote charlène a organisé un escape game pour halloween chez des amis. chaque épreuve éliminait un joueur, et il y avait un mini-jeu dont elle voulait s'assurer qu'il était bien équilibrer.</p>
+        <p>c'est un jeu de plateau qui se joue à trois. les joueurs dépassent tour à tour leurs pions selon les règles suivantes :</p>
+        <ul>
+            <li>si le joueur est en 1ère place, il choisit un des deux autres joueurs pour le déplacer à la case juste devant lui</li>
+            <li>s'il est en 3ème place, il prend la place du 2ème en le faisant reculer d'une case</li>
+            <li>s'il est en 2ème place, il passe son tour.</li>
+        </ul>
+        <p>le but est d'arriver au bout. le dernier arrivé est éliminé. j'ai donc codé ce programme à la fois pour simuler une partie, et pour m'assurer que chaque joueur avait la même probabilité de l'emporter, c'est le cas :)</p>
+
+        <div class="app-container">
+
+            <div class="app-commandes-up">
+                Taille plateau : <strong><span id="taille-span"></span></strong> &nbsp; &nbsp;
+                4 <input type="range" min="4" max="20" step="1" value="10" id="taille"> 20 &nbsp; &nbsp; &nbsp;
+                <input type="button" value="Lancer une partie" id="lancer"><br><br>
+
+                Itérations : <strong><span id="parties-span"></span></strong> &nbsp; &nbsp;
+                100 <input type="range" min="0" max="12" step="1" value="5" class="slider" id="parties"> 1000000 &nbsp; &nbsp; &nbsp;
+                <input type="button" value="Simulations !!!" id="simul"><br>
+                <!-- <span id="encoding-error" style="color: red; font-size: 0.8em;"></span>         -->
+            </div>
+
+            <div class='app-canvas' style="width:800px;height:400px; text-align:center; padding: 5px"></div>
+        </div>
+
+        </main>
+
+        <footer>
+            ___________________________
+            <p ><a href="https://www.youtube.com/@jej888" target="_blank">youtube</a> - 
+            <a href="https://twitter.com/chibre_optique" target="_blank">twitter</a> - 
+            <a href="https://www.instagram.com/nwaar888/" target="_blank">instagram</a> - 
+            mail : kariassoumani [at] hotmail.fr
+            </p>
+            <p>© smoking borzoi studios 2k24</p>
+        </footer> 
+
+    </body>
+</html>
