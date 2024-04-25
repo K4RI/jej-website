@@ -4,7 +4,7 @@ const arrValeurs = ['2','3','4','5','6','7','8','9','10','V','D','R','A']
 
 /** @type {Number} nombre de couleurs */
 var M = 4
-const arrCouleurs = ['pique', 'trèfle', 'çoeur', 'carreau']
+const arrCouleurs = ['♠', '♣', '♥', '♦']
 
 /** @type {boolean} lors d'une bataille, ajoute-t-on une carte au milieu ? */
 var carteIntermediaire = true
@@ -134,10 +134,7 @@ function couleur(n){
     return arrCouleurs[~~(n/N)]
 }
 function nomCarte(n){
-    return `${valeur(n)} de ${couleur(n)}`
-}
-function nomCarteShort(n){
-    return `${valeur(n)}${couleur(n)[0]}`
+    return `${valeur(n)}${couleur(n)}`
 }
 
 /** Calcule l'ordre de récupération des cartes

@@ -32,13 +32,24 @@
 
             .carte {
                 aspect-ratio: 1/2;
-                height: 50%;
+                height: 20vh;
                 line-height:20vh; /* la moitié du height du container */
-                border: 1px solid black;
+                border: 2px solid black;
+                font-family: "Arial";
+                font-size: 1.5em;
             }
 
-            .selected {                
-                box-shadow: 5px 5px 5px red; /* horizontal vertical adoucissement couleur */
+            .selected {
+                box-shadow: 0 0 10px black; /* horizontal vertical adoucissement couleur */
+                border: 3px solid black;
+                font-weight: bold;
+            }
+
+            .red {
+                color: red;
+            }
+            .black {
+                color: black;
             }
         </style>
 
@@ -83,10 +94,10 @@
 
                 <input type="checkbox" id="peage"><label for="peage" checked>péage ?</label><br><br>
 
-                <input type="button" value="Lancer une partie" id="lancer"> <input type="button" value="Réinitialiser la partie" id="reinit"> <br><br><br><br>_________________<br><br>
+                <input type="button" value="Lancer une partie" id="lancer">&nbsp;<input type="button" value="Stop" id="reinit"> <br><br><br><br>_________________<br><br>
                 
                 Nombre de parties à simuler : <strong><span id="parties-span"></span></strong><br>
-                10 <input type="range" min="0" max="12" step="1" value="5" class="slider" id="parties"> 1000000
+                100 <input type="range" min="0" max="12" step="1" value="5" class="slider" id="parties"> 1000000
                 <br>
                 <!-- <input type="checkbox" id="logplot"><label for="logplot" checked>échelle logarithmique</label><br><br> -->
                 <input type="button" value="Simulations !!" id="simul"><br>

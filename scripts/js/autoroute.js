@@ -1,6 +1,7 @@
 /** @type {Number} nombre de valeurs */
 var N = 13
 const arrValeurs = ['2','3','4','5','6','7','8','9','10','V','D','R','A']
+const arrCouleurs = ['♠', '♣', '♥', '♦']
 
 /** @type {Boolean} avec ou sans péage ? */
 var peage = false
@@ -40,44 +41,51 @@ canvasText.id = 'canvas-text'
 canvasText.classList.add("carte-container")
 
 let canvasInfos1 = document.createElement('span')
-canvasInfos1.setAttribute('style', "display: inline-block; height: 10%; background-color: red")
-canvasInfos1.innerHTML='coucou'
+canvasInfos1.id = 'infos-1'
+canvasInfos1.setAttribute('style', "display: inline-block; height: 10vh; font-size: 1.2em")//; background-color: yellow;")
+canvasInfos1.innerHTML=' '
 
 let canvasInfos2 = document.createElement('div')
-canvasInfos2.setAttribute('style', "display: inline-block; height: 10%; background-color: blue")
-canvasInfos2.innerHTML='cv'
+canvasInfos2.id = 'infos-2'
+canvasInfos2.setAttribute('style', "display: inline-block; height: 10vh; font-size: 1.5em")//; background-color: lightgray;")
+canvasInfos2.innerHTML=' '
 
 let divButtons = document.createElement('div')
+divButtons.id = 'div-buttons'
 divButtons.setAttribute('style', "display: flex; justify-content: center; align-items: center")
-divButtons.innerHTML = `<input type="button" id="bouton-haut" value="PLUS HAUT" style="font-size: 5vh; font-style: italic; color:black; padding: 10px 20px; margin: 10px"></input>
-<input type="button" id="bouton-bas" value="PLUS BAS" style="font-size: 5vh; font-style: italic; color:black; padding: 10px 20px; margin: 10px"></input>`
-let boutonsPlus = document.createElement('bouton-haut')
-let boutonsBas = document.createElement('bouton-bas')
-console.log(boutonsPlus)
+divButtons.innerHTML = `<input type="button" id="bouton-haut" value="PLUS HAUT" style="font-size: 5vh; font-style: italic; color:black; padding: 10px 20px; margin: 10px"></input><input type="button" id="bouton-bas" value="PLUS BAS" style="font-size: 5vh; font-style: italic; color:black; padding: 10px 20px; margin: 10px"><input type="button" id="bouton-relancer" value="RELANCER UNE PARTIE" style="font-size: 5vh; font-style: italic; color:black; padding: 10px 20px; margin: 10px; display: none;"></input>`
 
-function initCanvasText(n){
+let [boutonPlus, boutonMoins, boutonRelancer] = divButtons.childNodes
+
+function changeCanvasSize(n){
     canvasText.innerHTML = ''
     for (let i=0; i<n; i++){
         canvasText.appendChild(document.createElement('div'))
         let c = canvasText.childNodes[i]
         c.classList.add("carte")
-        c.innerHTML = 'carte n°' + (i+1)
+        c.innerHTML = 'n°' + (i+1)
     }
 }
 
-function canvasAppendAll(){  // affiche toute la partie de gauche pour la partie
+function canvasInit(){  // affiche toute la partie de gauche pour la partie
     canvas.appendChild(canvasText)
     canvas.appendChild(canvasInfos1)
     canvas.appendChild(document.createElement("br"))
     canvas.appendChild(canvasInfos2)
     canvas.appendChild(divButtons)
+    for (let j=0; j<taille; j++){
+        canvasText.childNodes[j].classList.remove('selected')
+        updateCard(canvasText.childNodes[j], ligne[j])
+    }
 }
+
+// console.log(boutonsPlus)
 
 /** Association des boutons aux paramètres */
 sliderTaille.addEventListener("change", (event) => {
     textTaille.innerHTML = sliderTaille.value;
     taille = parseInt(sliderTaille.value);
-    initCanvasText(taille)
+    changeCanvasSize(taille)
 })
 
 sliderValeurs.addEventListener("change", (event) => {
@@ -97,11 +105,11 @@ sliderParties.addEventListener("change", (event) => {
     textParties.innerHTML = nParties
 })
 
-boutonsPlus.addEventListener("click", (event) => {
-    manche({auto:false, choix:true})
+boutonPlus.addEventListener("click", (event) => {
+    manche({auto:false, choix:true, d:true})
 })
-boutonsPlus.addEventListener("click", (event) => {
-    manche({auto:false, choix:false})
+boutonMoins.addEventListener("click", (event) => {
+    manche({auto:false, choix:false, d:true})
 })
 
 
@@ -128,18 +136,15 @@ function couleur(n){
     return arrCouleurs[~~(n/N)]
 }
 function nomCarte(n){
-    return `${valeur(n)} de ${couleur(n)}`
-}
-function nomCarteShort(n){
-    return `${valeur(n)}${couleur(n)[0]}`
+    return `${valeur(n) + couleur(n)}`
 }
 
 /** Effectue une manche d'autoroute.
  *  Modifie les variables paquet, ligne, i, et points.
- * @param {boolean} auto est-ce qu'on déroule selon la strat par défaut, ou bien on demande à l'utilisateur ?
- * @param {boolean} choix lorsque auto=false, choix de l'utilisateur : plus haut ou plus bas ?
- * @param {bool} v Si True, afficher en console le détail de la partie.
- * @param {bool} d Si True, afficher sur le canvas le détail de la partie.
+ * @param {boolean} auto est-ce qu'on déroule selon la strat par défaut, ou bien on demande à l'utilisateur ? (true)
+ * @param {boolean} choix lorsque auto=false, choix de l'utilisateur : true=plus haut, false=plus bas (false)
+ * @param {bool} v Si True, afficher en console le détail de la partie. (true)
+ * @param {bool} d Si True, afficher sur le canvas le détail de la partie. (false)
  */
 function manche({auto = true, choix = false, v = true, d = false}){
     if (paquet.length == 0){
@@ -151,28 +156,48 @@ function manche({auto = true, choix = false, v = true, d = false}){
 
     if (auto){
         choix = carteAComparer%N < (N-1)/2 ? true : carteAComparer%N > (N-1)/2 ? false : Math.random() < 0.5
-    } // sinon c'est le clic de bouton
+    } // sinon c'est le clic de bouton qui détermine
     if (v) console.log(`choix ${choix ? "plus haut" : "plus bas"}... face à ${valeur(carteInconnue)}`)
 
     ligne[i] = carteInconnue
     if (d) canvasText.childNodes[i].classList.remove('selected')
-    if (d) canvasText.childNodes[i].innerHTML = valeur(carteInconnue)
+    if (d) updateCard(canvasText.childNodes[i], carteInconnue)
     if ((carteInconnue%N > carteAComparer%N && choix) || (carteInconnue%N < carteAComparer%N && !choix)){
         i++
         if (v) console.log(`YES on avance -> ${points} pts`)
+        if (d) canvasInfos1.style.color = 'green'
+        if (d) canvasInfos1.innerHTML = `oui ! la carte était ${valeur(carteInconnue)}. on avance d'une case !`
     } else if (carteInconnue%N == carteAComparer%N){
         points += 2*(i+1)
-        i = 0
         if (v) console.log(`NOOOON égalité, x2 et on redescend -> ${points} pts`)
+        if (d) canvasInfos1.style.color = 'red'
+        if (d) canvasInfos1.innerHTML = `non... la carte était ${valeur(carteInconnue)}. égalité !? <br>retour au départ avec 2x${(i+1)}=${2*(i+1)} pénalités... - total jusqu'ici : ${points}`
+        i = 0
     } else {
         points += (i+1)
-        i = 0
         if (v) console.log(`NON on redescend -> ${points} pts`)
+        if (d) canvasInfos1.style.color = 'orangered'
+        if (d) canvasInfos1.innerHTML = `non... la carte était ${valeur(carteInconnue)}. retour avec +${(i+1)} pénalité${i!=0 ? 's' : ''}... (total : ${points})`
+        i = 0
     }
 
     if (i<taille){
         if (d) canvasText.childNodes[i].classList.add('selected')
-    }    
+        if (d) canvasInfos2.innerHTML = `case n°${i+1}, on est face à la carte <strong>${valeur(ligne[i])}</strong>`
+    } else {
+        if (v) console.log('AUTOROUTE FRANCHIE\nnombre total de pénalités : ', points)
+        if (d){
+            canvasInfos1.innerHTML = `autoroute franchie !`
+            canvasInfos2.innerHTML = `bilan de la partie : ${points} pénalités reçues`
+            boutonMoins.style.display = 'none'
+            boutonPlus.style.display = 'none'
+            boutonRelancer.style.display = ''
+        }
+        partieEnCours = false
+        sliderTaille.disabled = false
+        sliderValeurs.disabled = false
+        checkPeage.disabled = false
+    }
 }
 
 /** Réinitialise les conditions de la partie, càd le paquet, ligne, i, points. */
@@ -182,6 +207,13 @@ function initPartie(){
     paquet = paquet.slice(taille, 4*N)
     i = 0, points = 0 // commence à la case 0 avec 0 points
     partieEnCours = true
+}
+
+/** Met à jour le texte affiché dans la carte sur le canvas */
+function updateCard(c, n){
+    c.classList.remove('red', 'black')
+    c.classList.add(n<2*N ? 'black' : 'red')
+    c.innerHTML = nomCarte(n)
 }
 
 
@@ -213,36 +245,42 @@ function test(){
 
 /** Bouton pour vancer d'une manche et l'afficher dans le canvas. */
 boutonLancer.addEventListener("click", (event) => {
-    if (partieEnCours){ // partie déjà commencée
-        manche({v:true, d: true})
-        if (i==taille){ // fin de partie...
-            console.log('AUTOROUTE FRANCHIE')
-            console.log('nombre total de pénalités : ', points)
-            // TODO maj le texte
-            partieEnCours = false
-            sliderTaille.disabled = false
-            sliderValeurs.disabled = false
-            checkPeage.disabled = false
-        }        
-    } else {
-        parties = []
-        initPartie()
-        sliderTaille.disabled = true
-        sliderValeurs.disabled = true
-        checkPeage.disabled = true
-        canvas.innerHTML = '' // on le vide du précédent texte, ou du plotly
+    parties = []
+    initPartie()
+    sliderTaille.disabled = true
+    sliderValeurs.disabled = true
+    checkPeage.disabled = true
+    boutonReinit.disabled = false
+    boutonMoins.style.display = ''
+    boutonPlus.style.display = ''
+    boutonRelancer.style.display = 'none'
+    canvas.innerHTML = '' // on le vide du précédent texte, ou du plotly
 
-        canvasAppendAll()
-        for (let j=0; j<taille; j++){
-            canvasText.childNodes[j].innerHTML = valeur(ligne[j])
-        }
-        canvasText.childNodes[0].classList.add('selected')
-    }
+    canvasInit()
+    canvasText.childNodes[0].classList.add('selected')
+    canvasInfos1.style.color = 'black'
+    canvasInfos1.innerHTML = `bienvenue dans une nouvelle partie !`
+    canvasInfos2.innerHTML = `case n°1, on est face à la carte <strong>${valeur(ligne[0])}</strong>`
+    boutonLancer.value = "Relancer une partie du début"
     
     if (i==taille){ // partieEnCours s'est remis à false
         console.log('fini !', points)
-        boutonLancer.value = "Relancer une partie"
     }
+})
+
+boutonRelancer.addEventListener("click", (event) => { // affiché à la fin d'une partie
+    boutonLancer.dispatchEvent(new Event("click"));
+})
+
+boutonReinit.addEventListener("click", (event) => {
+    i = 0, points = 0
+    sliderTaille.disabled = false
+    sliderValeurs.disabled = false
+    checkPeage.disabled = false
+    partieEnCours = false
+    canvas.innerHTML = '' // on le vide du précédent texte, ou du plotly
+    boutonReinit.disabled = true
+    boutonLancer.value = "Lancer une partie"
 })
 
 const numSort = array => array.sort((a, b) => a - b)
@@ -288,6 +326,7 @@ boutonSimul.addEventListener("click", (event) => {
     sliderTaille.disabled = false
     sliderValeurs.disabled = false
     checkPeage.disabled = false
+    boutonReinit.disabled = true
     baliseCommentaires.innerHTML = `<i style="font-size: 0.9em; color:red;">chargement...</i>`
     
     setTimeout(() => {
@@ -296,11 +335,14 @@ boutonSimul.addEventListener("click", (event) => {
         baliseCommentaires.innerHTML = `Résultats :<br>
         &nbsp; - Parties les plus longues : [${parties_sorted.slice(nn-3, nn)}]<br>
         &nbsp; - Moyenne : ${mean(parties).toFixed(2)} tours<br>
-        &nbsp; - Médiane : ${parties_sorted[~~(nn/2)]} tours`
+        &nbsp; - Médiane : ${parties_sorted[~~(nn/2)]} tours<br>
+        &nbsp; - Parties parfaites (zéro pénalité) : ${100*parties.reduce((acc, cur) => acc + (cur==0), 0,)/nParties}%`
         tracer()
         console.log(partieEnCours)
     },0)
 })
+
+boutonReinit.disabled = true
 
 sliderTaille.dispatchEvent(new Event("change"));
 sliderValeurs.dispatchEvent(new Event("change"));
