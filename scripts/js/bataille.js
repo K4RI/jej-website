@@ -1,3 +1,10 @@
+/**
+ * JavaScript pour la page jeux/bataille du site jej888.fr.
+ */
+
+
+// paramètres globaux
+
 /** @type {Number} nombre de valeurs */
 var N = 13
 const arrValeurs = ['2','3','4','5','6','7','8','9','10','V','D','R','A']
@@ -34,7 +41,9 @@ let paquet, paquet1, paquet2
 let /** @type {Number} le compteur de tours */ tour, /** le compteur de cartes jouées */ carte
 
 
-/** les HTMLElements de la page pour les contrôles */
+
+// les HTMLElements de la page pour les contrôles
+
 let canvas = document.querySelector('.app-canvas');
 let sliderValeurs = document.getElementById('valeurs');
 let textValeurs = document.getElementById('valeurs-span');
@@ -72,7 +81,8 @@ function reinitCanvasText(){
     }
 }
 
-/** Association des boutons aux paramètres */
+
+// Association des boutons aux paramètres
 sliderValeurs.addEventListener("change", (event) => {
     textValeurs.innerHTML = sliderValeurs.value;
     N = parseInt(sliderValeurs.value);
@@ -123,7 +133,9 @@ function shuffle(arr) {
     return arr;
 }
 
-/** Renvoient le nom de la carte d'indice n. */
+/** Renvoient le nom de la carte d'indice n, pour affichage.
+ *  Les cartes d'un paquet sont numérotés de 0 à N*M-1.
+*/
 function valeur(n){
     if (N==8 || N==13){
         return arrValeurs[n%N]
@@ -137,8 +149,8 @@ function nomCarte(n){
     return `${valeur(n)}${couleur(n)}`
 }
 
-/** Calcule l'ordre de récupération des cartes
- *  @returns {Array<Number>} les deux cartes remises en ordre.
+/** Calcule l'ordre de récupération des cartes.
+ *  @returns {Array<Number>} les deux cartes remises en ordre
 */
 function ordre(c1, c2){
     switch (ordreRecup){
@@ -294,6 +306,7 @@ let /** @type {Array<Number>} les durées de parties (en tours) */ parties,
     /** @type {Number} le nomnbre de parties infinies */ nInfinies,
     /** @type {Number} le nombre de parties en match nul */ nNulles    
 
+
 /** Simule un nombre nParties de parties de bataille.
  * @returns {Array} parties, nNulles, nInfinies : cf. ci-dessus.
  */
@@ -319,7 +332,7 @@ function test(){
 }
 
 
-/** Bouton pour lancer d'une manche et l'afficher dans le canvas. */
+/** Bouton pour lancer une manche et l'afficher dans le canvas sur la gauche. */
 boutonLancer.addEventListener("click", (event) => {
     if (partieEnCours){ // la partie a déjà débuté
         if (paquet1.length && paquet2.length){
@@ -462,4 +475,3 @@ window.onresize = function(event) {
  * Autres idées de statistiques : grapher les médianes en fonction des paramètres n m, proportion moyenne de batailles, de batailles doubles voire triples, détection des cycles
  * 
 */
-

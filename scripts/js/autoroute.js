@@ -16,6 +16,10 @@ var taille
 /** @type {Boolean} indicateur de si une partie est en cours ou non */
 let partieEnCours = false
 
+/** @type {Number} les bornes de dichotomie pour la recherche automatique de péage */
+let dichmin, dichmax
+
+
 var /** @type {Number} la ligne actuelle */ i = 0,
     /** @type {Number} le nombre actuel de pénalité */ points = 0,
     /** @type {Array<Number>} le paquet */ paquet = [],
@@ -180,10 +184,12 @@ function manche({auto = true, choix = false, v = true, d = false}){
 
     if (peage && !peageFini && i == (taille-1)/2){ // péage
         if (v) console.log(`\n-----Ligne ${i+1}\n${valeurArray(ligne)} - péage !`)
+        peages++
         let /** la carte du péage */ carteSecrete = ligne[i]
         let /** l'indice de la valeur choisie dans arrValeurs, à comparer au péage */ nChoix
         if (auto){
-            nChoix = Math.floor(N*Math.random())
+            // nChoix = Math.floor(N*Math.random())
+            nChoix = Math.floor(dichmin + (dichmax-dichmin)/2) // un entier entre dichmin et dichmax-1 inclus
             choix = arrValeurs[nChoix]
         } else {
             nChoix = arrValeurs.indexOf(choix)
@@ -199,6 +205,7 @@ function manche({auto = true, choix = false, v = true, d = false}){
                 canvasInfos1.innerHTML = `tu as choisi ${choix}... c'est trop bas.<br>retour au départ avec +${i+1} pénalités... - total jusqu'ici : ${points}`
                 baliseCommentaires.innerHTML += `${choix} trop bas<br>`
             }
+            dichmin = nChoix+1
             i=0
         } else if (nChoix%N > carteSecrete%N){
             points += (i+1)
@@ -208,6 +215,7 @@ function manche({auto = true, choix = false, v = true, d = false}){
                 canvasInfos1.innerHTML = `tu as choisi ${choix}... c'est trop haut.<br>retour au départ avec +${i+1} pénalités... - total jusqu'ici : ${points}`
                 baliseCommentaires.innerHTML += `${choix} trop haut<br>`
             }
+            dichmax = nChoix-1
             i=0
         } else {
             points += (i+1)
@@ -281,7 +289,7 @@ function manche({auto = true, choix = false, v = true, d = false}){
         partieEnCours = false
         sliderTaille.disabled = false
         sliderValeurs.disabled = false
-        checkPeage.disabled = false
+        checkPeage.disabled = (taille%2==0)
     }
 }
 
@@ -291,6 +299,8 @@ function initPartie(){
     ligne = paquet.slice(0, taille) // et la première ligne devant
     paquet = paquet.slice(taille, 4*N)
     i = 0, points = 0 // commence à la case 0 avec 0 points
+    peages = 0 // le compteur si besoin
+    dichmin = 0, dichmax = N-1
     erreurPeage.innerHTML = ''
     inputPeage.value = ''
     peageFini = false
@@ -324,18 +334,20 @@ function partie(v=true){
     partieEnCours = false
 }
 
-/** @type {Array<Number>} les durées de parties (en tours) */
-let parties
+
+let /** @type {Array<Number>} les durées de parties (en tours) */ parties = [],
+    /** @type {Number} un compteur du nombre de péages rencontrés dans la partie */ peages = 0
 
 /** Simule un nombre nParties d'autoroutes.
  */
 function test(){
-    let parties = []
+    let parties = [], ppeages = []
     for (let i=0; i<nParties; i++){        
         partie(false)
         parties.push(points)
+        if (peage) ppeages.push(peages)
     }
-    return parties
+    return [parties, ppeages]
 }
 
 
@@ -378,7 +390,7 @@ boutonReinit.addEventListener("click", (event) => {
     i = 0, points = 0
     sliderTaille.disabled = false
     sliderValeurs.disabled = false
-    checkPeage.disabled = false
+    checkPeage.disabled = (taille%2==0)
     partieEnCours = false
     canvas.innerHTML = '' // on le vide du précédent texte, ou du plotly
     boutonReinit.disabled = true
@@ -427,18 +439,21 @@ boutonSimul.addEventListener("click", (event) => {
     boutonLancer.value = "Lancer une partie"
     sliderTaille.disabled = false
     sliderValeurs.disabled = false
-    checkPeage.disabled = false
+    checkPeage.disabled = (taille%2==0)
     boutonReinit.disabled = true
     baliseCommentaires.innerHTML += `<br><i style="font-size: 0.9em; color:red;">chargement...</i>`
     
     setTimeout(() => {
-        parties = test()
+        let ppeages
+        [parties, ppeages] = test()
         let parties_sorted = numSort(parties), nn = parties.length
         baliseCommentaires.innerHTML = `Résultats :<br>
         &nbsp; - Parties les plus longues : [${parties_sorted.slice(nn-3, nn)}]<br>
         &nbsp; - Moyenne : ${mean(parties).toFixed(2)} tours<br>
         &nbsp; - Médiane : ${parties_sorted[~~(nn/2)]} tours<br>
-        &nbsp; - Parties parfaites (zéro pénalité) : ${100*parties.reduce((acc, cur) => acc + (cur==0), 0,)/nParties}%`
+        &nbsp; - Parties parfaites (zéro pénalité) : ${100*parties.reduce((acc, cur) => acc + (cur==0), 0,)/nParties}%<br>
+        ${peage ? `&nbsp; - Moyenne du nombre de péages rencontrés par partie : ${mean(ppeages).toFixed(3)}` : ''}
+        `
         tracer()
     },0)
 })
@@ -449,7 +464,3 @@ sliderTaille.dispatchEvent(new Event("change"));
 sliderValeurs.dispatchEvent(new Event("change"));
 sliderParties.dispatchEvent(new Event("change"));
 checkPeage.dispatchEvent(new Event("change"));
-
-// parties = test()
-// console.log(parties)
-// boutonLancer.dispatchEvent(new Event("click"));

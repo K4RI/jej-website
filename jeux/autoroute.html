@@ -74,7 +74,10 @@
 
         <main>
 
-        <p>l'autoroute est un jeu de boisson</p>
+        <p>l'autoroute est un jeu de boisson avec des cartes qu'un ami m'a appris il y a quelques années. voici ses règles.</p>
+        <p>on place une ligne de cartes face apparente devant le joueur (c'est l'autoroute). il commence devant la carte située en case n°1, celle le plus à gauche. tour à tour, le maître du jeu demande au joueur "plus haut ou plus bas ?", et dévoile une carte du paquet qu'il compare à celle devant le joueur. si la prédiction annoncée par le joueur est exacte, il avance d'une case. si elle est incorrecte, le joueur redescend au tout début et prend un nombre de pénalités égal à la position de sa case. si les deux cartes sont égales, il redescend aussi mais avec des pénalités doubles. la partie s'arrête lorsque le joueur a traversé l'autoroute, c'est-à-dire lorsqu'il a franchi la dernière case.</p>
+        <p>il existe une variante appelée "autoroute avec péage" : la carte au centre de l'autoroute est face cachée, et sa valeur est connue du maître du jeu mais pas du joueur. à chaque fois qu'il atteint le péage, le joueur doit deviner la valeur de la carte, et le maître du jeu lui répond "c'est plus haut", "c'est plus bas", ou "c'est correct". dans les deux premiers cas le joueur revient au départ avec une pénalité ; et dans le troisième cas le joueur revient aussi au départ avec une pénalité, mais le péage est retourné face visible et se comportera désormais comme une case normale.</p>
+        <p>de toute façon c'est assez bien illustré dans l'appli voilà bon jeu</p>
 
         <div class="app-container">
             <div class='app-canvas' style="width:600px;height:500px; text-align:center; padding: 5px">
@@ -101,6 +104,10 @@
                 <div id="commentaires" style="text-align: left; font-size: 0.85em; padding: 5px 15px;"></div>
             </div>
         </div>
+
+        <h2>Quelques détails sur l'algorithme</h2>
+        <p>une fois les réglages effectués, il permet de faire une partie. si l'on a activé la variante péage, les indications "plus haut"/"plus bas" reçues au péage sont indiquées dans la boîte en bas à droite.</p>
+        <p>dans les simulations, l'ordi prend sa décision en minimisant le risque. il dit "plus haut" si la valeur est plus basse que la moyenne du paquet (ex: '8' dans un paquet '2 3 4 5 6 7 8 9 10 V D R A') et "plus bas" si inversement. et pour la recherche du péage, il procède par recherche dichotomique en initialisant ses bornes à la plus faible et plus forte valeur du paquet, et en les mettant à jour à chaque indice.</p>
 
         </main>
 
