@@ -14,6 +14,8 @@ var j = 2
 /** @type {Boolean} indicateur de si une partie est en cours ou non */
 var partieEnCours = false
 
+var couleurs = ['red', 'green', 'blue']
+
 /** les HTMLElements de la page pour les contrôles */
 let canvas = document.querySelector('.app-canvas');
 let sliderTaille = document.getElementById('taille');
@@ -35,7 +37,7 @@ canvasText.style.transform = 'translate(5vw, 0)'
 
 let canvasInfos1 = document.createElement('span')
 canvasInfos1.id = 'infos-1'
-canvasInfos1.setAttribute('style', "display: inline-block; height: 10vh; font-size: 1.2em")
+canvasInfos1.setAttribute('style', "display: inline-block; height: 10vh; font-size: 1.5em")
 canvasInfos1.innerHTML=' '
 
 let canvasInfos2 = document.createElement('div')
@@ -46,7 +48,7 @@ canvasInfos2.innerHTML=' '
 let divButtons = document.createElement('div')
 divButtons.id = 'div-buttons'
 divButtons.setAttribute('style', "display: flex; justify-content: center; align-items: center")
-divButtons.innerHTML = `<input type="button" id="bouton-1a" value="2ÈME PLACE" style="font-size: 5vh; font-style: italic; padding: 10px 20px; margin: 10px"></input><input type="button" id="bouton-1b" value="3ÈME PLACE" style="font-size: 5vh; font-style: italic; padding: 10px 20px; margin: 10px"></input><input type="button" id="bouton-2" value="PASSER SON TOUR" style="font-size: 5vh; font-style: italic; color:black; padding: 10px 20px; margin: 10px;"><input type="button" id="bouton-3" value="2ÈME PLACE" style="font-size: 5vh; font-style: italic; color:black; padding: 10px 20px; margin: 10px;"><input type="button" id="bouton-relancer" value="RELANCER LA PARTIE" style="font-size: 5vh; font-style: italic; color:black; padding: 10px 20px; margin: 10px;"></input>`
+divButtons.innerHTML = `<input type="button" id="bouton-1a" value="2ÈME PLACE" style="font-size: 5vh; font-style: italic; padding: 10px 20px; margin: 10px"></input><input type="button" id="bouton-1b" value="3ÈME PLACE" style="font-size: 5vh; font-style: italic; padding: 10px 20px; margin: 10px"></input><input type="button" id="bouton-2" value="PASSER SON TOUR" style="font-size: 5vh; font-style: italic; padding: 10px 20px; margin: 10px;"><input type="button" id="bouton-3" value="2ÈME PLACE" style="font-size: 5vh; font-style: italic; padding: 10px 20px; margin: 10px;"><input type="button" id="bouton-relancer" value="RELANCER LA PARTIE" style="font-size: 5vh; font-style: italic; padding: 10px 20px; margin: 10px;"></input>`
 let [bouton1a, bouton1b, bouton2, bouton3, boutonRelancer] = divButtons.childNodes
 
 
@@ -69,6 +71,10 @@ function changeCanvasSize(n){
 */
 function updateCase(c, n){
     canvasText.childNodes[c].innerHTML = n
+    canvasText.childNodes[c].classList.remove(...couleurs)
+    if (!(n==='')) {
+        canvasText.childNodes[c].classList.add(couleurs[n])
+    }
 }
 
 function canvasInit(){  // affiche toute la partie de gauche pour la partie
@@ -81,6 +87,8 @@ function canvasInit(){  // affiche toute la partie de gauche pour la partie
     for (let j in joueurs){
         updateCase(joueurs[j], j)
     }
+    // let w = parseInt(canvasText.offsetWidth);
+    // canvas.style.setProperty('font-size', `${w/800}em`, "important");
 }
 
 sliderTaille.addEventListener("change", (event) => {
@@ -136,10 +144,11 @@ function manche({auto = true, choix = false, v = true, d = false}){
             if (auto){
                 choix = 2 + Math.floor(2*Math.random()) // un entier au hasard entre 2 et 3
             }
-            if (v) console.log(`il fait avancer la ${choix}ème place, càd le joueur ${ind(choix)} !`)
-            if (d) updateCase(joueurs[ind(choix)], '')
-            if (d) updateCase(joueurs[j]+1, ind(choix))
-            joueurs[ind(choix)] = joueurs[j]+1
+            let jchoix = ind(choix);
+            if (v) console.log(`il fait avancer la ${choix}ème place, càd le joueur ${jchoix} !`)
+            if (d) updateCase(joueurs[jchoix], '')
+            joueurs[jchoix] = joueurs[j]+1
+            if (d) updateCase(joueurs[jchoix], jchoix)
             break;
         case 2: // deuxième place
             if (v) console.log(`TOUR DU JOUEUR N°${j} - 2ème place`)
@@ -161,7 +170,7 @@ function manche({auto = true, choix = false, v = true, d = false}){
     if (d){
         if (joueurs.filter(e => e>taille-1).length >= 2){ // fin de la partie
             canvasInfos1.innerHTML = `<strong style="font-size:1.5em">fin de la partie !</strong>`
-            canvasInfos2.innerHTML = `premier : ${ind(1)} / second : ${ind(2)} / troisième : ${ind(3)}`
+            canvasInfos2.innerHTML = `troisième : ${ind(3)} / second : ${ind(2)} / premier : ${ind(1)}`
             bouton1a.style.display = 'none'
             bouton1b.style.display = 'none'
             bouton2.style.display = 'none'
@@ -169,12 +178,16 @@ function manche({auto = true, choix = false, v = true, d = false}){
             boutonRelancer.style.display = ''
         } else {
             let psuivant = place(j)
-            canvasInfos1.innerHTML = `c'est au tour du joueur <strong>${j}</strong>`
+            canvasInfos1.innerHTML = `c'est au tour du joueur <strong class='${couleurs[j]}'>${j}</strong>`
             switch(psuivant){
                 case 1: // première place
                     canvasInfos2.innerHTML = `faire passer devant le joueur en : `
                     bouton1a.style.display = ''
                     bouton1b.style.display = ''
+                    bouton1a.classList.remove(...couleurs)
+                    bouton1b.classList.remove(...couleurs)
+                    bouton1a.classList.add(couleurs[ind(2)])
+                    bouton1b.classList.add(couleurs[ind(3)])
                     bouton2.style.display = 'none'
                     bouton3.style.display = 'none'
                     break;
@@ -191,6 +204,8 @@ function manche({auto = true, choix = false, v = true, d = false}){
                     bouton1b.style.display = 'none'
                     bouton2.style.display = 'none'
                     bouton3.style.display = ''
+                    bouton3.classList.remove(...couleurs)
+                    bouton3.classList.add(couleurs[ind(2)])
                     break;
             }
         }
@@ -219,7 +234,7 @@ function partie(v=true){
         if (t>200){throw new Error('trop de tours')}
     }
     partieEnCours = false
-    return ind(1).toString() + ind(2).toString() + ind(3).toString()
+    return ind(3).toString() + ind(2).toString() + ind(1).toString()
 }
 
 /** @type {Array<Number>} les issues de parties */ 
@@ -244,7 +259,11 @@ boutonLancer.addEventListener("click", (event) => {
     boutonReinit.disabled = false
     divButtons.style.display = ''
     bouton1a.style.display = ''
-    bouton1a.style.display = ''
+    bouton1b.style.display = ''
+    bouton1a.classList.remove(...couleurs)
+    bouton1b.classList.remove(...couleurs)
+    bouton1a.classList.add(couleurs[ind(2)])
+    bouton1b.classList.add(couleurs[ind(3)])
     bouton2.style.display = 'none'
     bouton3.style.display = 'none'
     boutonRelancer.style.display = 'none'
@@ -252,7 +271,7 @@ boutonLancer.addEventListener("click", (event) => {
 
     canvasInit()
     // canvasInfos1.style.color = 'black'
-    canvasInfos1.innerHTML = `bienvenue dans une nouvelle partie ! c'est au tour du joueur <strong>2</strong>`
+    canvasInfos1.innerHTML = `bienvenue dans une nouvelle partie ! c'est au tour du joueur <strong class='${couleurs[j]}'>${j}</strong>`
     canvasInfos2.innerHTML = `faire passer devant le joueur en :`
     boutonLancer.value = "Relancer une partie du début"
 })
@@ -269,12 +288,13 @@ boutonReinit.addEventListener("click", (event) => {
 
 /** Trace l'histogramme. */
 function tracer(){
+    console.log(parties)
     let keys = Object.keys(parties).sort()
     let data = [
         {
             x: keys,
             y: keys.map(e => 100*parties[e]/N),
-            hovertemplate: '<b>Ordre %{x}</b> : %{y:.2f} % des parties<extra></extra>',
+            hovertemplate: "<b>Ordre '%{x}'</b> : %{y:.2f} % des parties<extra></extra>",
             type: 'bar'
         },
         // {
@@ -286,7 +306,7 @@ function tracer(){
         // }
     ]
     let layout = {
-        title: `<span style='font-size: 0.8em'>Proportion de chaque ordre d'arrivée pour ${N} parties simulées</span>`,
+        title: `<span style='font-size: 0.8em'>Proportion des ordres d'arrivée pour ${N} parties simulées</span>`,
         shapes: {
             type: "line",
             xref: "paper",
@@ -299,7 +319,7 @@ function tracer(){
         },
         xaxis: {
             title: {
-                text: "ordre"
+                text: "ordre (3ème 2nd 1er)"
             },
             type: 'category',
         },
@@ -336,3 +356,16 @@ boutonReinit.disabled = true
 
 sliderTaille.dispatchEvent(new Event("change"));
 sliderParties.dispatchEvent(new Event("change"));
+
+
+// /** Rendre la taille du texte proportionnelle à la taille du canvas */
+// window.onload = function(event) {
+//     let w = parseInt(canvasText.offsetWidth);
+//     console.log(w, w/800)
+//     canvas.style.setProperty('font-size', `${w/800}em`, "important");
+// };
+// window.onresize = function(event) {
+//     let w = parseInt(canvasText.offsetWidth);
+//     console.log(w, w/800)
+//     canvas.style.setProperty('font-size', `${w/800}em`, "important");
+// };
