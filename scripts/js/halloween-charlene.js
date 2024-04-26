@@ -68,7 +68,6 @@ function changeCanvasSize(n){
  * @param {Number} n ce qu'on veut écrire dedans
 */
 function updateCase(c, n){
-    console.log('update case ', c, ' numéro ', n)
     canvasText.childNodes[c].innerHTML = n
 }
 
@@ -78,6 +77,7 @@ function canvasInit(){  // affiche toute la partie de gauche pour la partie
     canvas.appendChild(document.createElement("br"))
     canvas.appendChild(canvasInfos2)
     canvas.appendChild(divButtons)
+    for (let j=0; j<canvasText.childNodes.length; j++){ updateCase(j, '') }
     for (let j in joueurs){
         updateCase(joueurs[j], j)
     }
@@ -156,34 +156,43 @@ function manche({auto = true, choix = false, v = true, d = false}){
             if (v) console.log(`il prend la place du 2ème, càd le joueur ${deuz} !`)
             break;
     }
-    if (v) console.log(joueurs)
+    if (v) console.log('Position des joueurs : ', joueurs)
     j = (j+2)%3
     if (d){
-        
-        let psuivant = place(j)
-        canvasInfos1.innerHTML = `c'est au tour du joueur <strong>${j}</strong>`
-        switch(psuivant){
-            case 1: // première place
-                canvasInfos2.innerHTML = `faire passer devant le joueur en : `
-                bouton1a.style.display = ''
-                bouton1b.style.display = ''
-                bouton2.style.display = 'none'
-                bouton3.style.display = 'none'
-                break;
-            case 2: // deuxième place
-                canvasInfos2.innerHTML = ``
-                bouton1a.style.display = 'none'
-                bouton1b.style.display = 'none'
-                bouton2.style.display = ''
-                bouton3.style.display = 'none'
-                break;
-            case 3: // troisième place
-                canvasInfos2.innerHTML = `dépasser le joueur en : `
-                bouton1a.style.display = 'none'
-                bouton1b.style.display = 'none'
-                bouton2.style.display = 'none'
-                bouton3.style.display = ''
-                break;
+        if (joueurs.filter(e => e>taille-1).length >= 2){ // fin de la partie
+            canvasInfos1.innerHTML = `<strong style="font-size:1.5em">fin de la partie !</strong>`
+            canvasInfos2.innerHTML = `premier : ${ind(1)} / second : ${ind(2)} / troisième : ${ind(3)}`
+            bouton1a.style.display = 'none'
+            bouton1b.style.display = 'none'
+            bouton2.style.display = 'none'
+            bouton3.style.display = 'none'
+            boutonRelancer.style.display = ''
+        } else {
+            let psuivant = place(j)
+            canvasInfos1.innerHTML = `c'est au tour du joueur <strong>${j}</strong>`
+            switch(psuivant){
+                case 1: // première place
+                    canvasInfos2.innerHTML = `faire passer devant le joueur en : `
+                    bouton1a.style.display = ''
+                    bouton1b.style.display = ''
+                    bouton2.style.display = 'none'
+                    bouton3.style.display = 'none'
+                    break;
+                case 2: // deuxième place
+                    canvasInfos2.innerHTML = ``
+                    bouton1a.style.display = 'none'
+                    bouton1b.style.display = 'none'
+                    bouton2.style.display = ''
+                    bouton3.style.display = 'none'
+                    break;
+                case 3: // troisième place
+                    canvasInfos2.innerHTML = `dépasser le joueur en : `
+                    bouton1a.style.display = 'none'
+                    bouton1b.style.display = 'none'
+                    bouton2.style.display = 'none'
+                    bouton3.style.display = ''
+                    break;
+            }
         }
     }
 }
@@ -202,7 +211,7 @@ function initPartie(){
 function partie(v=true){
     initPartie()
     let t = 0
-    while(joueurs.filter(e => e>=taille-1).length < 2){
+    while(joueurs.filter(e => e>=taille).length < 2){
         if (v) console.log('---tour ' + t + ' - ' + joueurs)
         j=2-t%3
         manche({v:v}) // joueur 2, 1, 0, 2, 1, 0...
@@ -232,6 +241,7 @@ boutonLancer.addEventListener("click", (event) => {
     parties = {}
     initPartie()
     sliderTaille.disabled = true
+    boutonReinit.disabled = false
     divButtons.style.display = ''
     bouton1a.style.display = ''
     bouton1a.style.display = ''
@@ -312,6 +322,7 @@ function tracer(){
 /** Simuler des parties et afficher leurs statistiques. */
 boutonSimul.addEventListener("click", (event) => {
     sliderTaille.disabled = false
+    boutonReinit.disabled = true
     boutonLancer.value = "Lancer une partie"
     
     setTimeout(() => {
@@ -321,6 +332,7 @@ boutonSimul.addEventListener("click", (event) => {
 })
 
 
+boutonReinit.disabled = true
 
 sliderTaille.dispatchEvent(new Event("change"));
 sliderParties.dispatchEvent(new Event("change"));
