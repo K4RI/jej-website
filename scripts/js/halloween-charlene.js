@@ -1,15 +1,18 @@
 
 /** @type {Number} longueur du plateau */
-let taille
+var taille
 
 /** @type {Number} nombre de parties à simuler */
-let N
+var N
 
 /** @type {Array<Number>} la position des joueurs */
-let joueurs = [0,1,2]
+var joueurs = [0,1,2]
+
+/** @type {Number} le joueur en cours */
+var j = 2
 
 /** @type {Boolean} indicateur de si une partie est en cours ou non */
-let partieEnCours = false
+var partieEnCours = false
 
 /** les HTMLElements de la page pour les contrôles */
 let canvas = document.querySelector('.app-canvas');
@@ -17,6 +20,7 @@ let sliderTaille = document.getElementById('taille');
 let textTaille = document.getElementById('taille-span');
 let sliderParties = document.getElementById('parties');
 let textParties = document.getElementById('parties-span');
+let boutonReinit = document.getElementById('reinit');
 let boutonLancer = document.getElementById('lancer');
 let boutonSimul = document.getElementById('simul');
 
@@ -50,13 +54,22 @@ let [bouton1a, bouton1b, bouton2, bouton3, boutonRelancer] = divButtons.childNod
 function changeCanvasSize(n){
     canvasText.innerHTML = ''
 
-    for (let i=0; i<taille+1; i++){
+    for (let i=0; i<taille+2; i++){
         canvasText.appendChild(document.createElement('div'))
         let c = canvasText.childNodes[i]
         c.classList.add("case")
         if (i>=taille){ c.style.border = '0' }
         c.innerHTML = ''
     }
+}
+
+/** Met à jour le texte affiché dans la case sur le canvas
+ * @param {HTMLElement} c l'élément dans lequel écrire
+ * @param {Number} n ce qu'on veut écrire dedans
+*/
+function updateCase(c, n){
+    console.log('update case ', c, ' numéro ', n)
+    canvasText.childNodes[c].innerHTML = n
 }
 
 function canvasInit(){  // affiche toute la partie de gauche pour la partie
@@ -66,7 +79,7 @@ function canvasInit(){  // affiche toute la partie de gauche pour la partie
     canvas.appendChild(canvasInfos2)
     canvas.appendChild(divButtons)
     for (let j in joueurs){
-        canvasText.childNodes[joueurs[j]].innerHTML = j // updateCase()
+        updateCase(joueurs[j], j)
     }
 }
 
@@ -80,6 +93,23 @@ sliderParties.addEventListener("change", (event) => {
     let listeNParties = [100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000, 200000, 500000, 1000000] // 13
     N = listeNParties[sliderParties.value];
     textParties.innerHTML = N
+})
+
+
+bouton1a.addEventListener("click", (event) => {
+    manche({auto:false, choix:2, d:true})
+})
+bouton1b.addEventListener("click", (event) => {
+    manche({auto:false, choix:3, d:true})
+})
+bouton2.addEventListener("click", (event) => {
+    manche({d:true})
+})
+bouton3.addEventListener("click", (event) => {
+    manche({d:true})
+})
+boutonRelancer.addEventListener("click", (event) => { // affiché à la fin d'une partie
+    boutonLancer.dispatchEvent(new Event("click"));
 })
 
 /** Le joueur en i-ème place. */
@@ -98,7 +128,7 @@ function place(i){
  * @param {bool} v Si True, afficher en console le détail de la partie. (true)
  * @param {bool} d Si True, afficher sur le canvas le détail de la partie. (false)
  */
-function manche({j, auto = true, choix = false, v = true, d = false}){
+function manche({auto = true, choix = false, v = true, d = false}){
     let p = place(j)
     switch(p){
         case 1: // première place
@@ -107,6 +137,8 @@ function manche({j, auto = true, choix = false, v = true, d = false}){
                 choix = 2 + Math.floor(2*Math.random()) // un entier au hasard entre 2 et 3
             }
             if (v) console.log(`il fait avancer la ${choix}ème place, càd le joueur ${ind(choix)} !`)
+            if (d) updateCase(joueurs[ind(choix)], '')
+            if (d) updateCase(joueurs[j]+1, ind(choix))
             joueurs[ind(choix)] = joueurs[j]+1
             break;
         case 2: // deuxième place
@@ -116,10 +148,43 @@ function manche({j, auto = true, choix = false, v = true, d = false}){
         case 3: // troisième place
             if (v) console.log(`TOUR DU JOUEUR N°${j} - 3ème place`)
             let deuz = ind(2)
+            if (d) updateCase(joueurs[j], '')
+            if (d) updateCase(joueurs[deuz], j)
             joueurs[j] = joueurs[deuz] // prend la place du 2ème
             joueurs[deuz]-- // et le fait reculer
+            if (d) updateCase(joueurs[deuz], deuz)
             if (v) console.log(`il prend la place du 2ème, càd le joueur ${deuz} !`)
             break;
+    }
+    if (v) console.log(joueurs)
+    j = (j+2)%3
+    if (d){
+        
+        let psuivant = place(j)
+        canvasInfos1.innerHTML = `c'est au tour du joueur <strong>${j}</strong>`
+        switch(psuivant){
+            case 1: // première place
+                canvasInfos2.innerHTML = `faire passer devant le joueur en : `
+                bouton1a.style.display = ''
+                bouton1b.style.display = ''
+                bouton2.style.display = 'none'
+                bouton3.style.display = 'none'
+                break;
+            case 2: // deuxième place
+                canvasInfos2.innerHTML = ``
+                bouton1a.style.display = 'none'
+                bouton1b.style.display = 'none'
+                bouton2.style.display = ''
+                bouton3.style.display = 'none'
+                break;
+            case 3: // troisième place
+                canvasInfos2.innerHTML = `dépasser le joueur en : `
+                bouton1a.style.display = 'none'
+                bouton1b.style.display = 'none'
+                bouton2.style.display = 'none'
+                bouton3.style.display = ''
+                break;
+        }
     }
 }
 
@@ -128,6 +193,7 @@ function manche({j, auto = true, choix = false, v = true, d = false}){
 function initPartie(){
     joueurs = [0,1,2]
     partieEnCours = true
+    j=2
 }
 
 /** Simule une partie.
@@ -138,7 +204,8 @@ function partie(v=true){
     let t = 0
     while(joueurs.filter(e => e>=taille-1).length < 2){
         if (v) console.log('---tour ' + t + ' - ' + joueurs)
-        manche({j:2-t%3, v:v}) // joueur 2, 1, 0, 2, 1, 0...
+        j=2-t%3
+        manche({v:v}) // joueur 2, 1, 0, 2, 1, 0...
         t++
         if (t>200){throw new Error('trop de tours')}
     }
@@ -175,9 +242,19 @@ boutonLancer.addEventListener("click", (event) => {
 
     canvasInit()
     // canvasInfos1.style.color = 'black'
-    canvasInfos1.innerHTML = `bienvenue dans une nouvelle partie !`
-    canvasInfos2.innerHTML = `c'est au tour du joueur <strong>2</strong>`
+    canvasInfos1.innerHTML = `bienvenue dans une nouvelle partie ! c'est au tour du joueur <strong>2</strong>`
+    canvasInfos2.innerHTML = `faire passer devant le joueur en :`
     boutonLancer.value = "Relancer une partie du début"
+})
+
+boutonReinit.addEventListener("click", (event) => {
+    j = 2
+    sliderTaille.disabled = false
+    sliderParties.disabled = false
+    partieEnCours = false
+    canvas.innerHTML = '' // on le vide du précédent texte, ou du plotly
+    boutonReinit.disabled = true
+    boutonLancer.value = "Lancer une partie"
 })
 
 /** Trace l'histogramme. */
@@ -235,6 +312,7 @@ function tracer(){
 /** Simuler des parties et afficher leurs statistiques. */
 boutonSimul.addEventListener("click", (event) => {
     sliderTaille.disabled = false
+    boutonLancer.value = "Lancer une partie"
     
     setTimeout(() => {
         parties = test()
