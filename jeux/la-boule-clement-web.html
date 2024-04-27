@@ -121,7 +121,7 @@
               if (erreur) {
                 alert("feature bloquée à cause de ton bloqueur dsl cf texte en rouge")
               } else {
-                let nom = prompt("Score de " + timer + " secondes ! Entrez votre nom :")
+                let nom = prompt("Score de " + timer.split(' ')[0] + " secondes ! Entrez votre nom :")
                 while (!nom){
                   nom = prompt("Entrez votre nom j'ai dit ohlala :")
                 }
@@ -132,7 +132,6 @@
                     name: "Score",
                     comments: `${nom} / ${timer}`,
                 };
-                console.log(userFeedback)
                 Sentry.captureUserFeedback(userFeedback);
                 setTimeout(function(){
                     location.reload()
