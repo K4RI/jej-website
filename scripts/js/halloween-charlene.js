@@ -123,12 +123,12 @@ boutonRelancer.addEventListener("click", (event) => { // affiché à la fin d'un
 
 /** Le joueur en i-ème place. */
 function ind(i){
-    return joueurs.indexOf(joueurs.toSorted((a, b) => a - b)[3-i]) // pour trier des nombres !
+    return joueurs.indexOf([...joueurs].sort((a, b) => a - b)[3-i]) // pour trier des nombres !
 }
 
 /** La place du joueur n°i. */
 function place(i){
-    return 3-joueurs.toSorted((a, b) => a - b).indexOf(joueurs[i])
+    return 3-[...joueurs].sort((a, b) => a - b).indexOf(joueurs[i])
 }
 
 /** Tour du joueur numéro j.

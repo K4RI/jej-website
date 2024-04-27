@@ -406,6 +406,17 @@ boutonReinit.addEventListener("click", (event) => {
 // toSorted() pour ne pas le modifier ? mais comme on s'en fiche de le copier eh c bon
 const numSort = array => array.sort((a, b) => a - b)
 const mean = array => array.length ? array.reduce((a, b) => a + b) / array.length : 'VIDE';
+const mode = a =>
+  Object.values(
+    a.reduce((count, e) => {
+      if (!(e in count)) {
+        count[e] = [0, e];
+      }      
+      count[e][0]++;
+      return count;
+    }, {})
+  ).reduce((a, v) => v[0] < a[0] ? a : v, [0, null])[1];
+;
 
 /** Trace l'histogramme. */
 function tracer(){
@@ -455,8 +466,9 @@ boutonSimul.addEventListener("click", (event) => {
         let parties_sorted = numSort(parties), nn = parties.length
         baliseCommentaires.innerHTML = `Résultats :<br>
         &nbsp; - Parties les plus longues : [${parties_sorted.slice(nn-3, nn)}]<br>
-        &nbsp; - Moyenne : ${mean(parties).toFixed(2)} tours<br>
-        &nbsp; - Médiane : ${parties_sorted[~~(nn/2)]} tours<br>
+        &nbsp; - Moyenne : ${mean(parties).toFixed(2)} pénalités<br>
+        &nbsp; - Médiane : ${parties_sorted[~~(nn/2)]} pénalités<br>
+        &nbsp; - Mode : ${mode(parties)} pénalités<br>
         &nbsp; - Parties parfaites (zéro pénalité) : ${100*parties.reduce((acc, cur) => acc + (cur==0), 0,)/nParties}%<br>
         ${peage ? `&nbsp; - Moyenne du nombre de péages rencontrés par partie : ${mean(ppeages).toFixed(3)}` : ''}
         `
