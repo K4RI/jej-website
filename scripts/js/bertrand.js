@@ -8,14 +8,14 @@ import "https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.30.1/plotly.min.js"
 var maxIters = [200, 200, 200];
 var maxAffiche = 2000;
 
-let canvasLeft = document.querySelectorAll('.app-canvas.left');
-let canvasRight = document.querySelectorAll('.app-canvas.right');
-let boutonsLancerUn = document.querySelectorAll('.lancer-un');
-let boutonsLancer = document.querySelectorAll('.lancer');
-let slidersIterations = document.querySelectorAll('.iterations');
-let textsIterations = document.querySelectorAll('.iterations-span');
-let mathButtons = document.querySelectorAll('.mathbutton');
-let mathTexts = document.querySelectorAll('.mathtext');
+const canvasLeft = document.querySelectorAll('.app-canvas.left');
+const canvasRight = document.querySelectorAll('.app-canvas.right');
+const boutonsLancerUn = document.querySelectorAll('.lancer-un');
+const boutonsLancer = document.querySelectorAll('.lancer');
+const slidersIterations = document.querySelectorAll('.iterations');
+const textsIterations = document.querySelectorAll('.iterations-span');
+const mathButtons = document.querySelectorAll('.mathbutton');
+const mathTexts = document.querySelectorAll('.mathtext');
 
 /** association des variables aux sliders */
 for (let i = 0; i < 3; i++) {
@@ -283,4 +283,13 @@ for (let i = 0; i < 3; i++) {
 
 for (let i = 0; i < 3; i++) {
     slidersIterations[i].dispatchEvent(new Event("change"))
+}
+
+
+window.onload = function(event) {
+    for (let i=0; i<3; i++){
+        boutonsLancerUn[i].style.fontSize = '2.5vh'
+        boutonsLancer[i].style.fontSize = '2.5vh'
+        mathButtons[i].style.fontSize = '2.5vh'
+    };
 }

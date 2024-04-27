@@ -30,45 +30,47 @@ var ordreRecup = 0
 const limite = 20000
 
 /** @type {Boolean} indicateur de si une partie est en cours ou non */
-let partieEnCours = false
+var partieEnCours = false
 
 /** @type {Boolean} est-ce qu'on affiche en échelle logarithmique */
-let logPlot = false
+var logPlot = false
 
 /** @type {Array<Number>} les paquets de chaque joueur */
-let paquet, paquet1, paquet2
+var paquet, paquet1, paquet2
 
-let /** @type {Number} le compteur de tours */ tour, /** le compteur de cartes jouées */ carte
+var /** @type {Number} le compteur de tours */ tour, /** le compteur de cartes jouées */ carte
 
 
 
 // les HTMLElements de la page pour les contrôles
 
-let canvas = document.querySelector('.app-canvas');
-let sliderValeurs = document.getElementById('valeurs');
-let textValeurs = document.getElementById('valeurs-span');
-let sliderCouleurs = document.getElementById('couleurs');
-let textCouleurs = document.getElementById('couleurs-span');
-let sliderParties = document.getElementById('parties');
-let textParties = document.getElementById('parties-span');
-let checkIntermediaire = document.getElementById('carteinter');
-let checkLog = document.getElementById('logplot');
-let selectOrdre = document.getElementById('choix');
-let baliseAttention = document.getElementById('attention');
-let baliseCommentaires = document.getElementById('commentaires');
-let boutonLancer = document.getElementById('lancer');
-let boutonReinit = document.getElementById('reinit');
-let boutonSimul = document.getElementById('simul');
+const canvas = document.querySelector('.app-canvas');
+const sliderValeurs = document.getElementById('valeurs');
+const textValeurs = document.getElementById('valeurs-span');
+const sliderCouleurs = document.getElementById('couleurs');
+const textCouleurs = document.getElementById('couleurs-span');
+const sliderParties = document.getElementById('parties');
+const textParties = document.getElementById('parties-span');
+const checkIntermediaire = document.getElementById('carteinter');
+const checkLog = document.getElementById('logplot');
+const selectOrdre = document.getElementById('choix');
+const baliseAttention = document.getElementById('attention');
+const baliseCommentaires = document.getElementById('commentaires');
+const boutonLancer = document.getElementById('lancer');
+const boutonReinit = document.getElementById('reinit');
+const boutonSimul = document.getElementById('simul');
 
 /** le canvas l'on écrit le déroulement de la partie */
-let canvasText = document.createElement('div')
+const canvasText = document.createElement('div')
 canvasText.id = 'canvas-text'
 canvasText.style.padding = '5px'
 canvasText.style.margin = '10px'
-canvasText.style.fontSize = '0.9em'
+canvasText.style.fontSize = 'max(1.5vh, 0.85em)' // 1.5vh en mobile-ordi, 0.9em 90% en ordi
+canvasText.style.height = '100%'
+canvasText.style.overflow = 'scroll'
 
 /** @type {Number} combien de manches sont affichées dans le canvas */
-let nLines = 5
+var nLines = 5
 for (let i=0; i<nLines; i++){
     canvasText.appendChild(document.createElement('div'))
     canvasText.childNodes[i].style.margin = '10px'
@@ -454,17 +456,17 @@ selectOrdre.dispatchEvent(new Event("change"));
 let commandes = document.querySelector('.app-commandes')
 /** Rendre la taille du texte proportionnelle à la taille du canvas */
 window.onload = function(event) {
-    let w = parseInt(canvas.offsetHeight);
-    canvasText.style.fontSize = w/600 + 'em'
-    w = parseInt(commandes.offsetWidth);
-    commandes.style.fontSize = w/320 + 'em'
+    let w = parseInt(commandes.offsetWidth);
+    commandes.style.fontSize = w/400 + 'em'
 };
 window.onresize = function(event) {
-    let w = parseInt(canvas.offsetHeight);
-    canvasText.style.fontSize = w/600 + 'em'
-    w = parseInt(commandes.offsetWidth);
-    commandes.style.fontSize = w/320 + 'em'
+    let w = parseInt(commandes.offsetWidth);
+    commandes.style.fontSize = w/400 + 'em'
 };
+
+boutonLancer.style.fontSize = '0.8em'
+boutonReinit.style.fontSize = '0.8em'
+boutonSimul.style.fontSize = '0.8em'
 
 /**
  * déjà en mettant un aléatoire dans l'ordre de jeu entre les 2 joueurs, on a plus aucune partie infinie !

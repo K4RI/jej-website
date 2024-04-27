@@ -6,22 +6,22 @@ import "https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.30.1/plotly.min.js"
 import 'https://cdn.jsdelivr.net/npm/jquery-csv@1.0.21/src/jquery.csv.min.js'
 
 /** initialisation des variables et des HTMLElements */
-let afficheDeps = false;
-let resolution = 360;
-let w = 0.5;
-let wd = 0.2;
+var afficheDeps = false;
+var resolution = 360;
+var w = 0.5;
+var wd = 0.2;
 
-let checkDeps = document.getElementById("deps");
-let sliderWidth = document.getElementById("width");
-let textWidth = document.getElementById("width-span");
-let sliderWidthD = document.getElementById("widthD");
-let textWidthD = document.getElementById("widthD-span");
-let boutonTracer = document.getElementById("tracer");
-let boutonReinit = document.getElementById("reinit");
-let selectRes = document.getElementById("resolution");
-let boutonTelecharger = document.getElementById("telecharger");
-let canvas = document.querySelector(".app-canvas");
-let loading = document.getElementById("loading");
+const checkDeps = document.getElementById("deps");
+const sliderWidth = document.getElementById("width");
+const textWidth = document.getElementById("width-span");
+const sliderWidthD = document.getElementById("widthD");
+const textWidthD = document.getElementById("widthD-span");
+const boutonTracer = document.getElementById("tracer");
+const boutonReinit = document.getElementById("reinit");
+const selectRes = document.getElementById("resolution");
+const boutonTelecharger = document.getElementById("telecharger");
+const canvas = document.querySelector(".app-canvas");
+const loading = document.getElementById("loading");
 
 
 checkDeps.checked = false // on initialise à rien cocher
@@ -127,6 +127,23 @@ selectRes.dispatchEvent(new Event("change"));
 checkDeps.dispatchEvent(new Event("change"));
 sliderWidth.dispatchEvent(new Event("change"));
 sliderWidthD.dispatchEvent(new Event("change"));
+
+let commandes = document.querySelector('.app-commandes')
+/** Rendre la taille du texte proportionnelle à la taille du canvas */
+let wa = parseInt(commandes.offsetWidth);
+commandes.style.fontSize = wa/320 + 'em'
+boutonTracer.style.fontSize = '0.8em'
+boutonReinit.style.fontSize = '0.8em'
+boutonTelecharger.style.fontSize = '0.8em'
+selectRes.style.fontSize = '0.8em'
+
+// window.onresize = function(event) {
+//     let w = parseInt(commandes.offsetWidth);
+//     commandes.style.fontSize = w/320 + 'em'
+// };x
+boutonTracer.style.fontSize = '0.8em'
+boutonReinit.style.fontSize = '0.8em'
+
 
 const [paths, record] = await initPathRecords();
 const records = sepsortRec(record);

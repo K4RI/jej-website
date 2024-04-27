@@ -15,10 +15,10 @@ var nParties = 10000
 var taille
 
 /** @type {Boolean} indicateur de si une partie est en cours ou non */
-let partieEnCours = false
+var partieEnCours = false
 
 /** @type {Number} les bornes de dichotomie pour la recherche automatique de péage */
-let dichmin, dichmax
+var dichmin, dichmax
 
 
 var /** @type {Number} la ligne actuelle */ i = 0,
@@ -28,47 +28,47 @@ var /** @type {Number} la ligne actuelle */ i = 0,
 
 
 /** les HTMLElements de la page pour les contrôles */
-let canvas = document.querySelector('.app-canvas');
-let sliderTaille = document.getElementById('taille');
-let textTaille = document.getElementById('taille-span');
-let sliderValeurs = document.getElementById('valeurs');
-let textValeurs = document.getElementById('valeurs-span');
-let sliderParties = document.getElementById('parties');
-let textParties = document.getElementById('parties-span');
-let checkPeage = document.getElementById('peage');
-let boutonLancer = document.getElementById('lancer');
-let boutonReinit = document.getElementById('reinit');
-let boutonSimul = document.getElementById('simul');
-let baliseCommentaires = document.getElementById('commentaires');
+const canvas = document.querySelector('.app-canvas');
+const sliderTaille = document.getElementById('taille');
+const textTaille = document.getElementById('taille-span');
+const sliderValeurs = document.getElementById('valeurs');
+const textValeurs = document.getElementById('valeurs-span');
+const sliderParties = document.getElementById('parties');
+const textParties = document.getElementById('parties-span');
+const checkPeage = document.getElementById('peage');
+const boutonLancer = document.getElementById('lancer');
+const boutonReinit = document.getElementById('reinit');
+const boutonSimul = document.getElementById('simul');
+const baliseCommentaires = document.getElementById('commentaires');
 
 /** le canvas l'on dessine le déroulement de la partie */
-let canvasText = document.createElement('div')
+const canvasText = document.createElement('div')
 canvasText.id = 'canvas-text'
 canvasText.classList.add("carte-container")
 
-let canvasInfos1 = document.createElement('span')
+const canvasInfos1 = document.createElement('span')
 canvasInfos1.id = 'infos-1'
-canvasInfos1.setAttribute('style', "display: inline-block; height: 10vh; font-size: 1.2em")//; background-color: yellow;")
+canvasInfos1.setAttribute('style', "display: inline-block; height: 10%; font-size: 1.2em")//; background-color: yellow;")
 canvasInfos1.innerHTML=' '
 
-let canvasInfos2 = document.createElement('div')
+const canvasInfos2 = document.createElement('div')
 canvasInfos2.id = 'infos-2'
-canvasInfos2.setAttribute('style', "display: inline-block; height: 10vh; font-size: 1.5em")//; background-color: lightgray;")
+canvasInfos2.setAttribute('style', "display: inline-block; height: 10%; font-size: 1.5em")//; background-color: lightgray;")
 canvasInfos2.innerHTML=' '
 
-let divButtons = document.createElement('div')
+const divButtons = document.createElement('div')
 divButtons.id = 'div-buttons'
 divButtons.setAttribute('style', "display: flex; justify-content: center; align-items: center")
-divButtons.innerHTML = `<input type="button" id="bouton-bas" value="PLUS BAS" style="font-size: 5vh; font-style: italic; padding: 10px 20px; margin: 10px"><input type="button" id="bouton-haut" value="PLUS HAUT" style="font-size: 5vh; font-style: italic; padding: 10px 20px; margin: 10px"></input><input type="button" id="bouton-relancer" value="RELANCER UNE PARTIE" style="font-size: 5vh; font-style: italic; color:black; padding: 10px 20px; margin: 10px; display: none;"></input>`
-let [boutonMoins, boutonPlus, boutonRelancer] = divButtons.childNodes
+divButtons.innerHTML = `<input type="button" id="bouton-bas" value="PLUS BAS" style="font-size: 200%; font-style: italic; padding: 10px 20px; margin: 10px"><input type="button" id="bouton-haut" value="PLUS HAUT" style="font-size: 200%; font-style: italic; padding: 10px 20px; margin: 10px"></input><input type="button" id="bouton-relancer" value="RELANCER UNE PARTIE" style="font-size: 200%; font-style: italic; color:black; padding: 10px 20px; margin: 10px; display: none;"></input>`
+const [boutonMoins, boutonPlus, boutonRelancer] = divButtons.childNodes
 
-let divPeage = document.createElement('div')
+const divPeage = document.createElement('div')
 divPeage.id = 'div-peage'
 divPeage.setAttribute('style', "display: flex; justify-content: center; align-items: center")
 divPeage.innerHTML = `<form><input type="text" id="entree-peage" placeholder="" maxlength="2" style="font-size: 1.4em; margin: 10px; text-align: center"></input><input type="submit" id="valider-peage" value="Valider" style="margin: 10px"></input><br><i style="font-size: 0.9em; color:red;"></i></form>`
-let validePeage = divPeage.firstChild
-let inputPeage = divPeage.firstChild.firstChild
-let erreurPeage = divPeage.firstChild.childNodes[3]
+const validePeage = divPeage.firstChild
+const inputPeage = divPeage.firstChild.firstChild
+const erreurPeage = divPeage.firstChild.childNodes[3]
 
 /** Modifie le nombre de cartes affichées dans le canvasText */
 function changeCanvasSize(n){
@@ -468,3 +468,20 @@ sliderTaille.dispatchEvent(new Event("change"));
 sliderValeurs.dispatchEvent(new Event("change"));
 sliderParties.dispatchEvent(new Event("change"));
 checkPeage.dispatchEvent(new Event("change"));
+
+
+let commandes = document.querySelector('.app-commandes')
+/** Rendre la taille du texte proportionnelle à la taille du canvas */
+window.onload = function(event) {
+    let w = parseInt(commandes.offsetWidth);
+    commandes.style.fontSize = w/320 + 'em'
+};
+window.onresize = function(event) {
+    let w = parseInt(commandes.offsetWidth);
+    commandes.style.fontSize = w/320 + 'em'
+};
+
+
+boutonLancer.style.fontSize = '0.8em'
+boutonReinit.style.fontSize = '0.8em'
+boutonSimul.style.fontSize = '0.8em'

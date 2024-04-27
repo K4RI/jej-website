@@ -15,15 +15,15 @@ const w = 2;
 const marge = 0.1;
 
 
-let canvas = document.querySelector('.app-canvas');
-let sliderIterations = document.getElementById('iterations');
-let textIterations = document.getElementById('iterations-span');
-let sliderTaille = document.getElementById('taille');
-let textTaille = document.getElementById('taille-span');
-let sliderPlanches = document.getElementById('planche');
-let textPlanches = document.getElementById('planche-span');
-let boutonsLancer = document.getElementById('lancer');
-let commentaires = document.getElementById('commentaires');
+const canvas = document.querySelector('.app-canvas');
+const sliderIterations = document.getElementById('iterations');
+const textIterations = document.getElementById('iterations-span');
+const sliderTaille = document.getElementById('taille');
+const textTaille = document.getElementById('taille-span');
+const sliderPlanches = document.getElementById('planche');
+const textPlanches = document.getElementById('planche-span');
+const boutonLancer = document.getElementById('lancer');
+const commentaires = document.getElementById('commentaires');
 
 
 sliderIterations.addEventListener("change", (event) => {
@@ -71,7 +71,7 @@ function layoutShapes(){
 }
 
 
-boutonsLancer.addEventListener('click', (event) => {
+boutonLancer.addEventListener('click', (event) => {
     var data = [{
             x: [0, 0],
             y: [0, 0],
@@ -153,7 +153,20 @@ boutonsLancer.addEventListener('click', (event) => {
 })
 
 
-
 sliderIterations.dispatchEvent(new Event("change"));
 sliderTaille.dispatchEvent(new Event("change"));
 sliderPlanches.dispatchEvent(new Event("change"));
+
+
+let commandes = document.querySelector('.app-commandes')
+/** Rendre la taille du texte proportionnelle à la taille du canvas */
+window.onload = function(event) {
+    let w = parseInt(commandes.offsetWidth);
+    commandes.style.fontSize = w/320 + 'em'
+};
+window.onresize = function(event) {
+    let w = parseInt(commandes.offsetWidth);
+    commandes.style.fontSize = w/320 + 'em'
+};
+
+boutonLancer.style.fontSize = '0.8em'

@@ -51,7 +51,7 @@
         <p>de toute façon c'est assez bien illustré dans l'appli voilà bon jeu</p>
 
         <div class="app-container">
-            <div class='app-canvas' style="width:600px;height:500px; text-align:center; padding: 5px">
+            <div class='app-canvas' style="width:600px;height:500px; text-align:center; padding: 5px;display:flex;flex-direction: column;">
             </div>
 
             <div class="app-commandes" style="padding: 10px 10px;height:500px;">
@@ -64,7 +64,7 @@
 
                 <input type="checkbox" id="peage"><label for="peage" checked>péage ?</label><br><br>
 
-                <input type="button" value="Lancer une partie" id="lancer">&nbsp;<input type="button" value="Stop" id="reinit"> <br><br><br><br>_________________<br><br>
+                <input type="button" value="Lancer une partie" id="lancer">&nbsp;<input type="button" value="Stop" id="reinit"> <br><br>_________________<br><br>
                 
                 Nombre de parties à simuler : <strong><span id="parties-span"></span></strong><br>
                 100 <input type="range" min="0" max="12" step="1" value="5" class="slider" id="parties"> 1000000

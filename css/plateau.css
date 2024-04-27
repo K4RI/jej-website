@@ -6,17 +6,21 @@
 
     justify-content: space-evenly;
     align-items: center;
-    height: 40vh;
+    height: 40%;
     width: 90%;
+    gap: 2%;
 }
 
 .carte {
     aspect-ratio: 1/2;
-    height: 20vh;
-    line-height:20vh; /* la moitié du height du container */
+    /* height: 100%; */
+    width: min(15vw, 15%);
     border: 2px solid black;
     font-family: "Arial";
     font-size: 1.5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .selected {

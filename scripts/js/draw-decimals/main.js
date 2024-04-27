@@ -19,25 +19,25 @@ var timeouts = [];
 
 Decimal.set({ precision: 2*prec })
 
-let canvas = document.querySelector('.app-canvas');
-let context = canvas.getContext('2d');
-let tortue = new Turtle(canvas, pas);
+const canvas = document.querySelector('.app-canvas');
+const context = canvas.getContext('2d');
+const tortue = new Turtle(canvas, pas);
 tortue.pendown();
 
-let inputNum = document.getElementById('num');
-let inputDenom = document.getElementById('denom');
-let textValeur = document.getElementById('valappro');
-let textValeurb = document.getElementById('valapprob');
-let inputBase = document.getElementById('base');
-let sliderIterations = document.getElementById('iterations');
-let textIterations = document.getElementById('iterations-span');
-let sliderTaille = document.getElementById('taille');
-let textTaille = document.getElementById('taille-span');
-let sliderDuree = document.getElementById('duree');
-let textDuree = document.getElementById('duree-span');
-let boutonReinit = document.getElementById('reinit');
-let boutonLancer = document.getElementById('lancer');
-let boutonTelecharger = document.getElementById('telecharger');
+const inputNum = document.getElementById('num');
+const inputDenom = document.getElementById('denom');
+const textValeur = document.getElementById('valappro');
+const textValeurb = document.getElementById('valapprob');
+const inputBase = document.getElementById('base');
+const sliderIterations = document.getElementById('iterations');
+const textIterations = document.getElementById('iterations-span');
+const sliderTaille = document.getElementById('taille');
+const textTaille = document.getElementById('taille-span');
+const sliderDuree = document.getElementById('duree');
+const textDuree = document.getElementById('duree-span');
+const boutonReinit = document.getElementById('reinit');
+const boutonLancer = document.getElementById('lancer');
+const boutonTelecharger = document.getElementById('telecharger');
 
 /** Renvoie les premiers chiffres du développement de n/d en base b
  *  dans le but de l'afficher. */
@@ -129,7 +129,8 @@ boutonReinit.addEventListener("click", (event) => {
 })
 
 /** Traçage de la figure */
-boutonLancer.addEventListener("click", (event) => {
+document.getElementById('envoi').addEventListener("submit", (event) => {
+    event.preventDefault()
     tortue.reinitXY();
     context.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -170,3 +171,22 @@ inputBase.dispatchEvent(new Event("input"));
 sliderIterations.dispatchEvent(new Event("change"));
 sliderDuree.dispatchEvent(new Event("change"));
 sliderTaille.dispatchEvent(new Event("change"));
+
+
+
+let commandes = document.querySelector('.app-commandes')
+/** Rendre la taille du texte proportionnelle à la taille du canvas */
+window.onload = function(event) {
+    let w = parseInt(commandes.offsetWidth);
+    commandes.style.fontSize = w/320 + 'em'
+    boutonLancer.style.fontSize = '0.8em'
+    boutonReinit.style.fontSize = '0.8em'
+    boutonTelecharger.style.fontSize = '0.8em'
+    inputNum.style.fontSize = '0.8em'
+    inputDenom.style.fontSize = '0.8em'
+    inputBase.style.fontSize = '0.8em'
+};
+window.onresize = function(event) {
+    let w = parseInt(commandes.offsetWidth);
+    commandes.style.fontSize = w/320 + 'em'
+};

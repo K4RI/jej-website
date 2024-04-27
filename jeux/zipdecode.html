@@ -46,18 +46,8 @@
                 <div class='app-canvas' style="width:500px;height:500px;"></div>
 
                 <div class="app-commandes" style="height:480px;">
-                    <br>
-                    Taille des points : <strong><span id="pointSize-span"></span></strong><br>
-                    1 <input type="range" min="1" max="10" step="1" value="5" class="slider" id="pointSize"> 10
-                    <br><br>
-                    Épaisseur de la bordure : <strong><span id="widthD-span"></span></strong><br>
-                    0.1 <input type="range" min="0.1" max="1" step="0.1" value="0.4" class="slider" id="widthD"> 1
-                    <br><br>
-                    <input type="checkbox" id="zoom" > <label for="zoom">zoom</label><br><br><br>
 
-                    <span id="loading" style="color:red; font-size: 0.9em;"> chargement... <br></span>
                     Code postal débute par : <input type="number" name="zipcode" id="zipcode" value="" size="5" maxlength="5" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"><br><br>
-
                     <select id="resolution" name="resolution" disabled="true">
                         <option value="360">360x360</option>
                         <option value="720">720x720</option>
@@ -66,7 +56,16 @@
                         <option value="1920">1920x1920</option>
                         <option value="2560">2560x2560</option>
                         <option value="3840">3840x3840</option>
-                    </select> <input type="button" value="Télécharger image" id="telecharger" disabled="true">
+                    </select> <input type="button" value="Télécharger image" id="telecharger" disabled="true"><br><br>
+                    <span id="loading" style="color:red; font-size: 0.9em;"> chargement... <br></span>
+                    <br>
+                    Taille des points : <strong><span id="pointSize-span"></span></strong><br>
+                    1 <input type="range" min="1" max="10" step="1" value="5" class="slider" id="pointSize"> 10
+                    <br><br>
+                    Épaisseur de la bordure : <strong><span id="widthD-span"></span></strong><br>
+                    0.1 <input type="range" min="0.1" max="1" step="0.1" value="0.4" class="slider" id="widthD"> 1
+                    <br><br>
+                    <input type="checkbox" id="zoom" > <label for="zoom">zoom</label><br><br><br>
                 </div>
             </div>
         </body>

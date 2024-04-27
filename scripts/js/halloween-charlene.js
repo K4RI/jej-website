@@ -17,39 +17,40 @@ var partieEnCours = false
 var couleurs = ['red', 'green', 'blue']
 
 /** les HTMLElements de la page pour les contrôles */
-let canvas = document.querySelector('.app-canvas');
-let sliderTaille = document.getElementById('taille');
-let textTaille = document.getElementById('taille-span');
-let sliderParties = document.getElementById('parties');
-let textParties = document.getElementById('parties-span');
-let boutonReinit = document.getElementById('reinit');
-let boutonLancer = document.getElementById('lancer');
-let boutonSimul = document.getElementById('simul');
+const canvas = document.querySelector('.app-canvas');
+const sliderTaille = document.getElementById('taille');
+const textTaille = document.getElementById('taille-span');
+const sliderParties = document.getElementById('parties');
+const textParties = document.getElementById('parties-span');
+const boutonReinit = document.getElementById('reinit');
+const boutonLancer = document.getElementById('lancer');
+const boutonSimul = document.getElementById('simul');
+const baliseCommentaires = document.getElementById('commentaires')
 
 
 /** le canvas l'on dessine le déroulement de la partie */
-let canvasText = document.createElement('div')
+const canvasText = document.createElement('div')
 canvasText.id = 'canvas-text'
 canvasText.classList.add("carte-container")
 canvas.style.justifyContent = 'center'
 canvasText.style.height = '20vh'
 canvasText.style.transform = 'translate(5vw, 0)'
 
-let canvasInfos1 = document.createElement('span')
+const canvasInfos1 = document.createElement('span')
 canvasInfos1.id = 'infos-1'
-canvasInfos1.setAttribute('style', "display: inline-block; height: 10vh; font-size: 1.5em")
+canvasInfos1.setAttribute('style', "display: inline-block; height: 10%; font-size: 1.5em")
 canvasInfos1.innerHTML=' '
 
-let canvasInfos2 = document.createElement('div')
+const canvasInfos2 = document.createElement('div')
 canvasInfos2.id = 'infos-2'
-canvasInfos2.setAttribute('style', "display: inline-block; height: 10vh; font-size: 1.5em")
+canvasInfos2.setAttribute('style', "display: inline-block; height: 10%; font-size: 1.5em")
 canvasInfos2.innerHTML=' '
 
-let divButtons = document.createElement('div')
+const divButtons = document.createElement('div')
 divButtons.id = 'div-buttons'
 divButtons.setAttribute('style', "display: flex; justify-content: center; align-items: center")
-divButtons.innerHTML = `<input type="button" id="bouton-1a" value="2ÈME PLACE" style="font-size: 5vh; font-style: italic; padding: 10px 20px; margin: 10px"></input><input type="button" id="bouton-1b" value="3ÈME PLACE" style="font-size: 5vh; font-style: italic; padding: 10px 20px; margin: 10px"></input><input type="button" id="bouton-2" value="PASSER SON TOUR" style="font-size: 5vh; font-style: italic; padding: 10px 20px; margin: 10px;"><input type="button" id="bouton-3" value="2ÈME PLACE" style="font-size: 5vh; font-style: italic; padding: 10px 20px; margin: 10px;"><input type="button" id="bouton-relancer" value="RELANCER LA PARTIE" style="font-size: 5vh; font-style: italic; padding: 10px 20px; margin: 10px;"></input>`
-let [bouton1a, bouton1b, bouton2, bouton3, boutonRelancer] = divButtons.childNodes
+divButtons.innerHTML = `<input type="button" id="bouton-1a" value="2ÈME PLACE" style="font-size: 200%; font-style: italic; padding: 10px 20px; margin: 10px"></input><input type="button" id="bouton-1b" value="3ÈME PLACE" style="font-size: 200%; font-style: italic; padding: 10px 20px; margin: 10px"></input><input type="button" id="bouton-2" value="PASSER SON TOUR" style="font-size: 200%; font-style: italic; padding: 10px 20px; margin: 10px;"><input type="button" id="bouton-3" value="2ÈME PLACE" style="font-size: 200%; font-style: italic; padding: 10px 20px; margin: 10px;"><input type="button" id="bouton-relancer" value="RELANCER LA PARTIE" style="font-size: 200%; font-style: italic; padding: 10px 20px; margin: 10px;"></input>`
+const [bouton1a, bouton1b, bouton2, bouton3, boutonRelancer] = divButtons.childNodes
 
 
 /** Modifie le nombre de cartes affichées dans le canvasText */
@@ -234,7 +235,7 @@ function partie(v=true){
         if (t>200){throw new Error('trop de tours')}
     }
     partieEnCours = false
-    return ind(3).toString() + ind(2).toString() + ind(1).toString()
+    return [ind(3).toString() + ind(2).toString() + ind(1).toString(), t]
 }
 
 /** @type {Array<Number>} les issues de parties */ 
@@ -244,10 +245,13 @@ let parties = {}
  */
 function test(){
     let parties = {"012":0, '021':0, '102':0, '120':0, '201':0, '210':0}
+    let durees = []
     for (let i=0; i<N; i++){ //N
-        parties[partie(false)]++
+        let [p, t] = partie(false)
+        parties[p]++
+        durees.push(t)
     }
-    return parties
+    return [parties, durees]
 }
 
 
@@ -255,6 +259,7 @@ function test(){
 boutonLancer.addEventListener("click", (event) => {
     parties = {}
     initPartie()
+    baliseCommentaires.innerHTML = ''
     sliderTaille.disabled = true
     boutonReinit.disabled = false
     divButtons.style.display = ''
@@ -346,7 +351,10 @@ boutonSimul.addEventListener("click", (event) => {
     boutonLancer.value = "Lancer une partie"
     
     setTimeout(() => {
-        parties = test()
+        let output = test()
+        parties = output[0]
+        let ts = output[1].sort((a,b) => a-b)
+        baliseCommentaires.innerHTML = `durée des parties : min=${ts[0]}, 1q=${ts[~~N/4]}, med=${ts[~~N/2]}, 3q=${ts[~~3*N/4]}, max=${ts[N-1]}`
         tracer()
     },0)
 })
@@ -358,14 +366,18 @@ sliderTaille.dispatchEvent(new Event("change"));
 sliderParties.dispatchEvent(new Event("change"));
 
 
-// /** Rendre la taille du texte proportionnelle à la taille du canvas */
-// window.onload = function(event) {
-//     let w = parseInt(canvasText.offsetWidth);
-//     console.log(w, w/800)
-//     canvas.style.setProperty('font-size', `${w/800}em`, "important");
-// };
-// window.onresize = function(event) {
-//     let w = parseInt(canvasText.offsetWidth);
-//     console.log(w, w/800)
-//     canvas.style.setProperty('font-size', `${w/800}em`, "important");
-// };
+
+let commandesUp = document.querySelector('.app-commandes-up')
+/** Rendre la taille du texte proportionnelle à la taille du canvas */
+window.onload = function(event) {
+    let w = parseInt(commandesUp.offsetWidth);
+    commandesUp.style.fontSize = w/600 + 'em'
+};
+window.onresize = function(event) {
+    let w = parseInt(commandesUp.offsetWidth);
+    commandesUp.style.fontSize = w/600 + 'em'
+};
+
+boutonLancer.style.fontSize = '1em'
+boutonReinit.style.fontSize = '1em'
+boutonSimul.style.fontSize = '1em'

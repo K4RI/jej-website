@@ -9,24 +9,24 @@
 /** initialisation des variables et des HTMLElements */
 
 /** Nombre de tirages */
-let N = 0
+var N = 0
 /** La fonction */
-let f, fNom
+var f, fNom
 /** Les bornes d'intégration. */
-let x1 = 0, x2 = 0
-let y1 = 0, y2 = 0
+var x1 = 0, x2 = 0
+var y1 = 0, y2 = 0
 const maxAffiche = 5000
 
-let sliderIterations = document.getElementById('iterations');
-let textIterations = document.getElementById('iterations-span');
-let inputFunc = document.getElementById("func");
-let funcErreur = document.getElementById('func-erreur') // fonction non-valide
-let funcErreur2 = document.getElementById('func-erreur2') // fonction divergente
-let inputx1 = document.getElementById("x1");
-let inputx2 = document.getElementById("x2");
-let bornesErreur = document.getElementById('bornes-erreur') // bornes sont pas dans le bon sens
-let boutonLancer = document.getElementById("lancer");
-let canvas = document.querySelector(".app-canvas");
+const sliderIterations = document.getElementById('iterations');
+const textIterations = document.getElementById('iterations-span');
+const inputFunc = document.getElementById("func");
+const funcErreur = document.getElementById('func-erreur') // fonction non-valide
+const funcErreur2 = document.getElementById('func-erreur2') // fonction divergente
+const inputx1 = document.getElementById("x1");
+const inputx2 = document.getElementById("x2");
+const bornesErreur = document.getElementById('bornes-erreur') // bornes sont pas dans le bon sens
+const boutonLancer = document.getElementById("lancer");
+const canvas = document.querySelector(".app-canvas");
 
 function feuxVertsLancer(){
     if ((funcErreur.style.display == 'none') && (funcErreur2.style.display == 'none') && (bornesErreur.style.display == 'none')){
@@ -82,7 +82,7 @@ let fs = [f = x => Math.cos(2*Math.PI*(4*x - x**2))*Math.sqrt(Math.log(1+x**2)),
 let fNoms = ["cos(2*pi*(4*x - x**2))*sqrt(log(1+x**2))",
              "max(x**2 - 1, 0) - 5*max(0.25-x**2,0)",
              "2*min(x**2-1,0)+sqrt(abs(x))"]
-let l = document.querySelectorAll('input[type=radio]')
+const l = document.querySelectorAll('input[type=radio]')
 l.forEach(btn => {
     btn.addEventListener("change", () => {
         f = fs[btn.value]
@@ -303,3 +303,19 @@ if (!(inputx1.disabled)){
     inputx1.dispatchEvent(new Event("change"));
     inputx2.dispatchEvent(new Event("change"));
 }
+
+
+let commandes = document.querySelector('.app-commandes')
+/** Rendre la taille du texte proportionnelle à la taille du canvas */
+window.onload = function(event) {
+    let w = parseInt(commandes.offsetWidth);
+    commandes.style.fontSize = w/320 + 'em'
+    boutonLancer.style.fontSize = '0.8em'
+    inputx1.style.fontSize = '0.8em'
+    inputx2.style.fontSize = '0.8em'
+    inputFunc.style.fontSize = '0.8em'
+};
+window.onresize = function(event) {
+    let w = parseInt(commandes.offsetWidth);
+    commandes.style.fontSize = w/320 + 'em'
+};

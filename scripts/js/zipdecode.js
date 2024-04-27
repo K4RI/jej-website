@@ -6,22 +6,22 @@ import "https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.30.1/plotly.min.js"
 import 'https://cdn.jsdelivr.net/npm/jquery-csv@1.0.21/src/jquery.csv.min.js'
 
 /** initialisation des variables et des HTMLElements */
-let resolution = 360
-let wd = 0.2;
-let size = 2;
-let zipcode = ''
-let zoom = false
+var resolution = 360
+var wd = 0.2;
+var size = 2;
+var zipcode = ''
+var zoom = false
 
-let sliderPointsize = document.getElementById("pointSize");
-let textPointsize = document.getElementById("pointSize-span");
-let sliderWidthD = document.getElementById("widthD");
-let textWidthD = document.getElementById("widthD-span");
-let inputZIP = document.getElementById("zipcode");
-let selectRes = document.getElementById("resolution");
-let boutonTelecharger = document.getElementById("telecharger");
-let canvas = document.querySelector(".app-canvas");
-let loading = document.getElementById("loading");
-let checkZoom = document.getElementById("zoom");
+const sliderPointsize = document.getElementById("pointSize");
+const textPointsize = document.getElementById("pointSize-span");
+const sliderWidthD = document.getElementById("widthD");
+const textWidthD = document.getElementById("widthD-span");
+const inputZIP = document.getElementById("zipcode");
+const selectRes = document.getElementById("resolution");
+const boutonTelecharger = document.getElementById("telecharger");
+const canvas = document.querySelector(".app-canvas");
+const loading = document.getElementById("loading");
+const checkZoom = document.getElementById("zoom");
 
 checkZoom.checked = false // on initialise à rien cocher
 selectRes.value = '1080';
@@ -229,4 +229,16 @@ function tracer(){
     boutonTelecharger.disabled = false;
 }
 
-tracer();
+
+const commandes = document.querySelector('.app-commandes')
+/** Rendre la taille du texte proportionnelle à la taille du canvas */
+let w = parseInt(commandes.offsetWidth);
+commandes.style.fontSize = w/320 + 'em'
+inputZIP.style.fontSize = '0.8em'
+selectRes.style.fontSize = '0.8em'
+boutonTelecharger.style.fontSize = '0.8em'
+
+window.onresize = function(event) {
+    let w = parseInt(commandes.offsetWidth);
+    commandes.style.fontSize = w/320 + 'em'
+};
