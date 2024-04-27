@@ -81,7 +81,7 @@ function changeCanvasSize(n){
     }
 }
 
-function canvasInit(){  // affiche toute la partie de gauche pour la partie
+function canvasInit(){  // affiche toute la partie à gauche, pour le déroulement de la partie
     canvas.appendChild(canvasText)
     canvas.appendChild(canvasInfos1)
     canvas.appendChild(document.createElement("br"))
@@ -100,8 +100,7 @@ function canvasInit(){  // affiche toute la partie de gauche pour la partie
 sliderTaille.addEventListener("change", (event) => {
     textTaille.innerHTML = sliderTaille.value;
     taille = parseInt(sliderTaille.value);
-    changeCanvasSize(taille)
-    peage = checkPeage.checked    
+    changeCanvasSize(taille)   
 })
 
 sliderValeurs.addEventListener("change", (event) => {
@@ -304,7 +303,14 @@ function initPartie(){
     erreurPeage.innerHTML = ''
     inputPeage.value = ''
     peageFini = false
-    partieEnCours = true
+    partieEnCours = true    
+    if (peage) {      
+        if (taille%2){ // impair
+            jpeage = (taille-1)/2
+        } else {
+            jpeage = taille/2 - Math.floor(2*Math.random())
+        }
+    }
 }
 
 /** Met à jour le texte affiché dans la carte sur le canvas
@@ -366,13 +372,8 @@ boutonLancer.addEventListener("click", (event) => {
     boutonRelancer.style.display = 'none'
     canvas.innerHTML = '' // on le vide du précédent texte, ou du plotly
     baliseCommentaires.innerHTML = `<br>valeurs dans le paquet : ${arrValeurs.slice(0,N)}<br><br>`
-    if (peage) {
-        baliseCommentaires.innerHTML += `---tentatives du péage :<br>`        
-        if (taille%2){ // impair
-            jpeage = (taille-1)/2
-        } else {
-            jpeage = taille/2 - Math.floor(2*Math.random())
-        }
+    if (peage){
+        baliseCommentaires.innerHTML += `---tentatives du péage :<br>`
     }
 
     canvasInit()
@@ -440,6 +441,7 @@ function tracer(){
 
 /** Simuler des parties et afficher leurs statistiques. */
 boutonSimul.addEventListener("click", (event) => {
+    console.log(peage)
     boutonLancer.value = "Lancer une partie"
     sliderTaille.disabled = false
     sliderValeurs.disabled = false

@@ -415,6 +415,17 @@ function tracer(){
 const numSort = array => array.sort((a, b) => a - b)
 const mean = array => array.length ? array.reduce((a, b) => a + b) / array.length : 'VIDE';
 // const median = array => [~~(array.length/2)]
+const mode = a =>
+  Object.values(
+    a.reduce((count, e) => {
+      if (!(e in count)) {
+        count[e] = [0, e];
+      }      
+      count[e][0]++;
+      return count;
+    }, {})
+  ).reduce((a, v) => v[0] < a[0] ? a : v, [0, null])[1];
+;
 
 /** Simuler des parties et afficher leurs statistiques. */
 boutonSimul.addEventListener("click", (event) => {
@@ -437,7 +448,8 @@ boutonSimul.addEventListener("click", (event) => {
         &nbsp; - Parties les plus courtes ... longues :<br>
         &nbsp; &nbsp; &nbsp; &nbsp; [${parties_sorted.slice(0, 3)}] &nbsp; ... &nbsp; [${parties_sorted.slice(nn-3, nn)}]<br>
         &nbsp; - Moyenne : ${mean(parties).toFixed(2)} tours, ${mean(pcartes).toFixed(2)} cartes<br>
-        &nbsp; - Médiane : ${parties_sorted[~~(nn/2)]} tours, ${pcartes_sorted[~~(nn/2)]} cartes`
+        &nbsp; - Médiane : ${parties_sorted[~~(nn/2)]} tours, ${pcartes_sorted[~~(nn/2)]} cartes<br>
+        &nbsp; - Mode : ${mode(parties)} tours, ${mode(pcartes)} cartes`
         tracer()
     },0)
 })

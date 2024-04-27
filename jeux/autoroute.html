@@ -78,7 +78,7 @@
 
         <h2>Quelques détails sur l'algorithme</h2>
         <p>une fois les réglages effectués, il permet de faire une partie. si l'on a activé la variante péage, les indications "plus haut"/"plus bas" reçues au péage sont indiquées dans la boîte en bas à droite.</p>
-        <p>dans les simulations, l'ordi prend sa décision en minimisant le risque. il dit "plus haut" si la valeur est plus basse que la moyenne du paquet (ex: '8' dans un paquet '2 3 4 5 6 7 8 9 10 V D R A') et "plus bas" si inversement. et pour la recherche du péage, il procède par recherche dichotomique en initialisant ses bornes à la plus faible et plus forte valeur du paquet, et en les mettant à jour à chaque indice.</p>
+        <p>dans les simulations, l'ordi prend sa décision en minimisant le risque. il dit "plus haut" si la valeur est plus basse que la médiane du paquet (ex: '8' dans un paquet '2 3 4 5 6 7 8 9 10 V D R A') et "plus bas" si inversement. et pour la recherche du péage, il procède par dichotomie en initialisant ses bornes à la plus faible et plus forte valeur du paquet, et en les mettant à jour à chaque nouvel indice.</p>
 
         </main>
 
