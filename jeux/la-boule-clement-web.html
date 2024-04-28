@@ -35,6 +35,20 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900&display=swap" rel="stylesheet">
 
+        <style>
+          .grid-container { /* 2 colonnes, 2 ligne*/
+              display: grid;
+              grid-template-columns: 800px 1fr;
+              grid-template-rows: 250px 250px;
+              grid-gap: 10px;
+          }
+          /* .grid-container > * {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+          } */
+        </style>
+
     </head>
     <body>
         <a style="font-size: 0.9em"; href="../index.html"> < retour à l'accueil</a>
@@ -77,23 +91,41 @@
         </strong></span>
         
         <div id="unity-container" class="unity-desktop">
-          <div class="flex-container" style="display: flex; gap: 5px;">
-            <canvas id="unity-canvas"></canvas>
+          <div class="grid-container">
+            <canvas id="unity-canvas" style="grid-row: 1 / 3;"></canvas>
             
             <table style="margin-top: 0; text-align: center;">
               <!-- si activé, rajouter "left: -50px" au #unity-loading-bar de style.css -->
+              <caption>
+                High scores
+              </caption>
               <thead>
                 <th>Nom</th>
                 <th>Score</th>
               </thead>
               <tbody>
-                <tr> <td>zac</td> <td>5.05</td> </tr>
-                <tr> <td>nicolas</td> <td>5.27</td> </tr>
-                <tr> <td>numa</td> <td>6.30</td> </tr>
-                <tr> <td>théo</td> <td>6.65</td> </tr>
-                <tr> <td>césar</td> <td>7.88</td> </tr>
+                <tr> <td>taurus</td> <td>4.81 s</td> </tr>
+                <tr> <td>zac</td> <td>5.05 s</td> </tr>
+                <tr> <td>nicolas</td> <td>5.27 s</td> </tr>
+                <tr> <td>numa</td> <td>6.30 s</td> </tr>
+                <tr> <td>théo</td> <td>6.65 s</td> </tr>
+              </tbody>
+            </table>            
+            <!-- <br> -->
+            <table style="margin-top: 0; text-align: center;">
+              <!-- si activé, rajouter "left: -50px" au #unity-loading-bar de style.css -->
+              <caption>
+                Low scores
+              </caption>
+              <thead>
+                <th>Nom</th>
+                <th>Score</th>
+              </thead>
+              <tbody>
+                <tr> <td>taurus</td> <td>36140.97 s</td> </tr>
               </tbody>
             </table>
+
           </div>
 
             <div id="unity-loading-bar">

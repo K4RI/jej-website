@@ -27,8 +27,9 @@ const commentaires = document.getElementById('commentaires');
 
 
 sliderIterations.addEventListener("change", (event) => {
-    textIterations.innerHTML = sliderIterations.value;
-    maxIters = parseInt(sliderIterations.value);
+    let listeIterations = [10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000] // 13
+    maxIters = listeIterations[sliderIterations.value];
+    textIterations.innerHTML = maxIters;
 })
 
 sliderTaille.addEventListener("change", (event) => {
