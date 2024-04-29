@@ -476,6 +476,27 @@ boutonSimul.addEventListener("click", (event) => {
     },0)
 })
 
+const mathText = document.querySelector('.mathtext');
+const mathButtons = document.querySelectorAll('.mathbutton');
+const mathTables = document.querySelectorAll('.mathtable');
+mathButtons[0].addEventListener("click", (event) => { // explication générale
+    mathText.style.display = mathText.style.display === 'inline' ? 'none' : 'inline';
+})
+mathButtons[1].addEventListener("click", (event) => { // table n=1
+    mathTables[0].style.display = mathTables[0].style.display === 'inline' ? 'none' : 'inline';
+})
+mathButtons[2].addEventListener("click", (event) => { // table n=2
+    mathTables[1].style.display = mathTables[1].style.display === 'inline' ? 'none' : 'inline';
+})
+mathButtons[3].addEventListener("click", (event) => { // table n=3
+    mathTables[2].style.display = mathTables[2].style.display === 'inline' ? 'none' : 'inline';
+})
+let table4 = document.getElementById('id') // cacher
+mathButtons[4].addEventListener("click", (event) => {
+    mathText.style.display = mathText.style.display === 'inline' ? 'none' : 'inline';
+})
+
+
 boutonReinit.disabled = true
 
 sliderTaille.dispatchEvent(new Event("change"));
