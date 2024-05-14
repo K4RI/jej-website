@@ -2,6 +2,6 @@
 .centered-container {
     text-align: center;
 }
-.centered-container > iframe {
+/* .centered-container > iframe {
     margin: 0px 10px
-}
+} */
