@@ -10,17 +10,19 @@
         <link href="la-boule-clement-web/TemplateData/style.css" rel="stylesheet">
 
         <!-- Initialisation de Sentry -->
-        <script
+        <!-- https://docs.sentry.io/platforms/javascript/install/loader/ -->
+        <!-- <script
             src="https://js.sentry-cdn.com/7ac034c5bbd378a354f1bbca6c11dff7.min.js"
             crossorigin="anonymous"
-        ></script>
+        ></script> -->
+        
+        <!-- https://docs.sentry.io/platforms/javascript/user-feedback/#installation -->
         <script
-            src="https://browser.sentry-cdn.com/7.112.1/bundle.tracing.replay.feedback.min.js"
-            integrity="sha384-MVg62ETpDguyyv7fpqWHeT8uUghhNkJYTbMbCQhds/SaS8MjekWVRdUYXv0SnrcX"
+            src="https://browser.sentry-cdn.com/7.116.0/bundle.tracing.replay.feedback.min.js"
             crossorigin="anonymous"
         ></script>
         
-        <script> // pour l'ajouter dans l'onglet "User Feedback"
+        <script> // pour l'ajouter dans l'onglet "User Feedback" https://docs.sentry.io/platforms/javascript/user-feedback/#set-up
             Sentry.init({
                 dsn: "https://7ac034c5bbd378a354f1bbca6c11dff7@o4507037759111168.ingest.us.sentry.io/4507037763895296",
                 integrations: [
@@ -151,7 +153,9 @@
                 var erreur = true;
             }
 
-            /** Fonction appelée par Unity, qui sauvegarde le score dans Sentry. */
+            /** Fonction appelée par Unity, qui sauvegarde le score dans Sentry.
+             * https://docs.sentry.io/platforms/javascript/user-feedback/#set-up
+            */
             function sauvegarderScore(timer) {
               if (erreur) {
                 alert("feature bloquée à cause de ton bloqueur dsl cf texte en rouge")
