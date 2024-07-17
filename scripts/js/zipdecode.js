@@ -1,5 +1,5 @@
 /**
-  * JavaScript pour la page jeux/zipdecode du site jej888.fr.
+  * JavaScript pour la page jeux/zipdecodeFR du site jej888.fr.
 */
 
 import "https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.30.1/plotly.min.js"
