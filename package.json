@@ -4,5 +4,6 @@
   "type": "module",
   "main": "scripts/js/draw-decimals/main.js",
   "dependencies": {
+    "draw-decimals": "file:"
   }
 }
