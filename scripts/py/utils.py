@@ -111,5 +111,5 @@ def rep_nav():
             print(" PAS TROUVÉ")
 
 
-# rep_footer()
-rep_nav()
+rep_footer()
+# rep_nav()
