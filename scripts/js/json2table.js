@@ -56,7 +56,16 @@ $.getJSON(data_file, function(data){
                         })
                     } else {
                         cell.innerHTML = data[i]["Description"]
-                    }                   
+                        if (data[i]["URL"] == "http://www.rubberducky.org/blog/"){ // cas spécial
+                            cell.innerHTML += " "
+                            var addr = document.createElement("a")
+                            addr.href = "postits/chomskybot.html"
+                            addr.innerHTML = "clique ici !!!"
+                            cell.appendChild(addr)
+                            row.id="chomskybot" // pour partager cette ligne précisément
+                            row.style.scrollMarginTop = "60px"
+                        }
+                    }    
                     break;
                 case "Categorie":
                     row.classList.add("cat-" + data[i]["Categorie"])
