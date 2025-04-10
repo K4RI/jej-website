@@ -60,7 +60,7 @@ $.getJSON(data_file, function(data){
                             cell.innerHTML += " "
                             var addr = document.createElement("a")
                             addr.href = "postits/chomskybot.html"
-                            addr.innerHTML = "clique ici !!!"
+                            addr.innerHTML = "j'en parle ici !!!"
                             cell.appendChild(addr)
                             row.id="chomskybot" // pour partager cette ligne précisément
                             row.style.scrollMarginTop = "60px"
