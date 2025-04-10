@@ -59,6 +59,7 @@ $.getJSON(data_file, function(data){
                         if (data[i]["URL"] == "http://www.rubberducky.org/blog/"){ // cas spécial
                             cell.innerHTML += " "
                             var addr = document.createElement("a")
+                            addr.style.fontWeight = "bold"
                             addr.href = "postits/chomskybot.html"
                             addr.innerHTML = "j'en parle ici !!!"
                             cell.appendChild(addr)
