@@ -1,0 +1,9 @@
+@import url("../css/style.css");
+
+:root {
+    --background-color: #f4edde;
+}
+
+h1 {
+    background: center / 80px repeat-x url("img/taurus.png");
+}
