@@ -1,0 +1,264 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <title>rap ez - crédits du site</title>
+        <link rel="icon" type="image/x-icon" href="img/logoez.png">
+        <link href="css/style.css" rel="stylesheet">
+
+        <style>
+            li {
+                margin: 10px 0;
+            }
+            pre {
+                padding: 0;
+                margin: 0;
+                font-size: 1rem;
+            }
+
+            pre.hide {
+                display: none;
+            }
+        </style>
+
+    </head>
+    <body>
+
+        <nav>
+            <a href="index.html">accueil</a>
+            <a href="a-propos.html">à propos</a>
+            <a href="membres.html">membres</a>
+            <a href="discographie.html">discographie</a>
+            <a href="credits.html">crédits</a>
+        </nav>
+
+        <header>
+            <h1>qui a fait le site du rap ez</h1>
+        </header>
+
+        
+        <main>
+            <p>bonjour c'est zac j'ai démarré ce site web le 14 septembre 2025 vers 7h du mat dans une chambre à kremlin-bicêtre, en rentrant de l'huma avec matis</p>
+
+            <p>visitez mon blog <a href="https://jej888.fr" target="_blank">jej888.fr</a> ! ce site-là lui ressemble bcp trop il faudrait que je me force à faire qqch de différent</p>
+            <br><br><br>
+            <p>haha mate ça c'est une animation de kiwi que j'ai faite l'autre jour</p>
+
+            <div id="kiwi">
+                <pre>
+                
+                
+                
+                
+                
+                       _____
+                      /     \
+                     /       \ \
+                    |         |   \
+                    |         |     \
+                     \       /       \
+                      \_____/__________\
+                      |     |
+                      |     |
+                      |     |
+                      |     |
+                </pre>
+                <pre class="hide">
+                
+                
+                
+                
+                
+                       _____ __
+                      /     \   \
+                     /       \     \
+                    |         |      \   
+                    |         |      /
+                     \       /     / 
+                      \_____/__ /
+                      |     |
+                      |     |
+                      |     |
+                      |     |
+                </pre>
+                <pre class="hide">
+                
+                
+                
+                
+                
+                       ________________
+                      /     \         /
+                     /       \      /
+                    |         |    /
+                    |         |  /
+                     \       / /
+                      \_____/
+                      |     |
+                      |     |
+                      |     |
+                      |     |
+                </pre>
+                <pre class="hide">
+                
+                                     /|
+                                   /  /
+                                /    /
+                             /      /
+                       ___/_       /
+                      /     \     /
+                     /       \   /
+                    |         | /
+                    |         |
+                     \       /
+                      \_____/
+                      |     |
+                      |     |
+                      |     |
+                      |     |
+                </pre>
+                <pre class="hide">
+                         /\
+                        /  \
+                       /    \
+                      /      \
+                     /        \
+                    |  _____  |
+                    | /     \ |
+                    |/       \|
+                    |         |
+                    |         |
+                     \       /
+                      \_____/
+                      |     |
+                      |     |
+                      |     |
+                      |     |
+                </pre>
+                <pre class="hide">
+                
+         |\
+          \  \
+            \    \
+             \      \
+              \        _\___
+               \      /     \
+                \    /       \
+                  \ |         |
+                    |         |
+                     \       /
+                      \_____/
+                      |     |
+                      |     |
+                      |     |
+                      |     |
+                </pre>
+                
+                <pre class="hide">
+                
+                
+                
+                
+                
+            ________________
+            \         /     \
+              \      /       \
+               \    |         |
+                 \  |         |
+                   \ \       /
+                      \_____/
+                      |     |
+                      |     |
+                      |     |
+                      |     |
+                </pre>
+                <pre class="hide">
+                
+                
+                
+                
+                
+                    __ _____
+                  /   /     \
+               /     /       \
+             /      |         | 
+             \      |         |
+               \     \       /
+                  \ __\_____/
+                      |     |
+                      |     |
+                      |     |
+                      |     |
+                </pre>
+                <pre>
+                
+                
+                
+                
+                
+                       _____
+                      /     \
+                   / /       \
+                /   |         |
+              /     |         |
+            /        \       /
+           /__________\_____/
+                      |     |
+                      |     |
+                      |     |
+                      |     |
+                </pre>
+            </div>
+    
+            <script defer>
+                let frameCounts = {};
+                let forward = true; // en avant ou arrière ?
+
+                function animate(id, delay) {
+
+                    const container = document.getElementById(id);
+                    const frames = container.children;
+
+                    frameCounts[id] = 0;
+
+                    frames[0].style.display = "flex";
+                    for (let i = 1; i < frames.length; i++) {
+                        frames[i].style.display = "none";
+                    }
+
+                    const interval = setInterval(updateAnimation, delay, id, frames, frames.length);
+                }
+
+                function updateAnimation(id, frames, totalFrames) {
+
+                    if (forward) { // en avant
+                        frameCounts[id] += 1;
+                        frames[frameCounts[id] - 1].style.display = "none";
+                        if (frameCounts[id] == totalFrames - 1) {
+                            forward = false;
+                        }
+                    } else { // en arrière
+                        frameCounts[id] -= 1;
+                        frames[frameCounts[id] + 1].style.display = "none";
+                        if (frameCounts[id] == 0) {
+                            forward = true;
+                        }
+                    }
+                    frames[frameCounts[id]].style.display = "flex";
+
+
+                }
+
+                const preferReduceMotion = window.matchMedia("(prefers-reduced-motion)").matches;
+
+                animate("kiwi", preferReduceMotion ? 500 : 120);
+
+            </script>
+        </main>
+
+        <footer>
+            <p>matis & zac 2025</p>
+        </footer> 
+
+    </body>
+</html>

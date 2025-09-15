@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <title>rap ez - discographie</title>
+        <link rel="icon" type="image/x-icon" href="img/logoez.png">
+        <link href="css/style.css" rel="stylesheet">
+
+        <style>
+            .album-container {
+                width: 90%;
+                display: grid;
+                margin: auto;
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 20px;
+                padding-top: 30px;
+            }
+            .album-container > a {
+                background-color: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: transform 125ms;
+            }
+            .album-container > a > img {
+                width: 100%;
+                height: auto;
+            }
+            .album-container > a:hover {
+                box-shadow: 3px 3px 5px black; /* horizontal vertical adoucissement couleur */
+                transform: scale(1.05); /* -moz-transform, -webkit-transform, -o-transform, -ms-transform */
+            }
+        </style>
+
+    </head>
+    <body>
+
+        <nav>
+            <a href="index.html">accueil</a>
+            <a href="a-propos.html">à propos</a>
+            <a href="membres.html">membres</a>
+            <a href="discographie.html">discographie</a>
+            <a href="credits.html">crédits</a>
+        </nav>
+
+        <header>
+            <h1>la discographie du rap ez</h1>
+        </header>
+
+        
+        <main>
+            <p>qu'est-ce qu'ils ont sorti comme disques ?</p>
+            <p>voici les pochettes des albums, cliquez dessus pour les tracklists et liens d'écoute</p>
+
+            <div class="album-container">
+                <a href="disco/piper.html">
+                    <img src="img/pochettes/1967.png" title="le 1er album (1967)"/>
+                </a>
+                <a href="disco/piper.html">
+                    <img src="img/pochettes/1968.png" title="le 2ème album (1968)"/>
+                </a>
+                <a href="disco/piper.html">
+                    <img src="img/pochettes/1969a.png" title="le 3ème album (1969)"/>
+                </a>
+
+                <a href="disco/piper.html">
+                    <img src="img/pochettes/1969b.png"/>
+                </a>
+                <a href="disco/piper.html">
+                    <img src="img/pochettes/1970.png"/>
+                </a>
+                <a href="disco/piper.html">
+                    <img src="img/pochettes/1971.png"/>
+                </a>
+
+                <a href="disco/piper.html">
+                    <img src="img/pochettes/1972.png"/>
+                </a>
+                <a href="disco/piper.html">
+                    <img src="img/pochettes/1973.png"/>
+                </a>
+                <a href="disco/piper.html">
+                    <img src="img/pochettes/1975.png"/>
+                </a>
+            </div>
+        </main>
+
+        <footer>
+            <p>matis & zac 2025</p>
+        </footer> 
+
+    </body>
+</html>

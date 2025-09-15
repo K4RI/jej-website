@@ -1,0 +1,71 @@
+﻿:root {
+    --background-color: #1bb825;
+    --link-color: #0066CC;
+    --maxwidth: 1040px;
+    --padding: 30px;
+}
+
+@font-face {
+    font-family: 'Times New Roman';
+    src:    
+        local('Times New Roman'),
+        url('times.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Times New Roman';
+    src:    
+        local('Times New Roman Bold'),
+        url('times-bold.ttf') format('truetype');
+    font-weight: bold;
+}
+
+body {
+    max-width: var(--maxwidth);
+    margin: auto;
+    background-color: var(--background-color);
+    font-family: 'Times New Roman', Times, serif; /* 'Times New Roman', Arial, Helvetica, monospace, Courier */
+}
+
+header {
+    font-family: Tahoma; /* Tahoma */
+    padding: 15px;
+}
+
+main {
+    padding: var(--padding);
+}
+
+footer {
+    width: 70%;
+    margin: auto;
+    padding: 20px 0px 5px 0px;
+    font-size: 0.8em; /* par défaut : 16px */
+    font-style: italic;
+    text-align: center;
+}
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:space-around;
+    position: sticky;
+    top: 0;
+    background-color: var(--background-color);
+}
+
+nav > a {
+    padding: 15px 15px;
+    text-align: center;
+    vertical-align: middle;
+    flex-grow: 1;
+}
+
+a:hover, a:active, a:focus {
+    color: #ff0000;
+}
+
+nav > a:hover, a:active, a:focus {
+    background-color: #47ce50;
+    color: var(--link-color);
+}

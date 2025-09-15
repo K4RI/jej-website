@@ -1,0 +1,28 @@
+﻿table {
+    border-collapse: collapse;
+    margin: auto;
+    width: 80%;
+    margin-top: 20px;
+}
+
+th {
+    border: solid 1px;
+    background-color: #0f9e19;
+}
+
+td {
+    text-align: center;
+    border: solid 1px;
+
+}
+
+tfoot > tr {
+    font-weight: bold;
+}
+
+tfoot > tr > th {
+    background-color: transparent;
+    border-width: 0px;
+    text-align: right;
+    padding-right: 10px;
+}
