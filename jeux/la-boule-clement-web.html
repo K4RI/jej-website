@@ -10,19 +10,20 @@
         <link href="la-boule-clement-web/TemplateData/style.css" rel="stylesheet">
 
         <!-- Initialisation de Sentry -->
-        <!-- https://docs.sentry.io/platforms/javascript/install/loader/ -->
+        <!-- Méthode 1 : loader script https://docs.sentry.io/platforms/javascript/install/loader/ -->
         <!-- <script
             src="https://js.sentry-cdn.com/7ac034c5bbd378a354f1bbca6c11dff7.min.js"
             crossorigin="anonymous"
         ></script> -->
         
-        <!-- https://docs.sentry.io/platforms/javascript/user-feedback/#installation -->
+        <!-- Méthode 2a : user feedback https://docs.sentry.io/platforms/javascript/user-feedback/#installation -->
         <script
-            src="https://browser.sentry-cdn.com/7.116.0/bundle.tracing.replay.feedback.min.js"
+            src="https://browser.sentry-cdn.com/8.55.0/bundle.feedback.min.js"
             crossorigin="anonymous"
         ></script>
-        
-        <script> // pour l'ajouter dans l'onglet "User Feedback" https://docs.sentry.io/platforms/javascript/user-feedback/#set-up
+
+        <!-- 2b : https://docs.sentry.io/platforms/javascript/user-feedback/#set-up -->
+        <script>
             Sentry.init({
                 dsn: "https://7ac034c5bbd378a354f1bbca6c11dff7@o4507037759111168.ingest.us.sentry.io/4507037763895296",
                 integrations: [
@@ -81,14 +82,14 @@
         <p>ok c'est la boule clément</p>
         <p>le but est d'attraper les douze bricoles le plus vite possible en déplaçant la boule clément avec les touches zqsd, on peut aussi réinit avec entrée</p>
         <p>une feature assez sympa c'est le tableau des highscores :) à la fin de ta run si tu as été rapide, il y a une touche pour envoyer ton score afin qu'il aille dans le tableau à droite. il s'actualise une fois par jour. bon courage pour atteindre le sommet !</p>
-        <span id="erreur" style="font-size: 1em; color: red; display: none;"><strong>
-          <p><u>ATTENTION : le module d'envoi des highscores n'a pas pu s'importer.</u> il y a deux causes possibles :</p>
+        <span id="erreur" style="font-size: 0.9em; color: red; display: none;"><strong>
+          <p><u>ATTENTION : le module d'envoi des highscores n'a pas pu s'importer.</u> il y a plusieurs causes possibles :</p>
             <ol>
-              <li>ou bien c'est ton bloqueur de pub qui a détecté et bloqué le module</li>
-              <li>ou bien tu es sur mobile, de toute manière le jeu se joue pas sur mobile.</li>
+              <li>une extension bloqueur de pub</li>
+              <li>sur Mozilla, la "protection renforcée contre le pistage" à gauche de l'URL</li>
             </ol>
-          <p></p>
-          <p>donc si tu veux t'enregistrer dans les highscores il faudra désactiver le bloqueur et recharger la page (promis y a zéro pub sur le site mdr), sinon c'est pas grave tu peux quand même profiter du jeu ^^</p>
+          <p>donc si tu veux t'enregistrer dans les highscores il les désactiver et recharger la page (promis y a ni pub ni vol de données sur mon site !! je sais même pas comment on fait !!) sinon c'est pas grave tu peux quand même profiter du jeu ^^</p>
+          <p>si ces solutions marchent toujours pas ptet le problème vient de mon côté, merci de me le signaler mes contacts sont en pied de page !</p>
           <br><br>
         </strong></span>
         
@@ -161,7 +162,7 @@
             */
             function sauvegarderScore(timer) {
               if (erreur) {
-                alert("feature bloquée à cause de ton bloqueur dsl cf texte en rouge")
+                alert("feature bloquée par ton bloqueur cf texte en rouge dsl bonne journée")
               } else {
                 let nom = prompt("Score de " + timer.split(' ')[0] + " secondes ! Entrez votre nom :")
                 while (!nom){
