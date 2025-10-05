@@ -1,0 +1,21 @@
+[ Idée initiale du 2 juillet : si le livre de Bastien est pas publié je le mettrai dans ma thèse ("pour un meilleur aperçu se référer à 'La voix de toute chair' en annexe B"), et si ma thèse est pas publiée* il la mettra dans son livre ("au fait Neige j'ai eu une super idée pour faire de la vérification formelle de protocoles de cohérence cache"). ]
+
+13/07/25 :
+
+Une œuvre composite, imaginée à partir du chapitre de la feuille blanche au milieu de l'histoire d'Esteban. Je m'y plains à l'atelier d'écriture de pas avoir trouvé d'idée, et Bastien veut me faire lire le 1er jet qu'il vient de finir.
+Sur la tranche du livre il y aura 10 pages en rouge au début et à la fin pour Esteban, 500 pages en blanc au milieu pour La voix de toute chair, et une page en rouge au milieu milieu pour l'aparté où Neige vomit sa pinte d'ambrée dans les chiottes du Café du Nord.
+
+Couper l'œuvre en plein milieu (ou mettre la 2ème partie sous cadenas ?) et introduire la suite dans un ARG : un QR code vers http://jej888.fr/img/un-pers-et-on-arrose.mp3, ou alors des coordonnées GPS pour retrouver un géocache de l'exemplaire 7/6 de l'album caché quelque part en France (par ex dans le sous-sol de l'ancienne Zonzon). L'indice serait caché dans le spectre Audacity du fichier, cf les méthodes capture the flag de cybersécurité
+
+Un jeu de piste dans Grenoble : plusieurs photos de moi qui rentre la nuit du Drak Art et qui dort sur des bancs de la ville, il faut identifier les emplacements de ces photos sur une carte pour dessiner l'indice.
+
+Un jeu vidéo "Professeur Layton - Un mort à Nancy" d'enquête sur la mort de Monsieur R avec sa silhouette très mal anonymisée : revenir à Nancy plusieurs années après ta diplomation, voir en silhouettes transparentes les souvenirs du passé. Le seul personnage tangible est Marsi avec des lunettes noires et la voix de Sans Undertale, qui te réveille en intro comme Keanu Reeves dans la bande-annonce de Cyberpunk 2077 ("wake the fuck up samurai, we have a city to burn") et qui doit t'aider à mener ta quête à bout afin de lui-même être délivré de sa malédiction.
+Le jeu serait jouable uniquement sur Nintendo DS : soit en téléchargement pour R4, soit en vraie cartouche DS dans un géocache comme celui de Un pers et on arrose.
+
+Les crédits très longs : "Programmation web, repérage, casting, écriture partie 1... - Zachary Assoumani / Recording, instrumentation, mix, master, pochette, écriture partie 2... - Bastien Eglem / La production remercie Monsieur R et envoie ses condoléances à sa famille"
+
+Pour la distribution : irruption à une conférence au Printemps du Livre où l'on offre des exemplaires de la 1ère partie, et/ou adaptation de tout ce projet en pièce de théâtre à Aurillac où on est que nous deux dans la rue avec un balai et trois cartons.
+
+Film autotélique de 8 heures si on sort jamais le projet final, avec juste des mockup design, des fausses previews comme à l'E3, et un long commentary sur l'histoire de sa conception.
+
+Lancer le projet après le bouquin de Bastien pour lui éviter une dépression comme Yannick Noah. Le temps de travail dessus me détournera de ma thèse et me la fera foirer, ce qui justifiera *l'idée initiale.
