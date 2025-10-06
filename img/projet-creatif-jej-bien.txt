@@ -1,4 +1,4 @@
-[ Idée initiale du 2 juillet : si le livre de Bastien est pas publié je le mettrai dans ma thèse ("pour un meilleur aperçu se référer à 'La voix de toute chair' en annexe B"), et si ma thèse est pas publiée* il la mettra dans son livre ("au fait Neige j'ai eu une super idée pour faire de la vérification formelle de protocoles de cohérence cache"). ]
+﻿[ Idée initiale du 2 juillet : si le livre de Bastien est pas publié je le mettrai dans ma thèse ("pour un meilleur aperçu se référer à 'La voix de toute chair' en annexe B"), et si ma thèse est pas publiée* il la mettra dans son livre ("au fait Neige j'ai eu une super idée pour faire de la vérification formelle de protocoles de cohérence cache"). ]
 
 13/07/25 :
 
