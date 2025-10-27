@@ -16,7 +16,7 @@
     font-family: 'Times New Roman';
     src:    
         local('Times New Roman Bold'),
-        url('times-bold.ttf') format('truetype');
+        url('times-bold.otf') format('truetype');
     font-weight: bold;
 }
 
