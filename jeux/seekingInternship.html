@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recherche de stage</title>
+    <script src="../scripts/js/seekingInternship.js" defer></script>
+    <link href="../css/seekingInternship.css" rel="stylesheet">
+</head>
+<body class="">
+
+    <header class="section header ">
+        <h1>Recherche de stage <span style="font-size: x-small; font-weight: normal ;color: red;">un jeu de ma pote <a href="https://github.com/EmyKwint" target="_blank">louise</a> trouvez-lui un stage pitié</span></h1>
+        <h2>Courage *emoji sourire*</h2>
+        <p>Bravo pour ta formation ! Maintenant, postule pour un stage !</p>
+        <p><strong>ATTENTION, l'abus de café peut être dangereux pour la santé</strong></p>
+    </header>
+
+    <section class="section screen" id="screen ">
+        <div class="screen__info" id="screenInfo ">
+            <p>Demandes envoyées : <span class="counter screen__counter-apply" id="applyCounter">0</span> ! </p>
+            <p>Energie : <span class="counter screen__counter-energy" id="energyCounter">100%</span> ! </p>
+            <p>Réponse reçues : <span class="counter screen__counter-responses" id="responsesCounter">0</span> ! </p>
+        </div>
+        <div class="screen__apply" id="screenApply">
+            <button class="btn btn-apply" id="applyBtn">Envoyer candidature</button>
+            <button class="btn shop__coffee" id="coffee" disabled>Boire un café(+50% énergie)</button>
+        </div>
+        <div class="screen__shop" id="screenShop">
+            <h3>améliorations</h3>
+            <div id="tools"></div>
+        </div>
+        <div class="devZONE">
+            <button id="reset">RESET.DEV.ZONE</button>
+        </div>
+    </section>
+    <div class=modal id="modal">
+        <h4>L'abus de café peut nuire à la santé !</h4>
+        <p>Ton compteur est remis à à 0 après une semaine d'hospitalisation...</p>
+        <p>Ne pas dépasser 300% !</p>
+        <button id="modalBtn">D'accord</button>
+    </div>
+    <div class="itw" id="itw">
+        <h3 id="itwTitle"></h3>
+        <p id="itwQuestion"></p>
+        <div id="itwResponses"></div>
+    </div>
+</body>
+</html>
