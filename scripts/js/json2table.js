@@ -13,6 +13,12 @@ const dict = {
     7 : "art et musique",
     8 : "utile et/ou créatif"
 }
+let cat_count = Array(9).fill(0)
+let init_lab_html = Array(9).fill("")
+Object.keys(dict).forEach(ind => { 
+    init_lab_html[ind] = document.getElementById("lab-" + ind).innerHTML
+})
+
 
 const tableau = document.getElementById("tableau");
 
@@ -97,6 +103,11 @@ $.getJSON(data_file, function(data){
                 case "Categorie":
                     row.classList.add("cat-" + data[i]["Categorie"])
                     cell.innerHTML = dict[data[i]["Categorie"]];
+
+                    let ind = data[i]["Categorie"]
+                    cat_count[ind]++
+                    let lab = document.getElementById("lab-" + ind)
+                    lab.innerHTML = init_lab_html[ind] + ` <span style="font-size:small; font-weight:bold">[${cat_count[ind]}]</span>`
                     break;               
             }
             row.appendChild(cell); // la cellule va dans la ligne
