@@ -40,7 +40,7 @@
 
         <p>voici quelques années que je collectionne dans un petit document des adresses web intéressantes ou rigolotes, à la manière de <a href="http://chezxavier.free.fr/liens.htm" target="_blank">ce</a> ou <a href="https://333333.icu/trucs/sites_cools.html" target="_blank">ci</a> ou <a href="https://peelopaalu.neocities.org/" target="_blank">ça</a> ou <a href="https://club1.fr/annuaire" target="_blank">ci</a> ou <a href="https://www.potatoland.org/napier_homepage/links.html" target="_blank">ça</a>.</p>
         
-        <p>au terme de deux journées de travail éprouvantes j'ai enfin réussi à automatiser cette foutue conversion en tableau, donc le voici !! les liens sont annotés en catégories, affichables (resp. désaffichables) en cochant (resp. décochant) les boutons.</p>
+        <p>au terme de deux journées de travail éprouvantes j'ai enfin réussi à automatiser cette foutue conversion en tableau, donc le voici !! les liens sont annotés en catégories, affichables (resp. désaffichables) en cochant (resp. décochant) les boutons. et maintenant chaque ligne a son propre lien de partage avec la petite icône "🖸" :3</p>
         
         <p>si vous remarquez un lien mort* signalez-le-moi merci !</p>
         <br>
@@ -50,19 +50,34 @@
                 Cochez les catégories à afficher :<br>
                 <input type="checkbox" name="btn-yes" id="btn-yes" > <label for="btn-yes"><strong>TOUT COCHER</strong></label>
                 <input type="checkbox" name="btn-no" id="btn-no"> <label for="btn-no"><strong>TOUT DÉCOCHER</strong></label><br>
-                <div id="boutons">
-                    <input type="checkbox" name="btn-1" id="btn-1"> <label for="btn-1">articles scientifiques<sup>(1)</sup></label>
-                    <input type="checkbox" name="btn-2" id="btn-2"> <label for="btn-2">articles de journal ou de blog<sup>(2)</sup></label>
-                    <input type="checkbox" name="btn-3" id="btn-3"> <label for="btn-3">jeux ou animations web</label><br>
-                    <input type="checkbox" name="btn-4" id="btn-4"> <label for="btn-4">pages wikipédia</label>
-                    <input type="checkbox" name="btn-5" id="btn-5"> <label for="btn-5">cartes</label>
-                    <input type="checkbox" name="btn-6" id="btn-6"> <label for="btn-6">jolis blogs</label>
-                    <input type="checkbox" name="btn-7" id="btn-7"> <label for="btn-7">art et musique</label>
-                    <input type="checkbox" name="btn-8" id="btn-8"> <label for="btn-8">utiles et/ou créatifs</label>
-                </div>
             </p>
-            <p><sup>(1) en cas de paywall, copier-coller le nom ou l'identifiant DOI de l'article dans : sci-hub/pismin, libgen, z-library, anna's archive (les url changent souvent, cf <a href="https://open-slum.org/" target="_blank">ici</a> ou <a href="https://www.sci-hub.pub/" target="_blank">là</a>) <br> (2) en cas de paywall, copier-coller l'adresse URL de l'article dans : <a href="https://archive.ph/" target="_blank">archive.ph</a>, <a href="https://www.removepaywall.com/" target="_blank">removepaywall.com</a>, ou installer l'extension <a href="https://gitflic.ru/project/magnolia1234/bypass-paywalls-chrome-clean/" target="_blank">Bypass Paywalls Clean</a> <br> (*) en cas de lien mort ou 404 : archive.ph, <a href="https://web.archive.org/" target="_blank">web.archive.org</a> <br> d'expérience ces astuces marchent dans 95% des cas <br><br>dernière note : sur suggestion de mon pote taurus, j'ai fait rediriger les hyperliens twitter.com vers nitter.net. comme ça ils restent lisibles même sans compte et ils donnent moins d'engagement à ce site de racelard</sup></p>
+            <div id="boutons">
+                <input type="checkbox" name="btn-1" id="btn-1"> <label for="btn-1">articles scientifiques<sup>(1)</sup></label>
+                <input type="checkbox" name="btn-2" id="btn-2"> <label for="btn-2">articles de journal ou de blog<sup>(2)</sup></label>
+                <input type="checkbox" name="btn-3" id="btn-3"> <label for="btn-3">jeux ou animations web</label><br>
+                <input type="checkbox" name="btn-4" id="btn-4"> <label for="btn-4">pages wikipédia</label>
+                <input type="checkbox" name="btn-5" id="btn-5"> <label for="btn-5">cartes</label>
+                <input type="checkbox" name="btn-6" id="btn-6"> <label for="btn-6">jolis blogs</label>
+                <input type="checkbox" name="btn-7" id="btn-7"> <label for="btn-7">art et musique</label>
+                <input type="checkbox" name="btn-8" id="btn-8"> <label for="btn-8">utiles et/ou créatifs</label>
+            </div>
         </form>
+            
+        <br>
+        <p><sup>
+            (1) en cas de paywall, copier-coller le nom ou l'identifiant DOI de l'article dans : sci-hub/pismin, libgen, z-library, anna's archive (les url changent souvent, cf <a href="https://open-slum.org/" target="_blank">ici</a> pour les livres & <a href="https://www.sci-hub.pub/" target="_blank">là</a> pour les articles) <br>
+
+            (2) en cas de paywall, copier-coller l'adresse URL de l'article dans : <a href="https://archive.ph/" target="_blank">archive.ph</a>, <a href="https://www.removepaywall.com/" target="_blank">removepaywall.com</a>, ou installer l'extension <a href="https://gitflic.ru/project/magnolia1234/bypass-paywalls-chrome-clean/" target="_blank">Bypass Paywalls Clean</a> <br>
+
+            (*) en cas de lien mort ou 404 : archive.ph, <a href="https://web.archive.org/" target="_blank">web.archive.org</a> <br>
+
+            d'expérience ces astuces marchent dans 95% des cas <br>
+
+            au pire les bibliothèques municipales et la bnf ont souvent europresse ou mediapart dans leurs ressources de presse, l'inscription coûte rarement + de 30€/an <br><br>
+            
+            dernière note : sur suggestion de mon pote taurus, j'ai fait rediriger les hyperliens twitter.com vers nitter.net. comme ça ils restent lisibles même sans compte et ils donnent moins d'engagement à ce site de racelard
+        </sup></p>
+
         <table>
             <caption>Liste de liens intéressants lol</caption>
             <colgroup>

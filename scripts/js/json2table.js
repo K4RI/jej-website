@@ -18,6 +18,8 @@ const tableau = document.getElementById("tableau");
 
 // Ici on remplit le tableau.
 var data_file = "scripts//js//postits.json";
+var current_date = "";
+var count_by_date = 0;
 $.getJSON(data_file, function(data){
     $.each(data.reverse(), function(i){
         let row = document.createElement("tr") // à chaque entrée on initialise la nouvelle ligne
@@ -25,7 +27,22 @@ $.getJSON(data_file, function(data){
             var cell = document.createElement("td") // à chaque attribut on initialise une cellule
             switch (key){
                 case "Date":
-                    cell.innerHTML = data[i]["Date"];
+                    // pour partager cette ligne précisément : un identifiant
+                    let date = data[i]["Date"].replaceAll("/", "-")
+                    if (date != current_date) {
+                        current_date = date
+                        count_by_date = 0
+                    }
+                    count_by_date++
+                    row.id = current_date + "-" + String.fromCharCode(96 + count_by_date)
+                    row.style.scrollMarginTop = "60px"
+                    
+                    var addr = document.createElement("a")
+                    addr.style.textDecoration = "none"
+                    addr.href = "#" + row.id
+                    addr.innerHTML = "🖸"
+                    cell.appendChild(addr)
+                    cell.innerHTML += ` ` + data[i]["Date"];
                     break;
                 case "URL":
                     if (data[i]["URL"].includes("\n")){ // s'il y a plusieurs url
@@ -45,6 +62,13 @@ $.getJSON(data_file, function(data){
                     }
                     break;
                 case "Description":
+                    // quand il y a des "cf. 01/23/45", introduire un lien vers sa ligne
+                    const matches = data[i]["Description"].matchAll(/cf. \d\d\/\d\d\/\d\d/g);
+                    for (const match of matches) {
+                        const match_d = match[0].substring(4)
+                        data[i]["Description"] = data[i]["Description"].replace(match[0], `<a href="#${match_d.replaceAll("/", "-")}-a" style="text-decoration: none; color: gray; font-style:italic">cf. ${match_d}</a>`)
+                    }
+
                     if (data[i]["Description"].includes("\n")){
                         cell.innerHTML = ""
                         data[i]["Description"].split("\n").forEach(elt => {
@@ -67,8 +91,6 @@ $.getJSON(data_file, function(data){
                             addr.href = "postits/chomskybot.html"
                             addr.innerHTML = "j'en parle ici !!!"
                             cell.appendChild(addr)
-                            row.id="chomskybot" // pour partager cette ligne précisément
-                            row.style.scrollMarginTop = "60px"
                         }
                     }    
                     break;
