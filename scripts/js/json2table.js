@@ -46,7 +46,7 @@ $.getJSON(data_file, function(data){
                     var addr = document.createElement("a")
                     addr.style.textDecoration = "none"
                     addr.href = "#" + row.id
-                    addr.innerHTML = "🖸"
+                    addr.innerHTML = "✪" // j'hésite avec ⨁◶✪◍⚉⨂
                     cell.appendChild(addr)
                     cell.innerHTML += ` ` + data[i]["Date"];
                     break;
