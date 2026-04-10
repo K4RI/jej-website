@@ -1,4 +1,4 @@
-/**
+﻿/**
   * Utilisé pour postits.html
   * Remplit un tableau à partir d'un fichier .json, et des checkbox pour afficher selon la catégorie.
 */
