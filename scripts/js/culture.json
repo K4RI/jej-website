@@ -1,0 +1,315 @@
+[
+	{
+		"section": "festivals",
+		"entries": [
+			{
+				"name": "carnaval de la plaine",
+				"location": "mars à marseille",
+				"url": "https://mars-infos.org/+-carnaval-+",
+				"visited": 0
+			},
+			{
+				"name": "détours de babel",
+				"location": "mars à grenoble",
+				"url": "https://musiques-nomades.fr/le-festival",
+				"visited": 0
+			},
+			{
+				"name": "puissance blast",
+				"location": "mai à nancy",
+				"url": "https://www.facebook.com/reactionpowertrio/",
+				"visited": 1
+			},
+			{
+				"name": "foutu pour foutu fest",
+				"location": "mai à metz",
+				"url": "https://linktr.ee/foutupourfoutu",
+				"visited": 0
+			},
+			{
+				"name": "fête de la ferme des 1000 joies",
+				"location": "mai à la rivière (isère)",
+				"url": "https://www.instagram.com/lahordeducontretemps/",
+				"visited": 1
+			},
+			{
+				"name": "fête de lutte ouvrière",
+				"location": "mai à presles (val-d'oise)",
+				"url": "https://fete.lutte-ouvriere.org/",
+				"visited": 1
+			},
+			{
+				"name": "fimu",
+				"location": "mai à belfort",
+				"url": "https://www.fimu.com/",
+				"visited": 1
+			},
+			{
+				"name": "decolonial film festival",
+				"location": "mai à paris",
+				"url": "https://www.decolonialfilmfest.com/",
+				"visited": 1
+			},
+			{
+				"name": "rio loco",
+				"location": "juin à toulouse",
+				"url": "https://rio-loco.org/",
+				"visited": 1
+			},
+			{
+				"name": "cabaret frappé",
+				"location": "juillet à grenoble",
+				"url": "https://www.instagram.com/cabaret_frappe/",
+				"visited": 1
+			},
+			{
+				"name": "jazz à vienne",
+				"location": "juillet à vienne",
+				"url": "https://www.jazzavienne.com/fr",
+				"visited": 0
+			},
+			{
+				"name": "restons sérieux",
+				"location": "juillet à paris",
+				"url": "https://supersonic-club.fr/restons-serieux/",
+				"visited": 1
+			},
+			{
+				"name": "jazz in marciac",
+				"location": "juillet à marciac (gers)",
+				"url": "https://www.jazzinmarciac.com/",
+				"visited": 1
+			},
+			{
+				"name": "celebration days",
+				"location": "juillet à cernoy (oise)",
+				"url": "https://celebrationdays.org/le-festival",
+				"visited": 0
+			},
+			{
+				"name": "nickelos fest",
+				"location": "août en bretagne",
+				"url": "https://www.instagram.com/nickelosfest/",
+				"visited": 0
+			},
+			{
+				"name": "monstres & groseilles",
+				"location": "août à nancy",
+				"url": "https://www.instagram.com/monstresetgroseilles/",
+				"visited": 0
+			},
+			{
+				"name": "fête de l'huma",
+				"location": "septembre à brétigny (essonne)",
+				"url": "https://fete.humanite.fr/",
+				"visited": 1
+			},
+			{
+				"name": "[FINI] sonic protest",
+				"location": "mars à paris et ailleurs",
+				"url": "https://www.sonicprotest.com/",
+				"visited": 0
+			}
+		]
+	},
+
+	
+	{
+		"section": "collectives",
+		"entries": [
+			{
+				"name": "junglist",
+				"location": "nancy",
+				"style": "jungle, garage",
+				"url": "https://www.instagram.com/junglistnancy/",
+				"visited": 1
+			},
+			{
+				"name": "jazzcore",
+				"location": "paris",
+				"style": "jazz, électro",
+				"url": "https://www.instagram.com/jazzcore.paris/",
+				"visited": 0
+			},
+			{
+				"name": "couleur vitesse",
+				"location": "toulouse",
+				"style": "misc",
+				"url": "https://www.instagram.com/couleurvitesse/",
+				"visited": 1
+			},
+			{
+				"name": "bloblotte (creme dj crew & couleur vitesse)",
+				"location": "partout",
+				"style": "electro à la con",
+				"url": "https://www.instagram.com/cremedjcrew/",
+				"visited": 1
+			},
+			{
+				"name": "algoraves du cookie collectif",
+				"location": "paris, lyon",
+				"style": "live coding",
+				"url": "https://www.instagram.com/cookiecollectif/",
+				"visited": 1
+			},
+			{
+				"name": "rêves party",
+				"location": "paris",
+				"style": "rap un peu chelou",
+				"url": "https://www.instagram.com/reves.partys/",
+				"visited": 0
+			},
+			{
+				"name": "reaction power trio",
+				"location": "nancy",
+				"style": "noise",
+				"url": "https://www.facebook.com/reactionpowertrio/",
+				"visited": 0
+			},
+			{
+				"name": "blob party",
+				"location": "lyon",
+				"style": "rap un peu chelou",
+				"url": "https://www.instagram.com/blob.party/",
+				"visited": 1
+			},
+			{
+				"name": "bruitisme",
+				"location": "partout",
+				"style": "noise",
+				"url": "https://www.facebook.com/gregory.henrion",
+				"visited": 0
+			}
+		]
+	},
+
+	
+	{
+		"section": "places",
+		"entries": [
+			{
+				"name": "l'art haché",
+				"location": "marseille",
+				"url": "https://tarpin-bien.com/lieu/lart-hache/",
+				"visited": 1
+			},
+			{
+				"name": "l'intermédiaire",
+				"location": "marseille",
+				"url": "https://www.instagram.com/l_intermediaire/",
+				"visited": 1
+			},
+			{
+				"name": "le royal royal",
+				"location": "nancy",
+				"url": "https://www.leroyalnancy.fr/",
+				"visited": 1
+			},
+			{
+				"name": "l'embobineuse",
+				"location": "marseille",
+				"url": "https://www.lembobineuse.biz/",
+				"visited": 0
+			},
+			{
+				"name": "la salle gueule",
+				"location": "marseille",
+				"url": "https://www.facebook.com/lasallegueule/",
+				"visited": 0
+			},
+			{
+				"name": "karmen camina",
+				"location": "strasbourg",
+				"url": "https://www.karmen-camina.eu/",
+				"visited": 0
+			},
+			{
+				"name": "la dar",
+				"location": "marseille",
+				"url": "https://la-dar.org/",
+				"visited": 0
+			},
+			{
+				"name": "la bifurk",
+				"location": "grenoble",
+				"url": "https://labifurk.fr/",
+				"visited": 0
+			},
+			{
+				"name": "le ciel",
+				"location": "grenoble",
+				"url": "https://le-ciel.fr/",
+				"visited": 1
+			},
+			{
+				"name": "grrrnd zéro",
+				"location": "lyon",
+				"url": "https://www.grrrndzero.org/",
+				"visited": 0
+			},
+			{
+				"name": "leda atomica",
+				"location": "marseille",
+				"url": "https://www.instagram.com/ledaatomicamusique",
+				"visited": 0
+			},
+			{
+				"name": "sous le pont de l'A31",
+				"location": "metz",
+				"visited": 0
+			},
+			{
+				"name": "diamant d'or",
+				"location": "strasbourg",
+				"visited": 0
+			}
+		]
+	},
+
+	
+	{
+		"section": "agendas",
+		"entries": [
+			{
+				"name": "le vortex",
+				"location": "marseille",
+				"url": "https://www.vortexfrommars.org/"
+			},
+			{
+				"name": "les égouts de metz",
+				"location": "metz",
+				"url": "https://www.instagram.com/lesegoutsdemetz/"
+			},
+			{
+				"name": "le tamis",
+				"location": "grenoble",
+				"url": "https://www.le-tamis.info/"
+			},
+			{
+				"name": "ville morte",
+				"location": "lyon",
+				"url": "https://villemorte.fr/"
+			},
+			{
+				"name": "l'enroulé",
+				"location": "bruxelles",
+				"url": "https://stuut.info/+-lenroule-+"
+			},
+			{
+				"name": "distrorama",
+				"location": "toulouse",
+				"url": "https://distorama.neocities.org/"
+			},
+			{
+				"name": "pull rouge",
+				"location": "nantes",
+				"url": "https://pullrouge.fr/"
+			},
+			{
+				"name": "[FINI] paris kiwi",
+				"location": "paris",
+				"url": "https://pariskiwi.org/index.php/Accueil"
+			}
+		]
+	}
+]

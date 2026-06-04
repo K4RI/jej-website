@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <title>jej - culture</title>
+        <link rel="icon" type="image/x-icon" href="img/jej.png">
+        <link href="css/style.css" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-latest.js"></script>
+        <script src="scripts/js/culture.js" defer></script>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900&display=swap" rel="stylesheet">
+        
+
+        <style> /* copié de ez/disco/piper.html */
+            table {
+                border-collapse: collapse;
+                margin: auto;
+                width: 80%;
+                margin-top: 20px;
+            }
+
+            th {
+                /* border: solid 1px; */
+                background-color: #d6c187;
+                padding: 5px;
+            }
+
+            td {
+                /* text-align: center;
+                border: solid 1px; */
+                padding: 5px;
+
+            }
+
+            tfoot > tr {
+                font-weight: bold;
+            }
+
+            tfoot > tr > th {
+                background-color: transparent;
+                border-width: 0px;
+                text-align: right;
+                padding-right: 10px;
+            }
+        </style>
+
+    </head>
+    <body>
+        <a style="font-size: 0.9em" href="index.html"> < retour à l'accueil</a>
+        
+        <nav>
+            <div class="nav-container">
+                <a href="a-propos.html"><span>à propos de jej</span></a>
+                <a href="dessins.html"><span>dessins</span></a>
+                <a href="videos.html"><span>vidéos</span></a>
+                <a href="images.html"><span>images</span></a>
+                <a href="textes.html"><span>textes</span></a>
+                <a href="jeux.html"><span>jeux</span></a>
+                <a href="postits.html"><span>post-its</span></a>
+                <a href="remerciements.html"><span>special thanks</span></a>
+            </div>
+        </nav>
+
+        <header>
+            <a class="lien-titre" href="#">
+                <h1>nique la musique de france</h1>
+            </a>
+        </header>
+
+        <main>
+
+            <p>voici quelques années que j'arpente les voies ferroviaires de france un peu tous les samedis, ayant accumulé un palmarès qui n'a pas à rougir (<a href="img/train2023.jpg">2023</a>-<a href="img/train2024.jpg">4</a>-<a href="img/train2025.jpg">5</a>). mais c'est pour faire quoi tout ça enfaites ? pour aller où ?</p>
+
+            <p>comme un budget annuel pour un salaire, mes déplacements sur une année comptent des charges variables et les charges fixes. les unes seront les événements ponctuels : concert dans ta ville d'un artiste que j'aime bien, fête surprise au motif arbitraire, visite de courtoisie...</p>
+
+            <p>les autres sont les rendez-vous culturels annuels et incompressibles. mon attachement maladif au comique de répétition m'a eu les amis, il n'y a pas de retour en arrière. si un événement musical m'a fait kiffer une année, sois sûr que je l'ai déjà booké dans ma tête pour l'année suivante. problème en quelques années les entrées s'accumulent, et nécessitent vite une bureaucratie interne parfaitement huilée.</p>
+
+            <p>d'où l'élaboration de cette liste de mes événements annuels favoris, auxquels je me suis déjà rendu ou prévois de le faire. la coïncidence d'avoir pas mal d'amis investis dans leurs scènes culturelles locales (gros bisous ils se reconnaîtront), couplée à mon appétence pour le digging sur internet, m'a fait accumuler un tas de repères : collectifs musicaux, lieux culturels basés en France et basés en France, agendas présentant les souterrains de leurs villes.</p>
+
+            <p>une fois tout ça d'accumulé je sais où j'étais les fois d'avant, et où j'irai les prochaines.</p>
+            
+            <h2>Festivals annuels</h2>
+                musique, cinéma, fête militante... ici les occasions périodiques ayant lieu à dates fixes dans l'année. il y en a certaines que je n'ai pas encore visitées mais ça ne saurait tarder
+
+                <table>
+                    <colgroup>
+                        <col style="width: 200px">
+                        <col style="width: 200px">
+                        <col style="width: 300px">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>quoi ?</th>
+                            <th>où et quand ?</th>
+                            <th>lien ?</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="festivals">
+                    </tbody>
+                </table>
+
+            <h2>Événements ponctuels de collectifs</h2>
+                que ce soient des amis ou juste des mecs bizarres sur internet, la france regorge de crews musicaux ne se lassant pas d'organiser des soirées explosives
+
+                <table>
+                    <colgroup>
+                        <col style="width: 250px">
+                        <col style="width: 100px">
+                        <col style="width: 150px">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>quoi ?</th>
+                            <th>où ?</th>
+                            <th>quel style ?</th>
+                            <th>lien ?</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="collectives">
+                    </tbody>
+                </table>
+
+
+            
+            <h2>Salles / Lieux associatifs</h2>
+                épicentres du moment contemporain. des blazes qui reviennent souvent à mes oreilles il faudrait que j'y passe
+
+                <table>
+                    <colgroup>
+                        <col style="width: 200px">
+                        <col style="width: 200px">
+                        <col style="width: 300px">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>quoi ?</th>
+                            <th>où ?</th>
+                            <th>lien ?</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="places">
+                    </tbody>
+                </table>
+
+
+            
+            <h2>Agendas</h2>
+                et là c'est si jamais je déménage, ou même si tu lis ça et que ta ville est listée ! chacune de ces villes a son comité de bons samaritains, qui se démènent chaque mois pour agréger une liste plutôt complète des concerts ou événements associatifs à venir.
+
+                <table>
+                    <colgroup>
+                        <col style="width: 200px">
+                        <col style="width: 200px">
+                        <col style="width: 300px">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>quoi ?</th>
+                            <th>où ?</th>
+                            <th>lien ?</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="agendas">
+                    </tbody>
+                </table>
+
+
+            
+            <h2>Bonus : labels de cassettes</h2>
+
+                <div style="font-size: small; color: gray; font-style: italic; padding-left: 3%;">"I remember I couldn't afford a ford escort or even a four-track recorder" - kanye dans diamonds from sierra leone</div>
+            
+                <p>pour terminer ce sera pas vraiment un tableau, juste un lien. depuis peu j'ai poussé le curseur du renoi alternatif encore plus loin en me mettant à la collection de <a href="https://fr.wikipedia.org/wiki/Cassette_audio" target="_blank">cassettes</a>. incarnations incontournables des musiques souterraines, elles sont vendues en stands de merch ou par voie postale par ce genre de labels indés, qui forment aujourd'hui une bonne partie de mes abonnements bandcamp. ma liste reste à épaissir, mais ça commence ici :</p>
+                <p> <a href="https://bandcamp.com/zac888/following/artists_and_labels" target="_blank">https://bandcamp.com/zac888/following/artists_and_labels</a></p>
+                <p>vive le média physique achetez des cassettes à votre musicien local</p>
+                <p>xoxo</p>
+            
+
+        </main>
+
+        <footer>
+            ___________________________
+            <p ><a href="https://www.youtube.com/@jej888" target="_blank">youtube</a> - 
+            <a href="./tweets.html">twitter</a> - 
+            <a href="https://www.instagram.com/nwaar888/" target="_blank">instagram</a> - 
+            mail : jejasfh [at] gmail.com
+            </p>
+            <p>© smoking borzoi studios 2k24-∞</p>
+        </footer> 
+
+    </body>
+</html>
