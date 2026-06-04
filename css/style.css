@@ -71,14 +71,14 @@ nav {
     }
 }
 
-.nav-container {
+nav, .nav-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
     padding: 0px;
 }
 
-.nav-container > * {
+nav > *, .nav-container > * {
     padding: 15px 0px;
     flex-grow: 1;
     text-align: center;
