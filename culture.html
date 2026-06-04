@@ -2,7 +2,7 @@
 <html lang="fr">
     <head>
         <meta charset="utf-8">
-        <title>jej - culture</title>
+        <title>jej - nique la musique de france</title>
         <link rel="icon" type="image/x-icon" href="img/jej.png">
         <link href="css/style.css" rel="stylesheet">
         <script src="https://code.jquery.com/jquery-latest.js"></script>
@@ -31,18 +31,6 @@
                 /* text-align: center;
                 border: solid 1px; */
                 padding: 5px;
-
-            }
-
-            tfoot > tr {
-                font-weight: bold;
-            }
-
-            tfoot > tr > th {
-                background-color: transparent;
-                border-width: 0px;
-                text-align: right;
-                padding-right: 10px;
             }
         </style>
 
@@ -50,22 +38,11 @@
     <body>
         <a style="font-size: 0.9em" href="index.html"> < retour à l'accueil</a>
         
-        <nav>
-            <div class="nav-container">
-                <a href="a-propos.html"><span>à propos de jej</span></a>
-                <a href="dessins.html"><span>dessins</span></a>
-                <a href="videos.html"><span>vidéos</span></a>
-                <a href="images.html"><span>images</span></a>
-                <a href="textes.html"><span>textes</span></a>
-                <a href="jeux.html"><span>jeux</span></a>
-                <a href="postits.html"><span>post-its</span></a>
-                <a href="remerciements.html"><span>special thanks</span></a>
-            </div>
-        </nav>
+        <nav id="navbar"></nav>
 
         <header>
             <a class="lien-titre" href="#">
-                <h1>nique la musique de france</h1>
+                <h1>culture</h1>
             </a>
         </header>
 
@@ -93,7 +70,7 @@
                     <thead>
                         <tr>
                             <th>quoi ?</th>
-                            <th>où et quand ?</th>
+                            <th>quand et où ?</th>
                             <th>lien ?</th>
                         </tr>
                     </thead>
@@ -103,13 +80,14 @@
                 </table>
 
             <h2>Événements ponctuels de collectifs</h2>
-                que ce soient des amis ou juste des mecs bizarres sur internet, la france regorge de crews musicaux ne se lassant pas d'organiser des soirées explosives
+                que ce soient des amis ou juste des mecs bizarres sur internet (souvent les deux), la france regorge de crews musicaux ne se lassant pas d'organiser des soirées explosives
 
                 <table>
                     <colgroup>
-                        <col style="width: 250px">
+                        <col style="width: 300px">
                         <col style="width: 100px">
                         <col style="width: 150px">
+                        <col style="width: 300px">
                     </colgroup>
                     <thead>
                         <tr>
@@ -174,9 +152,9 @@
             
             <h2>Bonus : labels de cassettes</h2>
 
-                <div style="font-size: small; color: gray; font-style: italic; padding-left: 3%;">"I remember I couldn't afford a ford escort or even a four-track recorder" - kanye dans diamonds from sierra leone</div>
+                <div style="font-size: small; color: gray; font-style: italic; padding-left: 3%;">"I remember I couldn't afford a ford escort or even a four-track recorder" - kanye il disait ça dans diamonds from sierra leone</div>
             
-                <p>pour terminer ce sera pas vraiment un tableau, juste un lien. depuis peu j'ai poussé le curseur du renoi alternatif encore plus loin en me mettant à la collection de <a href="https://fr.wikipedia.org/wiki/Cassette_audio" target="_blank">cassettes</a>. incarnations incontournables des musiques souterraines, elles sont vendues en stands de merch ou par voie postale par ce genre de labels indés, qui forment aujourd'hui une bonne partie de mes abonnements bandcamp. ma liste reste à épaissir, mais ça commence ici :</p>
+                <p>pour terminer ce sera pas vraiment un tableau, juste un lien. depuis peu j'ai poussé le curseur du renoi alternatif encore plus loin en me mettant à la <a href="https://en.wikipedia.org/wiki/Cassette_culture" target="_blank">collection</a> de <a href="https://fr.wikipedia.org/wiki/Cassette_audio" target="_blank">cassettes</a>. incarnations incontournables des musiques souterraines, elles sont vendues en stands de merch ou par voie postale par ce genre de labels indés, qui forment aujourd'hui une bonne partie de mes abonnements bandcamp. ma liste reste à épaissir, mais ça commence ici :</p>
                 <p> <a href="https://bandcamp.com/zac888/following/artists_and_labels" target="_blank">https://bandcamp.com/zac888/following/artists_and_labels</a></p>
                 <p>vive le média physique achetez des cassettes à votre musicien local</p>
                 <p>xoxo</p>
@@ -184,14 +162,8 @@
 
         </main>
 
-        <footer>
-            ___________________________
-            <p ><a href="https://www.youtube.com/@jej888" target="_blank">youtube</a> - 
-            <a href="./tweets.html">twitter</a> - 
-            <a href="https://www.instagram.com/nwaar888/" target="_blank">instagram</a> - 
-            mail : jejasfh [at] gmail.com
-            </p>
-            <p>© smoking borzoi studios 2k24-∞</p>
+        <footer id="footer">
+            <script type="text/javascript" src="../scripts/js/headerFooter.js"></script>
         </footer> 
 
     </body>

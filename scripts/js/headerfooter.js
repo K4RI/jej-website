@@ -8,12 +8,15 @@ const titles = {
     "images" : "images",
     "textes" : "textes",
     "jeux" : "jeux",
+    "culture" : "culture",
     "postits" : "post-its",
     "remerciements" : "special thanks"
 }
 
 // sur internet ou en local ?
-const hostname = (window.location.href.substring(0, 5) == "https") ? "jej888.fr" : ":8000"
+const hostname = (window.location.href.substring(0, 5) == "https") ? "jej888.fr"
+               : (window.location.href.substring(0, 5) == "file:") ? "jej-website"
+               : ":8000"
 
 let subdirs = window.location.href.split(".html")[0].split(hostname).pop().split('/')
 if (subdirs[0] == "") { subdirs.shift() }

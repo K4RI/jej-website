@@ -256,11 +256,13 @@
 			{
 				"name": "sous le pont de l'A31",
 				"location": "metz",
+				"url": "",
 				"visited": 0
 			},
 			{
 				"name": "diamant d'or",
 				"location": "strasbourg",
+				"url": "",
 				"visited": 0
 			}
 		]

@@ -16,20 +16,21 @@ $.getJSON(data_file, function(data){
         $.each(data[i]["entries"], function(j){
             let row = document.createElement("tr"); // à chaque entrée on initialise la nouvelle ligne
             Object.keys(data[i]["entries"][j]).forEach(key => {
-                console.log(key, data[i]["entries"][j][key]);
-                var cell = document.createElement("td"); // à chaque attribut on initialise une cellule
-                cell.style.fontSize='small'
-                switch (key){
-                    case "visited":
-                        break; // todo: le noter en vert ?
-                    case "url":
-                        let url = data[i]["entries"][j]["url"];
-                        cell.innerHTML = `<a href=${url} target="_blank">${url}</a>`;
-                        break;
-                    default:
-                        cell.innerHTML = data[i]["entries"][j][key];
+                if (key != "visited") {
+                    var cell = document.createElement("td"); // à chaque attribut on initialise une cellule
+                    cell.style.fontSize='small'
+                    switch (key){
+                        case "url":
+                            let url = data[i]["entries"][j]["url"];
+                            cell.innerHTML = `<a href=${url} target="_blank">${url}</a>`;
+                            break;
+                        default:
+                            cell.innerHTML = data[i]["entries"][j][key];
+                    }
+                    row.appendChild(cell); // la cellule va dans la ligne
+                } else {
+                    ; // todo: le noter en vert ?
                 }
-                row.appendChild(cell); // la cellule va dans la ligne
             });
         tableau.appendChild(row); // la ligne va dans le tableau
         })
