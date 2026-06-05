@@ -1,4 +1,4 @@
-
+﻿
 const file = "blog-notes.txt";
 const hhhh = document.getElementById("éditos");
 try {

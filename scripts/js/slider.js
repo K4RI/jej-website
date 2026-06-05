@@ -1,4 +1,4 @@
-/*
+﻿/*
   Utilisé pour images/pdp.html
   Implémente un slider pour les images.
 */

@@ -1,4 +1,4 @@
-import "https://cdnjs.cloudflare.com/ajax/libs/decimal.js/10.4.3/decimal.js";
+﻿import "https://cdnjs.cloudflare.com/ajax/libs/decimal.js/10.4.3/decimal.js";
 
 
 /** Calcule les chiffres du nombre entier x dans la base b. */

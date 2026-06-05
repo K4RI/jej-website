@@ -1,4 +1,4 @@
-/**
+﻿/**
   * Utilisé pour culture.html
   * Remplit un tableau à partir d'un fichier .json.
   * Adapté de json2table.js

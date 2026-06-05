@@ -1,4 +1,4 @@
-/**
+﻿/**
   * JavaScript pour la page jeux/zipdecodeFR du site jej888.fr.
 */
 

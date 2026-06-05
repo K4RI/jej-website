@@ -1,4 +1,4 @@
-import "https://cdnjs.cloudflare.com/ajax/libs/decimal.js/10.4.3/decimal.js";
+﻿import "https://cdnjs.cloudflare.com/ajax/libs/decimal.js/10.4.3/decimal.js";
 
 // https://h3manth.com/posts/HTTP-imports-node/
 // https://stackoverflow.com/a/50261569/23503309

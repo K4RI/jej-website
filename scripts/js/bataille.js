@@ -1,4 +1,4 @@
-/**
+﻿/**
  * JavaScript pour la page jeux/bataille du site jej888.fr.
  */
 

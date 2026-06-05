@@ -1,4 +1,4 @@
-// https://stackoverflow.com/questions/6005327/how-to-create-header-footer
+﻿// https://stackoverflow.com/questions/6005327/how-to-create-header-footer
 
 /**************** 1 : NAVBAR */
 const titles = {

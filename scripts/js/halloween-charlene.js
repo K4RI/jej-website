@@ -1,4 +1,4 @@
-
+﻿
 /** @type {Number} longueur du plateau */
 var taille
 

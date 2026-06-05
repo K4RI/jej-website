@@ -1,4 +1,4 @@
-/**
+﻿/**
   * JavaScript pour la page jeux/zipf du site jej888.fr.
 */
 
