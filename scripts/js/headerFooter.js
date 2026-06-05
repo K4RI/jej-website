@@ -59,6 +59,5 @@ footer.innerHTML = `
     mail : jejasfh [at] gmail.com
     </p>
     <p>© smoking borzoi studios 2k24-∞</p>
-    <script type="text/javascript" src="scripts/js/headerFooter.js"></script>
 `
 // ajouter des 88x31 comme dans https://manpaint.neocities.org/

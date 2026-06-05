@@ -63,26 +63,23 @@ nav {
     top: 0;
     margin: 0;
     font-size: 1.2em;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    padding: 0px;
+    > * {
+        padding: 15px 0px;
+        flex-grow: 1;
+        text-align: center;
+        vertical-align: middle;
+    }
 }
 
 @media screen and (max-width: 940px) {
     nav {
         position:static;
     }
-}
-
-nav, .nav-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    padding: 0px;
-}
-
-nav > *, .nav-container > * {
-    padding: 15px 0px;
-    flex-grow: 1;
-    text-align: center;
-    vertical-align: middle;
 }
 
 .active { /* onglet actif dans la navbar */
