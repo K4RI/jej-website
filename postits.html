@@ -30,8 +30,9 @@
         
         <p>au terme de deux journées de travail éprouvantes j'ai enfin réussi à automatiser cette foutue conversion en tableau, donc le voici !! les liens sont annotés en catégories, affichables (resp. désaffichables) en cochant (resp. décochant) les boutons. et maintenant chaque ligne a son propre permalien avec la petite icône "✪" :3</p>
         
-        <p>si vous remarquez un lien mort* signalez-le-moi merci !</p>
+        <p>si vous remarquez un lien mort* signalez-le-moi merci !</p>        
         <br>
+        <button onclick="go_rand()" style="color: red; font-size: small; float: right;">un post-it au hasard ?</button>
 
         <form method="get" action="">
             <p>
@@ -86,7 +87,34 @@
         </table>
 
         <br><br>
-        la bise à mon ami <a href="taurus999/index.html">taurus</a> qui consulte cette page tous les matins <3
+        la bise à mon ami <a href="taurus999/index.html">taurus</a> qui consulte cette page tous les matins &lt;3
+
+        <script>
+            let elt;
+            function go_rand(){
+                const tableau = document.getElementById("tableau");
+                let lines = Array.from(tableau.childNodes).slice(1).filter((elt) => !(elt.classList.contains("hidden"))); // sans le 0ème vide, et que les lignes visibles
+                let N = lines.length;
+                if (N == 0) {
+                    console.log("pas d'éléments visibles !");
+                    return;
+                }
+                let k = Math.floor(Math.random() * (N-1)); // entre 0 et N-1 (le zéro est déjà pris)
+                let id = lines[k].id;
+                console.log(k + "/" + N + " éléments -> " + id)
+
+                if (elt != undefined) {
+                    elt.style.backgroundColor = ""
+                }
+                elt = document.getElementById(id)
+                elt.style.backgroundColor = "white"
+                elt.scrollIntoView();
+
+                event.srcElement.style.position = "sticky";
+                event.srcElement.style.top = "70%";
+                event.srcElement.innerText = "un autre post-it au hasard ?"
+            }
+        </script>
 
         </main>
 
