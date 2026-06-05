@@ -72,68 +72,22 @@
             }
         </script>
         
-        <br><br>        
+        <br><br>
 
-        <figure class="figimage">
-            <a href="img/tweets/tweets1.jpg">
-                <img src="img/tweets/tweets1.jpg"/>
-            </a>
-        </figure>
-        <figure class="figimage">
-            <a href="img/tweets/tweets2.jpg">
-                <img src="img/tweets/tweets2.jpg"/>
-            </a>
-        </figure>
-        <figure class="figimage">
-            <a href="img/tweets/tweets3.jpg">
-                <img src="img/tweets/tweets3.jpg"/>
-            </a>
-        </figure>
-        <figure class="figimage">
-            <a href="img/tweets/tweets4.jpg">
-                <img src="img/tweets/tweets4.jpg"/>
-            </a>
-        </figure>
-        <figure class="figimage">
-            <a href="img/tweets/tweets5.jpg">
-                <img src="img/tweets/tweets5.jpg"/>
-            </a>
-        </figure>
-        <figure class="figimage">
-            <a href="img/tweets/tweets6.jpg">
-                <img src="img/tweets/tweets6.jpg"/>
-            </a>
-        </figure>
-        <figure class="figimage">
-            <a href="img/tweets/tweets7.jpg">
-                <img src="img/tweets/tweets7.jpg"/>
-            </a>
-        </figure>
-        <figure class="figimage">
-            <a href="img/tweets/tweets8.jpg">
-                <img src="img/tweets/tweets8.jpg"/>
-            </a>
-        </figure>
-        <figure class="figimage">
-            <a href="img/tweets/tweets9.jpg">
-                <img src="img/tweets/tweets9.jpg"/>
-            </a>
-        </figure>
-        <figure class="figimage">
-            <a href="img/tweets/tweets10.jpg">
-                <img src="img/tweets/tweets10.jpg"/>
-            </a>
-        </figure>
-        <figure class="figimage">
-            <a href="img/tweets/tweets11.jpg">
-                <img src="img/tweets/tweets11.jpg"/>
-            </a>
-        </figure>
-        <figure class="figimage">
-            <a href="img/tweets/tweets12.jpg">
-                <img src="img/tweets/tweets12.jpg"/>
-            </a>
-        </figure>
+        <div id="tweets"></div>
+
+        <script>
+            const div = document.getElementById("tweets");
+            for (i=1; i<=12; i++) {
+                div.innerHTML += `
+            <figure class="figimage">
+                <a href="img/tweets/tweets${i}.jpg">
+                    <img src="img/tweets/tweets${i}.jpg"/>
+                </a>
+            </figure>
+        `
+            }
+        </script>
 
         </main>
 
