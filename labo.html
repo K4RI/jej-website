@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <title>jej - le labo</title>
+        <link rel="icon" type="image/x-icon" href="img/jej.png">
+        <link href="css/style.css" rel="stylesheet">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900&display=swap" rel="stylesheet">
+        
+
+    </head>
+    <body>
+        <a style="font-size: 0.9em" href="index.html"> < retour à l'accueil</a>
+        
+        <nav id="navbar"></nav>
+
+        <header>
+            <a class="lien-titre" href="#">
+                <h1>le labo</h1>
+            </a>
+        </header>
+
+        <main>
+
+            <p>yes bb alors</p>
+
+            <section id="whatiscode">
+                <!-- https://www.bloomberg.com/graphics/2015-paul-ford-what-is-code/#lets-begin
+                    https://www.bloomberg.com/graphics/2015-paul-ford-what-is-code/modules/circuit/circuit.js
+                    https://github.com/BloombergGraphics/whatiscode
+                -->
+
+                <div style="margin: 0 auto;  max-width: 740px;">
+                    <div data-module="circuit"></div>
+                </div>
+
+                <!-- Libraries -->
+                <script src="labo/whatiscode/scripts/libs/jquery.min.js"></script>
+                <script src="labo/whatiscode/scripts/libs/underscore-min.js"></script>
+                <script src="labo/whatiscode/scripts/libs/backbone-min.js"></script>
+                <script src="labo/whatiscode/scripts/libs/backbone.localStorage-min.js"></script>
+                <script src="labo/whatiscode/scripts/libs/highlight.pack.js"></script>
+                <script src="labo/whatiscode/scripts/libs/d3.v3.min.js"></script>
+                <script src="labo/whatiscode/scripts/libs/d3-jetpack.js"></script>
+
+                <!--"Modules" -->
+                <script src="labo/whatiscode/scripts/module-manager.js"></script>
+                <script src="labo/whatiscode/circuit.js"></script>
+
+                <link rel="stylesheet" type="text/css" href="labo/whatiscode/circuit.css" />
+
+            </section>            
+            
+            <section id="supersash-filter">
+                <!-- https://supersash.xyz/
+                    https://supersash.xyz/assets/js/main.js
+                -->
+
+                <link rel="stylesheet" href="labo/supersash-filter/main.css" />
+
+                <main id="shelves">
+                    <section class="shelf">
+                        <div class="shelf_title shelf_text_flash"><span>lol</span></div>
+                    </section>
+                </main>
+
+                <!-- NOISE SVG RESSOURCE -->
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    style="position: absolute; width: 0; height: 0; overflow: hidden"
+                    aria-hidden="true"
+                >
+                    <filter id="noiseFilter">
+                    <feTurbulence
+                        type="fractalNoise"
+                        baseFrequency="0.5"
+                        numOctaves="2"
+                        stitchTiles="stitch"
+                        result="noise"
+                    />
+
+                    <feColorMatrix
+                        type="matrix"
+                        values="
+                                2 0 0 0 -1
+                                0 2 0 0 -1
+                                0 0 2 0 -1
+                                0 0 0 1  0"
+                    />
+                    </filter>
+                </svg>
+            </section>
+
+            <section id="webamp">
+                <!-- https://docs.webamp.org/docs/intro/
+                    https://github.com/captbaritone/webamp/blob/master/examples/minimalMilkdrop/index.html
+                -->
+                
+                <div id="app" style="height:1vh">
+                <!-- Webamp will attempt to center itself within this div -->
+                </div>
+
+                <script type="module" src="labo/webamp/webamp.js"></script>
+            </section>
+
+        </main>
+
+        <footer id="footer">
+            <script type="text/javascript" src="scripts/js/headerFooter.js"></script>
+        </footer> 
+
+    </body>
+</html>

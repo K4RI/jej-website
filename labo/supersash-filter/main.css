@@ -1,0 +1,144 @@
+﻿
+/* ******** 1 - paramètres **/
+#supersash-filter {
+  --shelf_count: 6;
+  --shelf_height: calc(100dvh / var(--shelf_count));
+
+  font-family: system-ui, sans-serif;
+
+  /* reusable grain texture */
+  --grain-opacity: 0.12; /* tweak 0.05 → 0.2 */
+  --grain-size: 120px;
+}
+
+/* layout */
+#shelves {
+  width: 100%;
+}
+
+/* shelf */
+.shelf {
+  position: relative;
+  isolation: isolate;
+  min-height: var(--shelf_height);
+  max-height: var(--shelf_height);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+
+  transition: max-height 0.4s ease;
+
+  --shelf_bg: initial;
+  --drawer_color: initial;
+}
+
+/* title (critical: left+right to give it real width) */
+.shelf_title {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0; /* <-- important */
+  right: 0; /* <-- important */
+  height: var(--shelf_height);
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  padding-right: 0rem;
+
+  font-size: calc(var(--shelf_height) * 0.75);
+  line-height: 1.5;
+  font-weight: 900;
+
+  color: var(--title_color);
+  white-space: nowrap;
+  pointer-events: none;
+  text-align: right;
+
+  overflow: hidden; /* <-- constrain marquees */
+
+  /* uppercase category titles only */    
+  span {
+    text-transform: uppercase;
+    letter-spacing: 0.05em; /* optional, feels nicer */
+  }
+}
+
+
+/* ******** 2 - grain **/
+
+/* FILM GRAIN — SAFE BASELINE */
+.shelf:not(.shelf--motd)::after {
+  content: "";
+  position: absolute;
+  inset: -50%;
+  pointer-events: none;
+  z-index: 1;
+
+  filter: url(#noiseFilter);
+  opacity: 0.35;
+
+  /* NO animation by default */
+}
+@supports (animation-timeline: scroll()) or (not (-webkit-touch-callout: none)) {
+  .shelf:not(.shelf--motd)::after {
+    animation: grain_shift 0.35s steps(1) infinite;
+  }
+}
+
+@keyframes grain_shift {
+  0% {
+    transform: translate(0px, 0px);
+  }
+  10% {
+    transform: translate(-8px, -6px);
+  }
+  20% {
+    transform: translate(-12px, 6px);
+  }
+  30% {
+    transform: translate(6px, -12px);
+  }
+  40% {
+    transform: translate(-6px, 14px);
+  }
+  50% {
+    transform: translate(-14px, 6px);
+  }
+  60% {
+    transform: translate(14px, 0px);
+  }
+  70% {
+    transform: translate(0px, 10px);
+  }
+  80% {
+    transform: translate(-16px, 0px);
+  }
+  90% {
+    transform: translate(10px, 6px);
+  }
+  100% {
+    transform: translate(6px, 0px);
+  }
+}
+
+
+/* ******** 3 - clignotement **/
+/* harsh blinking text (contact only): 1s on, 1s off */
+.shelf_text_flash {
+  animation: contact_flash 2s steps(1, end) infinite;
+}
+
+@keyframes contact_flash {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
