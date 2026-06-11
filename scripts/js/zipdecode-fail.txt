@@ -1,0 +1,108 @@
+--villefort 11230
+--baraqueville 12160
+--crespin 12800
+--mas-blanc-des-alpilles 13103
+--st-amand-montrond 18200
+--semur-en-auxois 21140
+--dinan 22100
+--callac 22160
+--keregal 22580
+--vieux bourg 35540
+--crevant 36140
+--bourgoin-jallieu 38300
+--st-laurent-en-grandvaux 39150
+--romorantin-lanthenay 41200
+--le puy-en-velay 43000
+--rieutort-de-randon 48700
+--château-chinon-ville 58120
+--cosne-cours-sur-loire 58200
+--st-honoré-les-bains 58360
+--montreuil 62170
+--font-romeu-odeillo-via 66120
+--canet-en-roussillon 66140
+--rillieux-la-pape 69140
+--meyzieu 69330
+--cours-la-ville 69470
+--seyssel 74910
+--st-fargeau-ponthierry 77310
+--st-juéry 81160
+--fréjus 83600
+--cavaillon 84300
+--st-gilles-croix-de-vie 85800
+--neuville-de-poitou 86170
+--luchapt 86430
+--sens 89100
+--seyssel 01420
+--laragne-montéglin 05300
+--la grave 05320
+--bogny-sur-meuse 08120
+--lacave 09160
+--soulan 09320
+--artigues 09460
+--villeneuve 09800
+--st-affrique 12400
+--asprières 12700
+--le quinquis 22540
+--st-denis-en-margeride 48700
+--villefort 48800
+--royère-de-vassivière 23460
+--cordes-sur-ciel 81170
+--st-lary 09800
+--villefort 11230
+--beaupuy 31850
+
+--450991;6104669
+--antras 09800
+--bonac-irazein 09800
+
+--533972;6102041
+--alos 09200
+--brassac 09000
+--les cabannes 09310
+--cazenave-serres-et-allens 09400
+--encourtiech 09200
+--esplas-de-sérou 09420
+--goulier 09220
+--l' hospitalet-près-l'andorre 09390
+--ilhat 09300
+--montgaillard 09330
+--péreille 09300
+--prades 09110
+--soueix-rogalle 09140
+
+--536789;6213250
+--grenade 31330
+--lévignac 31530
+--la bastide-de-lordat 09700
+--castex 09350
+--caumont 09160
+--esplas 09700
+--fabas 09230
+--lagarde 09500
+--lasserre 09230
+--mazères 09270
+--montaut 09700
+--montfa 09350
+--prat-bonrepaux 09160
+--ste-croix-volvestre 09230
+--st-félix-de-rieutord 09120
+--st-michel 09100
+--lorp-sentaraille 09190
+
+--campagnac 12560
+--château-arnoux-st-auban 04160
+--deauville 14800
+--fontiers-cabardès 11310
+--gençay 86160
+--laguepie 82250
+--mauléon 79700
+--ouessant 29242
+--roanne 42300
+--terrasson-la-villedieu 24120
+---val fréjus 73500
+---super-besse 63610
+
+--621400;6207000
+--à l'ouest et au nord de
+--622400;6204000
+--x (^est, v ouest); y (^nord, v sud)

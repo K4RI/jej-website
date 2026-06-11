@@ -5,6 +5,22 @@
 import "https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.30.1/plotly.min.js"
 import 'https://cdn.jsdelivr.net/npm/jquery-csv@1.0.21/src/jquery.csv.min.js'
 
+/*
+var special = []
+
+!(async function(){
+    fetch("../scripts/js/zipdecode-fail.txt")
+        .then((res) => res.text())
+        .then(data => {        
+            data.split('\n').forEach((ligne) => {
+                if (ligne.slice(0,2) != "--" && ligne != "") {
+                    special.push(ligne)
+                }
+            }); console.log(special);
+    });
+})();
+*/
+
 /** initialisation des variables et des HTMLElements */
 var resolution = 360
 var wd = 0.2;
@@ -192,18 +208,30 @@ function tracer(){
         /** les communes avec le mauvais code postal */
         let xsNo = [], ysNo = [], namesNo = [];
 
+        //let c = 0, xsG = [], ysG = [], namesG = [];
+        
+
         for (let key in records){
             if (zipRegex.test(records[key]['code_postal'])){
+
+                /*if (special.includes(records[key]['nom'].toLowerCase() + ' ' + records[key]['code_postal'])) {
+                    c += 1;
+                    xsG.push(relinLong(records[key]['x']));
+                    ysG.push(relinLat(records[key]['y']));
+                    namesG.push(`${records[key]['nom']} - ${records[key]['code_postal']}`)
+
+                } else {*/
                 xsYes.push(relinLong(records[key]['x']));
                 ysYes.push(relinLat(records[key]['y']));
                 namesYes.push(`${records[key]['nom']} - ${records[key]['code_postal']}`);
+                // }
             } else {
                 xsNo.push(relinLong(records[key]['x']));
                 ysNo.push(relinLat(records[key]['y']));
                 namesNo.push(`${records[key]['nom']} - ${records[key]['code_postal']}`);
             }
         }
-        console.log(namesYes)
+        //console.log(namesG)
 
         data = [
             {
@@ -214,7 +242,16 @@ function tracer(){
                 marker: {color: 'red', size: size},
                 hovertemplate: '%{text}<extra></extra>',
                 showlegend: false,
-            }
+            }/*,
+            {
+                x: xsG,
+                y: ysG,
+                text: namesG,
+                mode: 'markers',
+                marker: {color: 'blue', size: 3*size},
+                hovertemplate: '%{text}<extra></extra>',
+                showlegend: false,
+            }*/
         ]
     } else {
         data = [
