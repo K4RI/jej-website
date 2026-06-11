@@ -4,20 +4,23 @@
     padding-bottom: 30px;
     max-width: 500px;
     margin: auto;
+
+    > a:hover, > a:focus {
+        background-color: transparent;
+    }
+
+    > figcaption {
+        text-align: center; /* justify ? */
+        text-align-last: center;    
+        font-style: italic;
+        margin-top: 5px;
+    }
+
 }
 
-.figimage > a:hover, .figimage > a:focus, .figimage-deux > a:hover, .figimage-deux > a:focus {
-    background-color: transparent;
-}
-.figimage > * > img, .figimage > img {
+.figimage img {
     display: block;
     width: 100%;
-}
-.figimage > figcaption, .figimage-deux > figcaption {
-    text-align: center; /* justify ? */
-    text-align-last: center;    
-    font-style: italic;
-    margin-top: 5px;
 }
 
 .figimage-deux {
@@ -26,11 +29,13 @@
     justify-content: center;
     align-items: center;
     max-width: 800px;
-}
-.figimage-deux > a {
-    margin: 5px 20px;
-}
-.figimage-deux > * > img {
-    display: block;
-    max-width: 350px;
+
+    > a {
+        margin: 5px 20px;
+    }
+
+    img {
+        display: block;
+        max-width: 350px;
+    }
 }

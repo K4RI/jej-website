@@ -18,11 +18,10 @@ td {
 
 tfoot > tr {
     font-weight: bold;
-}
-
-tfoot > tr > th {
-    background-color: transparent;
-    border-width: 0px;
-    text-align: right;
-    padding-right: 10px;
+    > th {
+        background-color: transparent;
+        border-width: 0px;
+        text-align: right;
+        padding-right: 10px;
+    }
 }

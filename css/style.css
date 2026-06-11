@@ -43,12 +43,10 @@ main {
     padding: var(--padding);
 }
 
-a:link {
+a:link, a:visited {
     color: var(--link-color)
 }
-a:visited {
-    color: var(--link-color)
-}
+
 a:hover, a:active, a:focus {
     background-color: #f9ff4c; /* #9beafd; */
     color: red;
