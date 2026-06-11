@@ -52,7 +52,23 @@
 
                 <link rel="stylesheet" type="text/css" href="labo/whatiscode/circuit.css" />
 
-            </section>            
+            </section>
+
+            <section id="webamp_">
+                <!-- https://docs.webamp.org/docs/intro/
+                    https://github.com/captbaritone/webamp/blob/master/examples/minimalMilkdrop/index.html
+                -->
+                
+                <div id="app" style="height:1vh">
+                <!-- Webamp will attempt to center itself within this div -->
+                </div>
+
+                <script type="module" src="labo/webamp/webamp.js"></script>
+
+                <div id="webamp-loading" style="font-size: x-large; color: red; text-align: center; font-weight: bold;">
+
+                </div>
+            </section>         
             
             <section id="supersash-filter">
                 <!-- https://supersash.xyz/
@@ -92,18 +108,6 @@
                     />
                     </filter>
                 </svg>
-            </section>
-
-            <section id="webamp">
-                <!-- https://docs.webamp.org/docs/intro/
-                    https://github.com/captbaritone/webamp/blob/master/examples/minimalMilkdrop/index.html
-                -->
-                
-                <div id="app" style="height:1vh">
-                <!-- Webamp will attempt to center itself within this div -->
-                </div>
-
-                <script type="module" src="labo/webamp/webamp.js"></script>
             </section>
 
         </main>

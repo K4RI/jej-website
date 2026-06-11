@@ -22,6 +22,10 @@ async function listFiles() {
     }
     const text = await response.text();
     const fileList = text.split('\r\n').filter(elt => elt.length > 0)
+    let n = fileList.length;
+    let k = 0;
+    const chargement = document.getElementById("webamp-loading");
+    chargement.innerHTML = `CHARGEMENT MUSIQUES : ${k}/ ${n}`;
     await fileList.reduce(async (a, f) => {
         // https://gist.github.com/joeytwiddle/37d2085425c049629b80956d3c618971#process-each-player-in-serial-using-arrayprototypereduce
 
@@ -51,6 +55,10 @@ async function listFiles() {
                         url: url,
                     }
                 )
+        
+                k+=1;
+                chargement.innerHTML = `CHARGEMENT MUSIQUES : ${k}/ ${n}`;
+
             } catch (err) {
                 console.log('Error parsing metadata: ' + err.message);
             }
@@ -87,10 +95,13 @@ async function createWebamp() {
             duration: 5.322286,
         }
     )
+    const chargement = document.getElementById("webamp-loading");
+    chargement.innerHTML = "CHARGEMENT WEBAMP"
 
     const webamp = new Webamp({
         initialTracks: inite
     });
     webamp.renderWhenReady(document.getElementById("app"));
+    chargement.innerHTML = "WEBAMP CHARGÉ (CHARGÉ)"
 }
 createWebamp()
