@@ -25,7 +25,7 @@ async function listFiles() {
     let n = fileList.length;
     let k = 0;
     const chargement = document.getElementById("webamp-loading");
-    chargement.innerHTML = `CHARGEMENT MUSIQUES : ${k}/ ${n}`;
+    chargement.innerHTML = `CHARGEMENT MUSIQUES : ${k}/${n}`;
     await fileList.reduce(async (a, f) => {
         // https://gist.github.com/joeytwiddle/37d2085425c049629b80956d3c618971#process-each-player-in-serial-using-arrayprototypereduce
 
@@ -57,7 +57,7 @@ async function listFiles() {
                 )
         
                 k+=1;
-                chargement.innerHTML = `CHARGEMENT MUSIQUES : ${k}/ ${n}`;
+                chargement.innerHTML = `CHARGEMENT MUSIQUES : ${k}/${n}`;
 
             } catch (err) {
                 console.log('Error parsing metadata: ' + err.message);
@@ -81,7 +81,7 @@ async function listFiles() {
  */
 import Webamp from "https://unpkg.com/webamp@^2/butterchurn";
 
-async function createWebamp() {
+export async function createWebamp() {
     // attend la construction de la liste de fichiers et la récupère
     const inite = await listFiles();
 
@@ -104,4 +104,7 @@ async function createWebamp() {
     webamp.renderWhenReady(document.getElementById("app"));
     chargement.innerHTML = "WEBAMP CHARGÉ (CHARGÉ)"
 }
-createWebamp()
+
+export function bouh(){
+    alert("bouh !")
+}

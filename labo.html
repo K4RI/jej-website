@@ -63,9 +63,20 @@
                 <!-- Webamp will attempt to center itself within this div -->
                 </div>
 
-                <script type="module" src="labo/webamp/webamp.js"></script>
+                <div style="text-align: center; margin: auto;">
+                    <button id="webampButton" style="font-size: large; font-weight: bold;">Lancer le lecteur Webamp</button> &emsp;
+                    <button id="bouhButton" style="font-style: italic;">bouh</button>
+                    <br><br>
+                    <div id="webamp-loading" style="font-size: x-large; color: red; font-weight: bold;"></div>
+                </div>
 
-                <div id="webamp-loading" style="font-size: x-large; color: red; text-align: center; font-weight: bold;">
+                <script type="module">
+                    import { bouh, createWebamp } from './labo/webamp/webamp.js';
+                    document.querySelector('#bouhButton').addEventListener('click', bouh);
+                    document.querySelector('#webampButton').addEventListener('click', (event) => {
+                        createWebamp(); event.target.disabled = true;
+                    })
+                </script>
             </section>
 
             <section id="88x31">

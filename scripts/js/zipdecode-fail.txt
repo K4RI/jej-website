@@ -101,6 +101,7 @@
 --terrasson-la-villedieu 24120
 ---val fréjus 73500
 ---super-besse 63610
+--digne-les-bains 04000
 
 --621400;6207000
 --à l'ouest et au nord de
