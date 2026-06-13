@@ -57,6 +57,12 @@
 				"visited": 1
 			},
 			{
+				"name": "anniversaire de la face cachée",
+				"location": "juin à metz",
+				"url": "https://facebook.com/profile.php?id=100063494929576",
+				"visited": 0
+			},
+			{
 				"name": "cabaret frappé",
 				"location": "juillet à grenoble",
 				"url": "https://www.instagram.com/cabaret_frappe/",
@@ -179,6 +185,13 @@
 				"style": "noise",
 				"url": "https://www.facebook.com/gregory.henrion",
 				"visited": 0
+			},
+			{
+				"name": "fragment",
+				"location": "metz",
+				"style": "noise, expérimental",
+				"url": "https://fragmentasso.wordpress.com/agenda/",
+				"visited": 0
 			}
 		]
 	},
@@ -251,6 +264,12 @@
 				"name": "leda atomica",
 				"location": "marseille",
 				"url": "https://www.instagram.com/ledaatomicamusique",
+				"visited": 0
+			},
+			{
+				"name": "l'accueil froid",
+				"location": "amiens",
+				"url": "https://accueilfroidnuke.blogspot.com/",
 				"visited": 0
 			},
 			{
