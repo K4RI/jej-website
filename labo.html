@@ -192,10 +192,14 @@
                     const minutes = document.getElementById("minutes")
                     const secondes = document.getElementById("secondes")
                     const millisecondes = document.getElementById("millisecondes")
+                    
+                    function fill(str, n){
+                        return '0'.repeat(n-str.toString().length) + str
+                    }
 
                     function dateLoop(){
                         let date = new Date();
-                        let date2 = `${semaine[date.getDay()]} ${date.getDate()}/${date.getMonth()}/${date.getFullYear()}, ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}:${date.getMilliseconds()}`
+                        let date2 = `${semaine[date.getDay()]} ${fill(date.getDate(),2)}/${fill(date.getMonth(),2)}/${date.getFullYear()}, ${fill(date.getHours(),2)}:${fill(date.getMinutes(),2)}:${fill(date.getSeconds(),2)}:${fill(date.getMilliseconds(),3)}`
                         dateText.innerHTML = date + " // " + date2;
 
                         heures.style.transform = `translate(0, 0) rotate(${360*(date.getHours()+date.getMinutes()/60)/12 - 90}deg)`
@@ -208,6 +212,48 @@
                     };
                     
                     setInterval(dateLoop, 20);
+                </script>
+            </section>
+
+            <div class="interlude"></div>
+             <!--
+                ==============================================================================================
+                ==============================================================================================
+                ==============================================================================================
+            -->
+            
+            <section id="chien-basse">
+                <div id="compteur-cb" style="text-align: center; margin: auto;"></div>
+
+                <script>
+                    const compteurCB = document.getElementById("compteur-cb")
+                    const L = 100; // nombre de mètres
+                    let metres = 0;
+                    let prevkey = "";
+                    let depart;
+                    let finished = false;
+                    compteurCB.innerHTML = `Course de chien-basse sur ${L} mètres ! Appuyez sur les touches ← →`
+                    window.addEventListener('keydown', () => {
+                        if (metres < L){
+                            if (metres == 0) {
+                                if (event.key == "ArrowLeft" | event.key == "ArrowRight"){
+                                    depart = new Date().getTime()
+                                }
+                            }
+                            if ((event.key == "ArrowLeft" & prevkey == "ArrowRight") | (event.key == "ArrowRight" & prevkey == "ArrowLeft")){
+                                metres += 0.5
+                            }
+                            if (event.key == "ArrowLeft" | event.key == "ArrowRight"){
+                                compteurCB.innerHTML = `${Math.floor(metres)} mètres`
+                            }
+                            prevkey = event.key
+                        } else {
+                            if (!finished){
+                                compteurCB.innerHTML = `Course de ${L} mètres finie en ${Math.round(((new Date().getTime()) - depart)/10)/100} secondes`
+                                finished = true;
+                            }
+                        }
+                    });
                 </script>
             </section>
 
