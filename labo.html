@@ -75,6 +75,8 @@
                     <button id="bouhButton" style="font-style: italic;">bouh</button>
                     <br><br>
                     <div id="webamp-loading" style="font-size: x-large; color: red; font-weight: bold;"></div>
+
+                    <input type="checkbox" id="btn-color"> <label for="btn-color">la couleur qui bouge</label>
                 </div>
 
                 <script type="module">
@@ -269,24 +271,24 @@
                 })
             </script>
 
-            <script>
+            <script> // fait boucler le titre et la couleur
                 function setCharAt(str,index,chr) {
                     if(index > str.length-1) return str;
                     return str.substring(0,index) + chr + str.substring(index+1);
                 }
 
                 const title = "le labo"
-                let k = 0;
+                let kw = 0;
 
                 function rewriteLoop(){
                     // entre 33 et 591 = jusqu'à Latin Extended-B
                     // https://en.wikipedia.org/wiki/List_of_Unicode_characters#Latin_script
                     let char = String.fromCharCode(33 + Math.floor((592-33)*Math.random()))
-                    let title2 = setCharAt(title, k % title.length, char)
+                    let title2 = setCharAt(title, kw % title.length, char)
                     document.title = "jej - " + title2;
                     document.getElementsByClassName("lien-titre")[0].childNodes[1].innerHTML = title2
                     // console.log(document.title)
-                    k+=1;
+                    kw+=1;
                 };
                     
                 setInterval(rewriteLoop, 100);
@@ -296,8 +298,36 @@
                         console.log(`${i} - ${String.fromCharCode(i)}`)
                     }
                 }
-                listChars(591);
+                //listChars(591);
                 // "£".charCodeAt(0)
+
+                let tc = 0;
+                const r0 = 253, g0 = 234, b0 = 182; // couleurs initiales
+                const w = 0.2, A = 15;
+                const ph_r = 2*Math.PI*Math.random(); ph_g = 2*Math.PI*Math.random(); ph_b = 2*Math.PI*Math.random();
+                function recolorLoop(){
+                    let r = r0 + A*Math.cos(w*tc+ph_r);
+                    let g = g0 + A*Math.cos(w*tc+ph_g);
+                    let b = b0 + A*Math.cos(w*tc+ph_b);
+                    
+                    document.body.style.setProperty("--background-color", `rgb(${r}, ${g}, ${b})`)
+                    // console.log(`rgb(${r}, ${g}, ${b})`)
+                    tc+=1;
+                };
+
+                const btnColor = document.getElementById("btn-color")
+                btnColor.checked = true // on initialise à coché
+                btnColor.dispatchEvent(new Event("change"))
+                var recolorID = setInterval(recolorLoop, 20);
+
+                btnColor.addEventListener("change", (event) => {
+                    if (btnColor.checked){
+                        recolorID = setInterval(recolorLoop, 20);
+                    } else {
+                        clearInterval(recolorID);
+                        document.body.style.setProperty("--background-color", `rgb(${r0}, ${g0}, ${b0})`)
+                    }
+                })
             </script>
 
 
