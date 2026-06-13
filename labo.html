@@ -54,6 +54,13 @@
 
             </section>
 
+            <div class="interlude"></div>
+             <!--
+                ==============================================================================================
+                ==============================================================================================
+                ==============================================================================================
+            -->
+
             <section id="webamp_">
                 <!-- https://docs.webamp.org/docs/intro/
                     https://github.com/captbaritone/webamp/blob/master/examples/minimalMilkdrop/index.html
@@ -62,7 +69,7 @@
                 <div id="app" style="height:1vh">
                 <!-- Webamp will attempt to center itself within this div -->
                 </div>
-
+                
                 <div style="text-align: center; margin: auto;">
                     <button id="webampButton" style="font-size: large; font-weight: bold;">Lancer le lecteur Webamp</button> &emsp;
                     <button id="bouhButton" style="font-style: italic;">bouh</button>
@@ -79,12 +86,19 @@
                 </script>
             </section>
 
+            <div class="interlude"></div>
+             <!--
+                ==============================================================================================
+                ==============================================================================================
+                ==============================================================================================
+            -->
+
             <section id="88x31">
                 <style>
                     .badge-container {                        
                         margin-left:auto;
                         margin-right:auto;
-                        width:calc(9*(96px));
+                        width:calc(7*(96px));
                         display: block;
                         justify-content: space-around;
                         text-align: center;
@@ -148,7 +162,59 @@
 
                     <a href="https://leonlenclos.net" title="leonlenclos.net ('<_ '" target="_blank"><img src="img/88x31/badge-leonlenclos.gif"></a>
                 </div>
-            </section>         
+            </section>
+
+            <div class="interlude"></div>
+             <!--
+                ==============================================================================================
+                ==============================================================================================
+                ==============================================================================================
+            -->
+            
+            <section id="date">
+                <!-- https://thaer.no/calendar -->
+                <div id="dateText" style="text-align: center; font-weight: bold;"></div>
+                <br><br><br><br><br><br><br>
+                <div style="text-align: center; font-size: x-large; font-weight: bolder;">
+                    <span id="heures" style="display: inline-block; transform-origin: left;">--h--></span><br>
+                    <span id="minutes" style="display: inline-block; transform-origin: left;">---m---></span><br>
+                    <span id="secondes" style="display: inline-block; transform-origin: left;">----s----></span><br>
+                    <span id="millisecondes" style="display: inline-block; transform-origin: left;">-----ms-----></span><br>
+                    <!-- <span style="display: inline-block; transform: translate(-1em, -5.6em) scale(20);color: gray;font-weight: normal;">○</span> -->
+                </div>
+
+                <script>
+                    const dateText = document.getElementById("dateText")
+                    const semaine = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
+                    const heures = document.getElementById("heures")
+                    const minutes = document.getElementById("minutes")
+                    const secondes = document.getElementById("secondes")
+                    const millisecondes = document.getElementById("millisecondes")
+
+                    function dateLoop(){
+                        let date = new Date();
+                        let date2 = `${semaine[date.getDay()]} ${date.getDate()}/${date.getMonth()}/${date.getFullYear()}, ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}:${date.getMilliseconds()}`
+                        dateText.innerHTML = date + " // " + date2;
+
+                        heures.style.transform = `translate(0, 0) rotate(${360*(date.getHours()+date.getMinutes()/60)/12 - 90}deg)`
+
+                        minutes.style.transform = `translate(0.7em, -1.2em) rotate(${360*(date.getMinutes()+date.getSeconds()/60)/60 - 90}deg)`
+
+                        secondes.style.transform = `translate(0.7em, -2.4em) rotate(${360*(date.getSeconds()+date.getMilliseconds()/1000)/60 - 90}deg)`
+
+                        millisecondes.style.transform = `translate(1.5em, -3.5em) rotate(${360*(date.getSeconds()+date.getMilliseconds()/1000) - 90}deg)`
+                    };
+                    
+                    setInterval(dateLoop, 20);
+                </script>
+            </section>
+
+            <div class="interlude"></div>
+             <!--
+                ==============================================================================================
+                ==============================================================================================
+                ==============================================================================================
+            -->
             
             <section id="supersash-filter">
                 <!-- https://supersash.xyz/
@@ -189,6 +255,51 @@
                     </filter>
                 </svg>
             </section>
+
+            <style>
+                .interlude {
+                    margin:auto;
+                    text-align: center;
+                }
+            </style>
+
+            <script defer>
+                document.querySelectorAll(".interlude").forEach((elt) => {
+                    elt.innerHTML = "______________________________________________________<br><br>"
+                })
+            </script>
+
+            <script>
+                function setCharAt(str,index,chr) {
+                    if(index > str.length-1) return str;
+                    return str.substring(0,index) + chr + str.substring(index+1);
+                }
+
+                const title = "le labo"
+                let k = 0;
+
+                function rewriteLoop(){
+                    // entre 33 et 591 = jusqu'à Latin Extended-B
+                    // https://en.wikipedia.org/wiki/List_of_Unicode_characters#Latin_script
+                    let char = String.fromCharCode(33 + Math.floor((592-33)*Math.random()))
+                    let title2 = setCharAt(title, k % title.length, char)
+                    document.title = "jej - " + title2;
+                    document.getElementsByClassName("lien-titre")[0].childNodes[1].innerHTML = title2
+                    // console.log(document.title)
+                    k+=1;
+                };
+                    
+                setInterval(rewriteLoop, 100);
+
+                function listChars(n){
+                    for (let i=33; i<=n; i++){
+                        console.log(`${i} - ${String.fromCharCode(i)}`)
+                    }
+                }
+                listChars(591);
+                // "£".charCodeAt(0)
+            </script>
+
 
         </main>
 
