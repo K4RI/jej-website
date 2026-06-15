@@ -235,7 +235,36 @@
                 <div id="terrain-cb"></div>
 
                 <script>
+
+                    const bienvenueCB = document.getElementById("bienvenue-cb")
+                    const compteurCB = document.getElementById("compteur-cb")
+                    const terrainCB = document.getElementById("terrain-cb")
+                    let L; // nombre de mètres : 20 50 100 ?
+                    const vitesse = 0.5;
+                    let metres; // distance parcourue
+                    let started = false; // on peut avancer ou non
+                    let running = false; // on court là ou non
+                    let prevkey; // touche précédente : gauche, droite, autre
+                    let tempsDepart; // temps de départ à soustraire pour la durée de course
+                    var compteurID; // boucle de setInterval clearInterval
                     
+                    const buttonsCB = document.createElement("span");
+                    [20, 50, 100].forEach((n) => buttonsCB.appendChild(newButton(n)))
+
+                    function newButton(val){
+                        let button = document.createElement("button");
+                        button.innerText = `${val} mètres`
+                        button.addEventListener('click', () => { // 2b - bouton qui peut lancer la course
+                            L = val;
+                            started = true;
+                            metres = 0;
+                            compteurCB.innerHTML = "À vos marques...";
+                            bienvenueCB.innerHTML = `Bienvenue à la course de chien-basse sur ${L} mètres !<br>Avancez sur la route en alternant les touches ← →`
+                            terrainCB.innerHTML = afficheTerrain(Math.floor(metres))
+                        })
+                        return button
+                    }
+
                     function afficheTerrain(k){
                         if (k > 0 & k < L) {
                             return "📍" + ".".repeat(k-1) + ";" + ".".repeat(L-k-1) + "📍"
@@ -244,25 +273,41 @@
                         }
                     }
 
-                    const bienvenueCB = document.getElementById("bienvenue-cb")
-                    const compteurCB = document.getElementById("compteur-cb")
-                    const terrainCB = document.getElementById("terrain-cb")
-                    const L = 50; // nombre de mètres : 20 50 100 ?
-                    const vitesse = 0.5;
-                    let metres = 0; // distance parcourue
+                    function formatDuree(t){ // au format " 1.02s"
+                        let secs = Math.floor(t/1000);
+                        let cents = Math.floor((t - secs*1000)/10).toString();
+                        return " ".repeat(Math.max(0, 2-secs.toString().length))
+                                + secs
+                                + "."
+                                + "0".repeat(Math.max(0, 2-cents.length))
+                                + cents
+                                + "s";
+                    }
 
-                    bienvenueCB.innerHTML = `Bienvenue à la course de chien-basse sur ${L} mètres !<br>Avancez sur la route en alternant les touches ← →`
-                    compteurCB.innerHTML = "À vos marques..."
-                    terrainCB.innerHTML = afficheTerrain(Math.floor(metres))
-                    let prevkey = ""; // touche précédente : gauche, droite, autre
-                    let tempsDepart; // à soustraire pour la durée de course
-                    let running = true; // on peut avancer ou non
+                    function formatDistance(d){ // au format " 1.0 mètres"
+                            let mets = Math.floor(d).toString();
+                            return " ".repeat(Math.max(0, 2-mets.length))
+                                    + mets
+                                    + " mètres";
+                    }
 
-                    window.addEventListener('keydown', () => {
-                        if (running) {
-                            if (metres == 0) {
+                    function afficheCompteur(){
+                        compteurCB.innerHTML = formatDistance(metres) + " - " + formatDuree((new Date().getTime()) - depart)
+                    }
+
+                    // 1a - état initial
+                    bienvenueCB.innerHTML = "Bienvenue à la course de chien-basse !<br>Quelle distance ? ";      
+                    bienvenueCB.appendChild(buttonsCB)
+                    compteurCB.innerHTML = "<br>";
+                    terrainCB.innerHTML = "📍📍";
+
+                    window.addEventListener('keydown', () => { // 2 - avancement de course
+                        if (started) {
+                            if (!running) {
                                 if (event.key == "ArrowLeft" | event.key == "ArrowRight"){
                                     depart = new Date().getTime();
+                                    compteurID = setInterval(afficheCompteur, 50)
+                                    running = true; // si on mettait "if (metres == 0)" il le lancerait deux fois bref
                                 }
                             }
                             if (metres < L) {
@@ -270,18 +315,22 @@
                                     metres += vitesse;
                                 }
                                 if (event.key == "ArrowLeft" | event.key == "ArrowRight"){
-                                    compteurCB.innerHTML = `${Math.floor(metres)} mètres...`
                                     terrainCB.innerHTML = afficheTerrain(Math.floor(metres))
                                 }
                                 prevkey = event.key
-                            } else { // on vient de terminer, on est à metres = L
-                                compteurCB.innerHTML = `Course de ${L} mètres finie en <strong style="color:red">${Math.round(((new Date().getTime()) - depart)/10)/100}</strong> secondes :)`
+                            }
+                            if (metres >= L) { // 3 - on vient de terminer, on est à metres = L
+                                clearInterval(compteurID);
+                                compteurCB.innerHTML = `Course de ${L} mètres finie en <strong style="color:red">${Math.floor(((new Date().getTime()) - depart)/10)/100}</strong> secondes :)`
                                 terrainCB.innerHTML = afficheTerrain(Math.floor(metres))
-                                running = false; // désactive l'event listener
+                                bienvenueCB.innerHTML = "Relancer une course de chien-basse ?<br>Quelle distance ? ";      
+                                bienvenueCB.appendChild(buttonsCB)
+                                started = false; // désactive l'event listener
+                                running = false; // désactive la boucle d'affichage
                             }
                         }
                     });
-                    // TODO: bouton sélection longueur, bouton relancer, séparer en davantage de divs de taille fixe, un graphique de la vitesse à la fin
+                    // TODO: un graphique de la vitesse à la fin
                     // bizarre mon bot est 2-3x plus rapide sans l'activation des couleurs... mais à la main aucune diff
                 </script>
             </section>
