@@ -224,15 +224,29 @@
             
             <section id="chien-basse">
                 <div id="compteur-cb" style="text-align: center; margin: auto;"></div>
+                <br>
+                <div id="terrain-cb" style="text-align: center; margin: auto;"></div>
 
                 <script>
+                    
+                    function terrain(k){
+                        if (k > 0 & k < L) {
+                            return "📍" + ".".repeat(k-1) + ";" + ".".repeat(L-k-1) + "📍"
+                        } else {
+                            return "📍" + ".".repeat(L-1) + "📍"
+                        }
+                    }
+
                     const compteurCB = document.getElementById("compteur-cb")
-                    const L = 100; // nombre de mètres
+                    const terrainCB = document.getElementById("terrain-cb")
+                    const L = 50; // nombre de mètres : 20 50 100 ?
                     let metres = 0;
+
+                    compteurCB.innerHTML = `Bienvenue à la course de chien-basse sur ${L} mètres !<br>Avancez sur la route en alternant les touches ← →`
+                    terrainCB.innerHTML = `À vos marques...<br>` + terrain(Math.floor(metres))
                     let prevkey = "";
                     let depart;
                     let finished = false;
-                    compteurCB.innerHTML = `Course de chien-basse sur ${L} mètres ! Appuyez sur les touches ← →`
                     window.addEventListener('keydown', () => {
                         if (metres < L){
                             if (metres == 0) {
@@ -244,16 +258,19 @@
                                 metres += 0.5
                             }
                             if (event.key == "ArrowLeft" | event.key == "ArrowRight"){
-                                compteurCB.innerHTML = `${Math.floor(metres)} mètres`
+                                // console.log(metres)
+                                terrainCB.innerHTML = `${Math.floor(metres)} mètres<br>` + terrain(Math.floor(metres))
                             }
                             prevkey = event.key
                         } else {
                             if (!finished){
-                                compteurCB.innerHTML = `Course de ${L} mètres finie en ${Math.round(((new Date().getTime()) - depart)/10)/100} secondes`
+                                terrainCB.innerHTML = `Course de ${L} mètres finie en <strong style="color:red">${Math.round(((new Date().getTime()) - depart)/10)/100}</strong> secondes :)<br>` + terrain(Math.floor(metres))
                                 finished = true;
                             }
                         }
                     });
+                    // TODO: bouton sélection longueur, bouton relancer, séparer en davantage de divs de taille fixe, un graphique de la vitesse à la fin
+                    // bizarre mon bot est 2-3x plus rapide sans l'activation des couleurs... mais à la main aucune diff
                 </script>
             </section>
 
@@ -313,7 +330,7 @@
 
             <script defer>
                 document.querySelectorAll(".interlude").forEach((elt) => {
-                    elt.innerHTML = "______________________________________________________<br><br>"
+                    elt.innerHTML = "_______________________________________<br><br>"
                 })
             </script>
 
