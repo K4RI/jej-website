@@ -223,13 +223,20 @@
             -->
             
             <section id="chien-basse">
-                <div id="compteur-cb" style="text-align: center; margin: auto;"></div>
+                <style>
+                    #chien-basse > div {
+                        text-align: center;
+                        margin: auto;
+                    }
+                </style>
+                <div id="bienvenue-cb"></div>
                 <br>
-                <div id="terrain-cb" style="text-align: center; margin: auto;"></div>
+                <div id="compteur-cb"></div>                
+                <div id="terrain-cb"></div>
 
                 <script>
                     
-                    function terrain(k){
+                    function afficheTerrain(k){
                         if (k > 0 & k < L) {
                             return "📍" + ".".repeat(k-1) + ";" + ".".repeat(L-k-1) + "📍"
                         } else {
@@ -237,35 +244,40 @@
                         }
                     }
 
+                    const bienvenueCB = document.getElementById("bienvenue-cb")
                     const compteurCB = document.getElementById("compteur-cb")
                     const terrainCB = document.getElementById("terrain-cb")
                     const L = 50; // nombre de mètres : 20 50 100 ?
-                    let metres = 0;
+                    const vitesse = 0.5;
+                    let metres = 0; // distance parcourue
 
-                    compteurCB.innerHTML = `Bienvenue à la course de chien-basse sur ${L} mètres !<br>Avancez sur la route en alternant les touches ← →`
-                    terrainCB.innerHTML = `À vos marques...<br>` + terrain(Math.floor(metres))
-                    let prevkey = "";
-                    let depart;
-                    let finished = false;
+                    bienvenueCB.innerHTML = `Bienvenue à la course de chien-basse sur ${L} mètres !<br>Avancez sur la route en alternant les touches ← →`
+                    compteurCB.innerHTML = "À vos marques..."
+                    terrainCB.innerHTML = afficheTerrain(Math.floor(metres))
+                    let prevkey = ""; // touche précédente : gauche, droite, autre
+                    let tempsDepart; // à soustraire pour la durée de course
+                    let running = true; // on peut avancer ou non
+
                     window.addEventListener('keydown', () => {
-                        if (metres < L){
+                        if (running) {
                             if (metres == 0) {
                                 if (event.key == "ArrowLeft" | event.key == "ArrowRight"){
-                                    depart = new Date().getTime()
+                                    depart = new Date().getTime();
                                 }
                             }
-                            if ((event.key == "ArrowLeft" & prevkey == "ArrowRight") | (event.key == "ArrowRight" & prevkey == "ArrowLeft")){
-                                metres += 0.5
-                            }
-                            if (event.key == "ArrowLeft" | event.key == "ArrowRight"){
-                                // console.log(metres)
-                                terrainCB.innerHTML = `${Math.floor(metres)} mètres<br>` + terrain(Math.floor(metres))
-                            }
-                            prevkey = event.key
-                        } else {
-                            if (!finished){
-                                terrainCB.innerHTML = `Course de ${L} mètres finie en <strong style="color:red">${Math.round(((new Date().getTime()) - depart)/10)/100}</strong> secondes :)<br>` + terrain(Math.floor(metres))
-                                finished = true;
+                            if (metres < L) {
+                                if ((event.key == "ArrowLeft" & prevkey == "ArrowRight") | (event.key == "ArrowRight" & prevkey == "ArrowLeft")){
+                                    metres += vitesse;
+                                }
+                                if (event.key == "ArrowLeft" | event.key == "ArrowRight"){
+                                    compteurCB.innerHTML = `${Math.floor(metres)} mètres...`
+                                    terrainCB.innerHTML = afficheTerrain(Math.floor(metres))
+                                }
+                                prevkey = event.key
+                            } else { // on vient de terminer, on est à metres = L
+                                compteurCB.innerHTML = `Course de ${L} mètres finie en <strong style="color:red">${Math.round(((new Date().getTime()) - depart)/10)/100}</strong> secondes :)`
+                                terrainCB.innerHTML = afficheTerrain(Math.floor(metres))
+                                running = false; // désactive l'event listener
                             }
                         }
                     });
