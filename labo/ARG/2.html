@@ -1,0 +1,60 @@
+﻿attention attrapez-le il s'enfuit !!
+
+<style>
+    #hihi {
+        background-color: cyan;
+        color: blue;
+
+        text-align: center;
+        align-content: center;
+
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+    }
+</style>
+<br>
+<a id="hihi" href="3.html">la suite !!!</a>
+
+<script>
+    const hihi = document.getElementById("hihi");
+
+    let x = 300; y = 200; phi = 0;
+    let t = 0; T = 0;
+    let Tmin = 50; Tmax = 50;
+    let speed = 7;
+    let Xmax = 1000; Ymax = 700;
+
+    function mod(n, m) { // https://stackoverflow.com/questions/4467539/javascript-modulo-gives-a-negative-result-for-negative-numbers/17323608#17323608
+        return ((n % m) + m) % m;
+    }
+
+    function moveLoop(){
+        if (t == T){
+            phi = 2*Math.PI*Math.random(); // nouvel angle
+            vx = Math.floor(speed * Math.cos(phi));
+            vy = Math.floor(speed * Math.sin(phi));
+            T = Math.floor(Tmin + (Tmax-Tmin)*Math.random()); // nouvelle durée de cycle
+            t = 0;
+            console.log('hmmm', phi, T)
+        }
+
+        if (t == 0){
+            hihi.style.backgroundColor = "red"
+        } else if (t == 1) {
+            hihi.style.backgroundColor = "cyan"
+        }
+
+        x += vx;
+        y += vy;
+        hihi.style.transform = `translate(${mod(x, window.innerWidth-50)}px, ${mod(y, window.innerHeight-50)}px)`;
+        // plus rapide que hihi.style.left hihi.style.top
+
+        t++;
+        if (mod(t, 10) == 0){ console.log (mod(x, window.innerWidth), mod(y, window.innerHeight))}
+    };
+        
+    setInterval(moveLoop, 20);
+</script>
