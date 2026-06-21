@@ -225,6 +225,7 @@
             -->
             
             <section id="chien-basse">
+                <!-- https://www.youtube.com/watch?v=fvxh54b-N00 -->
                 <style>
                     #chien-basse > div {
                         text-align: center;
@@ -248,6 +249,68 @@
             
             <section id="ARG">
                 <div style="text-align: center; margin: auto;"> lancer le ARG secret <a href="labo/ARG/debut.html" style="font-weight: bold;">ici !!!</a> </div>
+
+            </section>
+
+            <div class="interlude"></div>
+             <!--
+                ==============================================================================================
+                ==============================================================================================
+                ==============================================================================================
+            -->
+
+            <section id="jej-mood">
+                <!-- view-source:https://terkelg.github.io/zuckerberg.smile/                 
+                    https://developer.mozilla.org/fr/docs/Web/HTML/Reference/Elements/input/range#ajouter_des_étiquettes
+                    https://stackoverflow.com/questions/24656445/cannot-center-datalist
+                    https://css-tricks.com/value-bubbles-for-range-inputs/
+                -->
+
+                <div style="margin: auto; width: 250px;">
+
+                    <img id="jej-sprite" width="250" height="250"></img>
+                    <br>
+                    <input type="range" min="0" max="9" value="1" id="jej-slider" list="nombres">
+                    <output id="jej-bubble">aaa</output>
+                    <br>
+
+                    <style>
+                        #jej-bubble {
+                            display: inline-block;
+                            margin: auto;
+                            padding: 4px 12px;
+                            border-radius: 4px;
+                            position: relative;
+                            transform: translateX(-50%);
+                        }
+
+                        #jej-slider {
+                            display: block;
+                            margin: auto;
+                            width: 250px;
+                        }
+                    </style>
+                
+                    <script>
+                        const jejslider = document.getElementById("jej-slider")
+                        const jejsprite = document.getElementById("jej-sprite")
+                        const jejbubble = document.getElementById("jej-bubble")
+
+                        jejslider.addEventListener('input', (event) => {
+                            const val = jejslider.value
+                            const min = jejslider.min // 0
+                            const max = jejslider.max // 9
+                            
+                            jejsprite.src = "labo/mood/" + val + ".png"
+                            jejbubble.innerHTML = "jej" + val.repeat(3) // "jej111" - "jej999"
+
+                            const pos = Number(100*((val - min) / (max - min)))
+                            jejbubble.style.left = `calc(${pos}% + (${8 - pos * 0.15}px))`
+                        })
+                        jejslider.value = 8
+                        jejslider.dispatchEvent(new Event("input"))
+                    </script>
+                </div>
 
             </section>
 
