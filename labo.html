@@ -178,12 +178,16 @@
             <section id="date">
                 <!-- https://thaer.no/calendar -->
                 <div id="dateText" style="text-align: center; font-weight: bold;"></div>
-                <br><br><br><br><br><br><br>
-                <div style="text-align: center; font-size: x-large; font-weight: bolder;">
-                    <span id="heures" style="display: inline-block; transform-origin: left;">--h--></span><br>
-                    <span id="minutes" style="display: inline-block; transform-origin: left;">---m---></span><br>
-                    <span id="secondes" style="display: inline-block; transform-origin: left;">----s----></span><br>
-                    <span id="millisecondes" style="display: inline-block; transform-origin: left;">-----ms-----></span><br>
+                <div style="font-size: x-large; font-weight: bolder; text-align: left; transform: translateX(100%); width: 50%;">
+                    <br><br><br>
+                    <span id="heures" style="display: inline-block; transform-origin: left;">--h-->
+                        <span id="minutes" style="display: inline-block; transform-origin: left;">---m--->
+                            <span id="secondes" style="display: inline-block; transform-origin: left;">----s---->
+                                <span id="millisecondes" style="display: inline-block; transform-origin: left;">-----ms-----></span>
+                            </span>
+                        </span>
+                    </span>
+                    <br><br><br>
                     <!-- <span style="display: inline-block; transform: translate(-1em, -5.6em) scale(20);color: gray;font-weight: normal;">○</span> -->
                 </div>
 
@@ -204,13 +208,18 @@
                         let date2 = `${semaine[date.getDay()]} ${fill(date.getDate(),2)}/${fill(date.getMonth(),2)}/${date.getFullYear()}, ${fill(date.getHours(),2)}:${fill(date.getMinutes(),2)}:${fill(date.getSeconds(),2)}:${fill(date.getMilliseconds(),3)}`
                         dateText.innerHTML = date + " // " + date2;
 
-                        heures.style.transform = `translate(0, 0) rotate(${360*(date.getHours()+date.getMinutes()/60)/12 - 90}deg)`
+                        const angleHeures = 360*(date.getHours()+date.getMinutes()/60)/12 - 90
+                        const angleMinutes = 360*(date.getMinutes()+date.getSeconds()/60)/60 - 90 - angleHeures
+                        const angleSecondes = 360*(date.getSeconds()+date.getMilliseconds()/1000)/60 - 90 - angleHeures - angleMinutes
+                        const angleMs = 360*(date.getSeconds()+date.getMilliseconds()/1000) - 90 - angleHeures - angleMinutes - angleSecondes
 
-                        minutes.style.transform = `translate(0.7em, -1.2em) rotate(${360*(date.getMinutes()+date.getSeconds()/60)/60 - 90}deg)`
+                        heures.style.transform = `rotate(${angleHeures}deg)`
 
-                        secondes.style.transform = `translate(0.7em, -2.4em) rotate(${360*(date.getSeconds()+date.getMilliseconds()/1000)/60 - 90}deg)`
+                        minutes.style.transform = `rotate(${angleMinutes}deg)`
 
-                        millisecondes.style.transform = `translate(1.5em, -3.5em) rotate(${360*(date.getSeconds()+date.getMilliseconds()/1000) - 90}deg)`
+                        secondes.style.transform = `rotate(${angleSecondes}deg)`
+
+                        millisecondes.style.transform = `rotate(${angleMs}deg)`
                     };
                     
                     setInterval(dateLoop, 20);
@@ -266,9 +275,9 @@
                     https://css-tricks.com/value-bubbles-for-range-inputs/
                 -->
 
-                <div style="margin: auto; width: 250px;">
+                <div style="margin: auto; width: 50%;">
 
-                    <img id="jej-sprite" width="250" height="250"></img>
+                    <img id="jej-sprite" style="width: 100%;"></img>
                     <br>
                     <input type="range" min="0" max="9" value="1" id="jej-slider" list="nombres">
                     <output id="jej-bubble">aaa</output>
@@ -282,12 +291,13 @@
                             border-radius: 4px;
                             position: relative;
                             transform: translateX(-50%);
+                            font-size: x-large;
                         }
 
                         #jej-slider {
                             display: block;
                             margin: auto;
-                            width: 250px;
+                            width: 100%;
                         }
                     </style>
                 
@@ -328,11 +338,11 @@
 
                 <link rel="stylesheet" href="labo/supersash-filter/main.css" />
 
-                <main id="shelves">
+                <div id="shelves">
                     <section class="shelf">
                         <div class="shelf_title shelf_text_flash"><span>lol</span></div>
                     </section>
-                </main>
+                </div>
 
                 <!-- NOISE SVG RESSOURCE -->
                 <svg
