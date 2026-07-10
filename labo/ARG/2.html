@@ -25,7 +25,6 @@
     let t = 0; T = 0;
     let Tmin = 100; Tmax = 200;
     let speed = 15;
-    let Xmax = 1000; Ymax = 700;
 
     function moveLoop(){
         if (t == T){
@@ -43,7 +42,7 @@
             hihi.style.backgroundColor = "cyan"
         }
         
-        if ((x<0 & vx<0)|| (x>window.innerWidth-100 & vx>0)) {
+        if ((x<0 & vx<0) || (x>window.innerWidth-100 & vx>0)) {
             phi = (phi < Math.PI) ? Math.PI - phi : 3*Math.PI - phi; // π-phi % 2π
             vx = Math.floor(speed * Math.cos(phi));
             vy = Math.floor(speed * Math.sin(phi)); // inchangé en pratique
