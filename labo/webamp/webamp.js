@@ -1,4 +1,4 @@
-
+﻿
 // attention aux appels de fonctions asynchrones
 // https://stackoverflow.com/questions/21518381/proper-way-to-wait-for-one-function-to-finish-before-continuing/51894627#51894627
 

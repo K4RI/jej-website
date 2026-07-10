@@ -1,4 +1,4 @@
-const bienvenueCB = document.getElementById("bienvenue-cb")
+﻿const bienvenueCB = document.getElementById("bienvenue-cb")
 const compteurCB = document.getElementById("compteur-cb")
 const terrainCB = document.getElementById("terrain-cb")
 let L; // nombre de mètres : 20 50 100 ?

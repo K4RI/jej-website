@@ -1,4 +1,4 @@
-!(function(){
+﻿!(function(){
   var margin = {left: 25, right: 40, top: 30, bottom: 25}
       width  = Math.min(960, innerWidth) - margin.left - margin.right,
       cols = Math.ceil(width/900*8),
