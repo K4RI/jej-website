@@ -24,6 +24,8 @@ console.log(subdirs) // ["dessins"], ou ["dessins", "avelv"] ...
 
 navbar = document.getElementById("navbar");
 navbar.innerHTML = ""
+let prefix = Array(subdirs.length).join("../") // le répète "subdirs.length - 1" fois
+console.log(prefix)
 
 if (subdirs.length == 1) { // dossier principal
     Object.keys(titles).forEach(key => {
@@ -32,11 +34,10 @@ if (subdirs.length == 1) { // dossier principal
         
         } else {
             navbar.innerHTML += `<a href="${key}.html"><span>${titles[key]}</span></a>`;
-        }        
+        }
     })
 
 } else if (subdirs.length > 1) { // sous-dossier
-    let prefix = Array(subdirs.length).join("../") // le répète "subdirs.length - 1" fois
     console.log(prefix)
     Object.keys(titles).forEach(key => {
         if (subdirs[0] == key) {
@@ -44,7 +45,7 @@ if (subdirs.length == 1) { // dossier principal
         
         } else {
             navbar.innerHTML += `<a href="${prefix + key}.html"><span>${titles[key]}</span></a>`;
-        }        
+        }
     })
 }
 
@@ -54,10 +55,9 @@ footer = document.getElementById("footer");
 footer.innerHTML = `
     ___________________________
     <p ><a href="https://www.youtube.com/@jej888" target="_blank">youtube</a> - 
-    <a href="./tweets.html">twitter</a> - 
+    <a href="${prefix}tweets.html">twitter</a> - 
     <a href="https://www.instagram.com/nwaar888/" target="_blank">instagram</a> - 
-    mail : jejasfh [at] gmail.com
+    mail : jejasfh [at] gmail.com - <a href="${prefix}livre-d-or.html">livre d'or !!</a>
     </p>
     <p>© smoking borzoi studios 2k24-∞</p>
 `
-// ajouter des 88x31 comme dans https://manpaint.neocities.org/
