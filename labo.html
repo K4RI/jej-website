@@ -179,7 +179,7 @@
                 <!-- https://thaer.no/calendar -->
                 <div id="dateText" style="text-align: center; font-weight: bold;"></div>
                 <div style="font-size: x-large; font-weight: bolder; text-align: left; transform: translateX(100%); width: 50%;">
-                    <br><br><br>
+                    <div id="horlogeHaut"></div>
                     <span id="heures" style="display: inline-block; transform-origin: left;">--h-->
                         <span id="minutes" style="display: inline-block; transform-origin: left;">---m--->
                             <span id="secondes" style="display: inline-block; transform-origin: left;">----s---->
@@ -187,39 +187,53 @@
                             </span>
                         </span>
                     </span>
-                    <br><br><br>
+
+                    <div id="horlogeBas"></div>
                     <!-- <span style="display: inline-block; transform: translate(-1em, -5.6em) scale(20);color: gray;font-weight: normal;">○</span> -->
                 </div>
 
                 <script>
                     const dateText = document.getElementById("dateText")
+                    const horlogeHaut = document.getElementById("horlogeHaut")
+                    const horlogeBas = document.getElementById("horlogeBas")
                     const semaine = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
                     const heures = document.getElementById("heures")
                     const minutes = document.getElementById("minutes")
                     const secondes = document.getElementById("secondes")
                     const millisecondes = document.getElementById("millisecondes")
+
+                      
+                    const heuresW = heures.offsetWidth - minutes.offsetWidth
+                    const minutesW = minutes.offsetWidth - secondes.offsetWidth
+                    const smsW = secondes.offsetWidth// secondes et millisecondes
                     
                     function fill(str, n){
                         return '0'.repeat(n-str.toString().length) + str
                     }
 
                     function dateLoop(){
-                        let date = new Date();
+                        let date = new Date(); // date = new Date(0,0,0, 18,30,30,500);
                         let date2 = `${semaine[date.getDay()]} ${fill(date.getDate(),2)}/${fill(date.getMonth(),2)}/${date.getFullYear()}, ${fill(date.getHours(),2)}:${fill(date.getMinutes(),2)}:${fill(date.getSeconds(),2)}:${fill(date.getMilliseconds(),3)}`
                         dateText.innerHTML = date + " // " + date2;
 
-                        const angleHeures = 360*(date.getHours()+date.getMinutes()/60)/12 - 90
+                        const angleHeures = 360*((date.getHours() % 12)+date.getMinutes()/60)/12 - 90
                         const angleMinutes = 360*(date.getMinutes()+date.getSeconds()/60)/60 - 90 - angleHeures
                         const angleSecondes = 360*(date.getSeconds()+date.getMilliseconds()/1000)/60 - 90 - angleHeures - angleMinutes
                         const angleMs = 360*(date.getSeconds()+date.getMilliseconds()/1000) - 90 - angleHeures - angleMinutes - angleSecondes
 
                         heures.style.transform = `rotate(${angleHeures}deg)`
-
                         minutes.style.transform = `rotate(${angleMinutes}deg)`
-
                         secondes.style.transform = `rotate(${angleSecondes}deg)`
-
                         millisecondes.style.transform = `rotate(${angleMs}deg)`
+
+                        function sinD (angle) {
+                            return Math.sin(angle * (Math.PI / 180));
+                        }
+                        
+                        let pm = heuresW*sinD(-angleHeures) + minutesW*sinD(-(angleMinutes+angleHeures))
+                        horlogeHaut.style.height = `${smsW+pm}px`
+                        horlogeBas.style.height = `${smsW-pm}px`
+
                     };
                     
                     setInterval(dateLoop, 20);
