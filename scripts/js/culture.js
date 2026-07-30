@@ -22,7 +22,12 @@ $.getJSON(data_file, function(data){
                     switch (key){
                         case "url":
                             let url = data[i]["entries"][j]["url"];
-                            cell.innerHTML = `<a href=${url} target="_blank">${url}</a>`;
+                            console.log(url)
+                            if (url.substring(0,4) == "http") {
+                                cell.innerHTML = `<a href=${url} target="_blank">${url}</a>`;
+                            } else {
+                                cell.innerHTML = url
+                            }
                             break;
                         default:
                             cell.innerHTML = data[i]["entries"][j][key];
