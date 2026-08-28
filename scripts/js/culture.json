@@ -23,7 +23,7 @@
 			{
 				"name": "puissance blast",
 				"location": "mai à nancy",
-				"url": "https://www.facebook.com/reactionpowertrio/",
+				"url": "https://www.facebook.com/reactionpowertrio",
 				"visited": 1
 			},
 			{
@@ -35,31 +35,31 @@
 			{
 				"name": "fête de la ferme des 1000 joies",
 				"location": "mai à la rivière (isère)",
-				"url": "https://www.instagram.com/lahordeducontretemps/",
+				"url": "https://www.instagram.com/lahordeducontretemps",
 				"visited": 1
 			},
 			{
 				"name": "fête de lutte ouvrière",
 				"location": "mai à presles (val-d'oise)",
-				"url": "https://fete.lutte-ouvriere.org/",
+				"url": "https://fete.lutte-ouvriere.org",
 				"visited": 1
 			},
 			{
 				"name": "fimu",
 				"location": "mai à belfort",
-				"url": "https://www.fimu.com/",
+				"url": "https://www.fimu.com",
 				"visited": 1
 			},
 			{
 				"name": "decolonial film festival",
 				"location": "mai à paris",
-				"url": "https://www.decolonialfilmfest.com/",
+				"url": "https://www.decolonialfilmfest.com",
 				"visited": 1
 			},
 			{
 				"name": "rio loco",
 				"location": "juin à toulouse",
-				"url": "https://rio-loco.org/",
+				"url": "https://rio-loco.org",
 				"visited": 1
 			},
 			{
@@ -71,7 +71,7 @@
 			{
 				"name": "cabaret frappé",
 				"location": "juillet à grenoble",
-				"url": "https://www.instagram.com/cabaret_frappe/",
+				"url": "https://www.instagram.com/cabaret_frappe",
 				"visited": 1
 			},
 			{
@@ -83,19 +83,19 @@
 			{
 				"name": "restons sérieux",
 				"location": "juillet à paris",
-				"url": "https://supersonic-club.fr/restons-serieux/",
+				"url": "https://supersonic-club.fr/restons-serieux",
 				"visited": 1
 			},
 			{
 				"name": "adn music festival",
 				"location": "juillet vers grenoble",
-				"url": "https://adnmusic.org/",
+				"url": "https://adnmusic.org",
 				"visited": 0
 			},
 			{
 				"name": "jazz in marciac",
 				"location": "juillet à marciac (gers)",
-				"url": "https://www.jazzinmarciac.com/",
+				"url": "https://www.jazzinmarciac.com",
 				"visited": 1
 			},
 			{
@@ -113,25 +113,25 @@
 			{
 				"name": "nickelos fest",
 				"location": "août en bretagne",
-				"url": "https://www.instagram.com/nickelosfest/",
+				"url": "https://www.instagram.com/nickelosfest",
 				"visited": 0
 			},
 			{
 				"name": "monstres & groseilles",
-				"location": "août à nancy",
-				"url": "https://www.instagram.com/monstresetgroseilles/",
+				"location": "août des années impaires en lorraine",
+				"url": "https://www.instagram.com/monstresetgroseilles",
 				"visited": 0
 			},
 			{
 				"name": "fête de l'huma",
 				"location": "septembre à brétigny (essonne)",
-				"url": "https://fete.humanite.fr/",
+				"url": "https://fete.humanite.fr",
 				"visited": 1
 			},
 			{
 				"name": "[FINI] sonic protest",
 				"location": "mars à paris et ailleurs",
-				"url": "https://www.sonicprotest.com/",
+				"url": "https://www.sonicprotest.com",
 				"visited": 0
 			}
 		]
@@ -145,56 +145,56 @@
 				"name": "junglist",
 				"location": "nancy",
 				"style": "jungle, garage",
-				"url": "https://www.instagram.com/junglistnancy/",
+				"url": "https://www.instagram.com/junglistnancy",
 				"visited": 1
 			},
 			{
 				"name": "jazzcore",
 				"location": "paris",
 				"style": "jazz, électro",
-				"url": "https://www.instagram.com/jazzcore.paris/",
+				"url": "https://www.instagram.com/jazzcore.paris",
 				"visited": 0
 			},
 			{
 				"name": "couleur vitesse",
 				"location": "toulouse",
 				"style": "misc",
-				"url": "https://www.instagram.com/couleurvitesse/",
+				"url": "https://www.instagram.com/couleurvitesse",
 				"visited": 1
 			},
 			{
 				"name": "bloblotte (creme dj crew & couleur vitesse)",
 				"location": "partout",
 				"style": "electro à la con",
-				"url": "https://www.instagram.com/cremedjcrew/",
+				"url": "https://www.instagram.com/cremedjcrew",
 				"visited": 1
 			},
 			{
 				"name": "algoraves du cookie collectif",
 				"location": "paris, lyon",
 				"style": "live coding",
-				"url": "https://www.instagram.com/cookiecollectif/",
+				"url": "https://www.instagram.com/cookiecollectif",
 				"visited": 1
 			},
 			{
 				"name": "rêves party",
 				"location": "paris",
 				"style": "rap un peu chelou",
-				"url": "https://www.instagram.com/reves.partys/",
+				"url": "https://www.instagram.com/reves.partys",
 				"visited": 0
 			},
 			{
 				"name": "reaction power trio",
 				"location": "nancy",
 				"style": "noise",
-				"url": "https://www.facebook.com/reactionpowertrio/",
+				"url": "https://www.facebook.com/reactionpowertrio",
 				"visited": 0
 			},
 			{
 				"name": "blob party",
 				"location": "lyon",
 				"style": "rap un peu chelou",
-				"url": "https://www.instagram.com/blob.party/",
+				"url": "https://www.instagram.com/blob.party",
 				"visited": 1
 			},
 			{
@@ -208,7 +208,7 @@
 				"name": "fragment",
 				"location": "metz",
 				"style": "noise, expérimental",
-				"url": "https://fragmentasso.wordpress.com/agenda/",
+				"url": "https://fragmentasso.wordpress.com/agenda",
 				"visited": 0
 			}
 		]
@@ -221,61 +221,61 @@
 			{
 				"name": "l'art haché",
 				"location": "marseille",
-				"url": "https://tarpin-bien.com/lieu/lart-hache/",
+				"url": "https://tarpin-bien.com/lieu/lart-hache",
 				"visited": 1
 			},
 			{
 				"name": "l'intermédiaire",
 				"location": "marseille",
-				"url": "https://www.instagram.com/l_intermediaire/",
+				"url": "https://www.instagram.com/l_intermediaire",
 				"visited": 1
 			},
 			{
 				"name": "le royal royal",
 				"location": "nancy",
-				"url": "https://www.leroyalnancy.fr/",
+				"url": "https://www.leroyalnancy.fr",
 				"visited": 1
 			},
 			{
 				"name": "l'embobineuse",
 				"location": "marseille",
-				"url": "https://www.lembobineuse.biz/",
+				"url": "https://www.lembobineuse.biz",
 				"visited": 0
 			},
 			{
 				"name": "la salle gueule",
 				"location": "marseille",
-				"url": "https://www.facebook.com/lasallegueule/",
+				"url": "https://www.facebook.com/lasallegueule",
 				"visited": 0
 			},
 			{
 				"name": "karmen camina",
 				"location": "strasbourg",
-				"url": "https://www.karmen-camina.eu/",
+				"url": "https://www.karmen-camina.eu",
 				"visited": 0
 			},
 			{
 				"name": "la dar",
 				"location": "marseille",
-				"url": "https://la-dar.org/",
+				"url": "https://la-dar.org",
 				"visited": 0
 			},
 			{
 				"name": "la bifurk",
 				"location": "grenoble",
-				"url": "https://labifurk.fr/",
+				"url": "https://labifurk.fr",
 				"visited": 0
 			},
 			{
 				"name": "le ciel",
 				"location": "grenoble",
-				"url": "https://le-ciel.fr/",
+				"url": "https://le-ciel.fr",
 				"visited": 1
 			},
 			{
 				"name": "grrrnd zéro",
 				"location": "lyon",
-				"url": "https://www.grrrndzero.org/",
+				"url": "https://www.grrrndzero.org",
 				"visited": 0
 			},
 			{
@@ -287,7 +287,7 @@
 			{
 				"name": "l'accueil froid",
 				"location": "amiens",
-				"url": "https://accueilfroidnuke.blogspot.com/",
+				"url": "https://accueilfroidnuke.blogspot.com",
 				"visited": 0
 			},
 			{
@@ -312,22 +312,22 @@
 			{
 				"name": "le vortex",
 				"location": "marseille",
-				"url": "https://www.vortexfrommars.org/"
+				"url": "https://www.vortexfrommars.org"
 			},
 			{
 				"name": "les égouts de metz",
 				"location": "metz",
-				"url": "https://www.instagram.com/lesegoutsdemetz/"
+				"url": "https://www.instagram.com/lesegoutsdemetz"
 			},
 			{
 				"name": "le tamis",
 				"location": "grenoble",
-				"url": "https://www.le-tamis.info/"
+				"url": "https://www.le-tamis.info"
 			},
 			{
 				"name": "ville morte",
 				"location": "lyon",
-				"url": "https://villemorte.fr/"
+				"url": "https://villemorte.fr"
 			},
 			{
 				"name": "l'enroulé",
@@ -337,12 +337,12 @@
 			{
 				"name": "distrorama",
 				"location": "toulouse",
-				"url": "https://distorama.neocities.org/"
+				"url": "https://distorama.neocities.org"
 			},
 			{
 				"name": "pull rouge",
 				"location": "nantes",
-				"url": "https://pullrouge.fr/"
+				"url": "https://pullrouge.fr"
 			},
 			{
 				"name": "[FINI] paris kiwi",
