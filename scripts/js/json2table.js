@@ -56,13 +56,13 @@ $.getJSON(data_file, function(data){
                         data[i]["URL"].split("\n").forEach(elt => {
                             cell.innerHTML += `
                         - <a href=${elt
-                            .replace("twitter.com", "nitter.net")
+                            // .replace("twitter.com", "nitter.net") // août 26 : en attendant que nitter remarche
                             } target="_blank">${elt}</a> <br><br>
                         `}) // on les affiche comme liste avec des tirets
                     } else {
                         cell.innerHTML = `
                         <a href=${data[i]["URL"]
-                                .replace("twitter.com", "nitter.net")
+                            //.replace("twitter.com", "nitter.net")
                             } target="_blank">${data[i]["URL"]}</a>
                         `
                     }
